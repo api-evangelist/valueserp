@@ -1,0 +1,84 @@
+aid: valueserp
+name: ValueSERP
+description: >-
+  ValueSERP is a real-time Google Search API providing SERP results, image
+  search, news search, shopping results, places, and local pack data via a
+  simple REST interface with JSON output. Operated by Traject Data, it offers
+  low-cost, high-reliability SERP data with no queues, batch processing
+  capabilities, and pay-as-you-go or subscription pricing starting at $50/month
+  for 25,000 searches.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/apis.yml
+created: 2026-06-13
+modified: 2026-06-13
+specificationVersion: "0.19"
+tags:
+  - SERP
+  - Search Engine Results
+  - Google Search
+  - Search API
+  - SEO
+  - Web Scraping
+  - Shopping Results
+  - News Search
+  - Image Search
+  - Local Search
+  - Places
+  - Data API
+
+apis:
+  - name: ValueSERP Search API
+    description: >-
+      Real-time Google SERP data API supporting organic search, shopping,
+      news, images, places, and product results via simple GET requests
+      authenticated with an API key. Returns structured JSON with organic
+      results, ads, knowledge graphs, answer boxes, AI overviews, and more.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://trajectdata.com/serp/value-serp-api/
+    baseURL: https://api.valueserp.com
+    tags:
+      - Google Search
+      - SERP
+      - Organic Results
+      - Shopping
+      - News
+      - Places
+      - Images
+    properties:
+      - type: Documentation
+        url: https://docs.trajectdata.com/valueserp
+      - type: OpenAPI
+        url: https://docs.trajectdata.com/valueserp/search-api/searches/google/search
+    contact:
+      - FN: ValueSERP Support
+        url: https://trajectdata.com/serp/value-serp-api/
+        email: ""
+
+common:
+  - type: Website
+    url: https://trajectdata.com/serp/value-serp-api/
+  - type: Documentation
+    url: https://docs.trajectdata.com/valueserp
+  - type: GitHubOrg
+    url: https://github.com/joejoinerr/python-valueserp
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/traject-data/
+  - type: Blog
+    url: https://trajectdata.com/blog/
+  - type: Pricing
+    url: https://trajectdata.com/serp/value-serp-api/pricing/
+  - type: StatusPage
+    url: https://valueserp.statuspage.io/
+  - type: X
+    url: https://x.com/valueserp
+  - type: Plans
+    url: plans/valueserp-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/valueserp-rate-limits.yml
+  - type: FinOps
+    url: finops/valueserp-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

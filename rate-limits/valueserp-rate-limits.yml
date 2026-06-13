@@ -1,0 +1,119 @@
+name: ValueSERP Rate Limits
+description: >-
+  ValueSERP enforces per-minute request rate limits that scale with subscription
+  tier. Only successful API calls to the Search API are counted and billed;
+  calls to account management, locations, and other utility APIs are not charged.
+  Batch requests are processed asynchronously and subject to separate batch
+  capacity limits per plan.
+specificationVersion: "0.1"
+url: https://docs.trajectdata.com/valueserp
+
+rateLimits:
+  - name: Pay As You Go Rate Limit
+    description: Rate limit for pay-as-you-go customers with no monthly commitment.
+    plan: Pay As You Go
+    limit: 250
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Starter 25K Rate Limit
+    description: Rate limit for the Starter 25,000 searches/month subscription plan.
+    plan: Starter 25K
+    limit: 250
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Growth 50K Rate Limit
+    description: Rate limit for the Growth 50,000 searches/month subscription plan.
+    plan: Growth 50K
+    limit: 250
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Professional 100K Rate Limit
+    description: Rate limit for the Professional 100,000 searches/month plan.
+    plan: Professional 100K
+    limit: 500
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Business 200K Rate Limit
+    description: Rate limit for the Business 200,000 searches/month plan.
+    plan: Business 200K
+    limit: 1000
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Scale 500K Rate Limit
+    description: Rate limit for the Scale 500,000 searches/month plan.
+    plan: Scale 500K
+    limit: 1250
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Scale 1M Rate Limit
+    description: Rate limit for the Scale 1,000,000 searches/month plan.
+    plan: Scale 1M
+    limit: 1500
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Scale 2M Rate Limit
+    description: Rate limit for the Scale 2,000,000 searches/month plan.
+    plan: Scale 2M
+    limit: 1500
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Scale 5M Rate Limit
+    description: Rate limit for the Scale 5,000,000 searches/month plan.
+    plan: Scale 5M
+    limit: 2000
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Scale 10M Rate Limit
+    description: Rate limit for the Scale 10,000,000 searches/month plan.
+    plan: Scale 10M
+    limit: 5000
+    period: minute
+    scope: account
+    type: requests
+
+  - name: Scale 20M Rate Limit
+    description: Rate limit for the Scale 20,000,000 searches/month plan.
+    plan: Scale 20M
+    limit: 5000
+    period: minute
+    scope: account
+    type: requests
+
+policies:
+  - name: Billable Requests
+    description: >-
+      Only successful API calls to the Search API (/search, /places, /shopping,
+      /news, /product, /place_reviews) are counted and billed. Failed requests,
+      calls to the Locations API, Account API, and Error Logs API are not charged.
+    url: https://docs.trajectdata.com/valueserp
+
+  - name: Batch Processing Limits
+    description: >-
+      Batch requests support up to 10,000 requests per batch across all plans.
+      Batches can be scheduled monthly, weekly, daily, or hourly. Batch requests
+      are processed asynchronously and do not count against the per-minute rate limit.
+    url: https://docs.trajectdata.com/valueserp
+
+  - name: No Queue Policy
+    description: >-
+      ValueSERP provides real-time API access with no queues and no waiting.
+      All synchronous requests are processed immediately upon receipt.
+    url: https://docs.trajectdata.com/valueserp

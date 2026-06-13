@@ -1,0 +1,114 @@
+name: ValueSERP FinOps
+description: >-
+  FinOps framework alignment for ValueSERP API consumption. ValueSERP charges
+  per successful search request with tiered pricing that rewards volume — costs
+  drop from $2.50/1K on pay-as-you-go to $0.50/1K at the 20M/month tier.
+  Annual billing provides an additional 10% discount over monthly rates.
+  Only successful Search API calls are billable; utility API calls (Locations,
+  Account, Error Logs) are free.
+specificationVersion: "1.0"
+url: https://trajectdata.com/serp/value-serp-api/pricing/
+
+allocation:
+  - name: Search API Usage
+    description: >-
+      Primary cost driver. Each successful call to /search, /places, /shopping,
+      /news, /product, or /place_reviews endpoint counts as one billable search.
+    unit: per search
+    trackingDimension: api_key
+    notes: >-
+      Tag API keys per team, project, or application to enable cost allocation
+      across organizational units.
+
+  - name: Overage Charges
+    description: >-
+      Searches beyond the monthly plan quota are billed at the plan's overage
+      rate. Monitor monthly consumption to avoid unexpected overage charges.
+    unit: per 1,000 searches
+    notes: >-
+      Set up usage alerts in the ValueSERP dashboard to trigger notifications
+      before reaching plan limits.
+
+  - name: Batch Processing
+    description: >-
+      Batch requests use the same per-search billing as synchronous requests
+      but allow up to 10,000 requests per batch, enabling bulk data collection
+      at lower operational overhead.
+    unit: per search (same rate as synchronous)
+
+optimization:
+  - name: Volume Tier Selection
+    description: >-
+      Select the subscription tier that matches or slightly exceeds expected
+      monthly volume to minimize per-search cost. Upgrading one tier to avoid
+      overage charges often reduces total monthly spend.
+    recommendation: >-
+      Calculate break-even between subscription + no overage vs. lower tier +
+      overage cost before each billing cycle.
+
+  - name: Annual vs Monthly Billing
+    description: >-
+      Annual billing reduces effective monthly cost by approximately 10% across
+      all subscription tiers.
+    recommendation: >-
+      Commit to annual billing once monthly volume stabilizes above 25,000
+      searches to capture the discount.
+
+  - name: Batch vs Real-Time
+    description: >-
+      Use batch processing for non-time-sensitive data collection to reduce
+      operational complexity and infrastructure overhead. Batch searches are
+      billed at the same rate but allow offline processing.
+    recommendation: >-
+      Route reporting, SEO monitoring, and bulk keyword tracking workloads
+      through the Batches API.
+
+  - name: Free Utility APIs
+    description: >-
+      The Locations API, Account API, and Error Logs API do not incur charges.
+      Use these freely for integration, monitoring, and location validation
+      without budget impact.
+    recommendation: >-
+      Integrate Error Logs API for automated failure detection to avoid paying
+      for retry logic on failed searches.
+
+  - name: Pay-As-You-Go for Spikes
+    description: >-
+      For unpredictable or seasonal workloads, pay-as-you-go avoids committing
+      to a monthly subscription. At $2.50/1K, break-even vs. Starter plan is
+      approximately 20,000 searches/month.
+    recommendation: >-
+      Switch to pay-as-you-go during low-volume periods and upgrade to a
+      subscription when monthly volume consistently exceeds 20,000 searches.
+
+forecasting:
+  - name: Search Volume Forecasting
+    description: >-
+      Project monthly search volumes by endpoint type (organic, shopping, news,
+      places) to select the appropriate subscription tier and budget for overage.
+    inputs:
+      - Monthly active keywords tracked
+      - Search refresh frequency (daily, weekly, on-demand)
+      - Number of supported geographic locations
+      - Number of supported devices (desktop, mobile, tablet)
+
+  - name: Cost Per Insight
+    description: >-
+      Track cost per actionable business output (keyword ranking, competitor
+      price point, local pack position) to evaluate ROI on SERP API spend.
+    formula: >-
+      (monthly_searches * cost_per_search) / actionable_insights_produced
+
+reporting:
+  - name: Monthly Spend Tracking
+    description: >-
+      Monitor spend against subscription quota weekly to catch approaching
+      overage limits before billing cycle closes.
+    url: https://app.valueserp.com/
+
+  - name: Cost Allocation by Use Case
+    description: >-
+      Separate API keys by use case (SEO monitoring, competitive intelligence,
+      lead generation, application features) to attribute costs to business units.
+    notes: >-
+      ValueSERP account dashboard provides per-API-key usage reporting.
