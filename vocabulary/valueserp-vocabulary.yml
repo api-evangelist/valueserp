@@ -1,0 +1,635 @@
+vocabulary:
+  name: ValueSERP API Vocabulary
+  description: >-
+    Domain vocabulary for the ValueSERP API — a real-time Google SERP data
+    service operated by Traject Data. Covers terms related to search engine
+    results, SERP features, shopping data, news, images, maps/places,
+    credits, and API configuration.
+  version: "1.0"
+  provider: ValueSERP / Traject Data
+  baseURL: https://api.valueserp.com
+  documentation: https://docs.trajectdata.com/valueserp
+
+terms:
+
+  # Authentication
+  - term: api_key
+    label: API Key
+    description: >-
+      The authentication credential passed as a query parameter in every
+      request. Use the value "demo" for testing limited queries without
+      a paid account.
+    category: Authentication
+    required: true
+    example: "demo"
+
+  # Search Input
+  - term: q
+    label: Search Query
+    description: >-
+      The keyword or phrase to search for. Maps directly to the Google
+      search query string.
+    category: Search Input
+    required: true
+    example: "pizza delivery new york"
+
+  - term: search_type
+    label: Search Type
+    description: >-
+      Specifies the type of Google search to perform. Omit for standard
+      organic search. Valid values are: places, shopping, news, images, product.
+    category: Search Input
+    required: false
+    values:
+      - places
+      - shopping
+      - news
+      - images
+      - product
+
+  - term: product_id
+    label: Product ID
+    description: >-
+      Google product identifier used when search_type=product. A numeric
+      string that uniquely identifies a product in Google's catalog.
+    category: Search Input
+    required: false
+    example: "13244508647295616715"
+
+  # Localization
+  - term: location
+    label: Location
+    description: >-
+      Geographic location context for the search. Accepts a location name
+      (e.g., "new york,united states") or GPS coordinates
+      (e.g., "lat 43.437677,lon 3.8392765").
+    category: Localization
+    required: false
+    example: "manhattan,new york,united states"
+
+  - term: location_auto
+    label: Location Auto
+    description: >-
+      When enabled, automatically updates the gl and hl parameters to
+      match the specified built-in location. Defaults to true.
+    category: Localization
+    required: false
+    type: boolean
+    default: true
+
+  - term: google_domain
+    label: Google Domain
+    description: >-
+      The Google domain to use for executing the search
+      (e.g., google.com, google.co.uk, google.fr).
+    category: Localization
+    required: false
+    default: "google.com"
+    example: "google.co.uk"
+
+  - term: gl
+    label: Google Country (GL)
+    description: >-
+      ISO 3166-1 alpha-2 country code that determines the Google country
+      context for the query.
+    category: Localization
+    required: false
+    default: "us"
+    example: "gb"
+
+  - term: hl
+    label: Google Language (HL)
+    description: >-
+      BCP-47 language code that determines the Google UI language used to
+      return results.
+    category: Localization
+    required: false
+    default: "en"
+    example: "fr"
+
+  - term: lr
+    label: Language Restrict
+    description: >-
+      Restricts search results to pages written in the specified language.
+      Uses Google lang_ prefix notation.
+    category: Localization
+    required: false
+    example: "lang_en"
+
+  - term: cr
+    label: Country Restrict
+    description: >-
+      Restricts search results to pages from the specified country.
+      Uses Google country prefix notation.
+    category: Localization
+    required: false
+    example: "countryUS"
+
+  - term: uule
+    label: UULE
+    description: >-
+      Custom Google UULE parameter for precise location targeting.
+      Overrides the location parameter when provided.
+    category: Localization
+    required: false
+
+  # Pagination
+  - term: page
+    label: Page Number
+    description: >-
+      The results page number to retrieve. Defaults to 1. Each page
+      typically contains 10 organic results.
+    category: Pagination
+    required: false
+    type: integer
+    default: 1
+    example: 2
+
+  - term: max_page
+    label: Max Page
+    description: >-
+      Retrieve multiple result pages in a single API request. The API
+      will return all pages from 1 up to and including max_page.
+      Each additional page consumes 1 credit.
+    category: Pagination
+    required: false
+    type: integer
+    example: 3
+
+  - term: images_page
+    label: Images Page
+    description: >-
+      Page number for image search results. Each page returns up to
+      100 images.
+    category: Pagination
+    required: false
+    type: integer
+    example: 1
+
+  # Content Filtering
+  - term: safe
+    label: Safe Search
+    description: >-
+      Enables or disables Google SafeSearch filtering.
+      "active" enables filtering; "off" disables it.
+    category: Filtering
+    required: false
+    values:
+      - active
+      - "off"
+
+  - term: nfpr
+    label: No Fuzzy Page Rewrite
+    description: >-
+      When set to 1, excludes results from auto-corrected/rewritten
+      spelling queries. Default 0 includes auto-corrected results.
+    category: Filtering
+    required: false
+    type: integer
+    values:
+      - 0
+      - 1
+
+  - term: filter
+    label: Filter
+    description: >-
+      Enables (1) or disables (0) Google's similar and omitted result
+      filters. Defaults to 1 (enabled).
+    category: Filtering
+    required: false
+    type: integer
+    values:
+      - 0
+      - 1
+
+  - term: tbs
+    label: TBS Parameter
+    description: >-
+      Custom Google TBS (to be specified) parameter for advanced search
+      filtering and sorting not covered by other parameters.
+    category: Filtering
+    required: false
+
+  - term: time_period
+    label: Time Period
+    description: >-
+      Filter search results by publication or recency time period.
+      Use "custom" with time_period_min and time_period_max for date ranges.
+    category: Filtering
+    required: false
+    values:
+      - "last hour"
+      - "last day"
+      - "last week"
+      - "last month"
+      - "last year"
+      - custom
+
+  - term: time_period_min
+    label: Time Period Minimum Date
+    description: >-
+      Minimum date for custom time period filtering. Format: MM/DD/YYYY.
+      Only used when time_period=custom.
+    category: Filtering
+    required: false
+    format: MM/DD/YYYY
+    example: "01/01/2024"
+
+  - term: time_period_max
+    label: Time Period Maximum Date
+    description: >-
+      Maximum date for custom time period filtering. Format: MM/DD/YYYY.
+      Only used when time_period=custom.
+    category: Filtering
+    required: false
+    format: MM/DD/YYYY
+    example: "12/31/2024"
+
+  # Shopping Filters
+  - term: sort_by
+    label: Sort By
+    description: >-
+      Sort order for shopping or news results. For shopping: relevance,
+      price_low_to_high, price_high_to_low, review_score. For news:
+      relevance or date.
+    category: Shopping
+    required: false
+    values:
+      - relevance
+      - price_low_to_high
+      - price_high_to_low
+      - review_score
+      - date
+
+  - term: shopping_price_min
+    label: Shopping Price Minimum
+    description: Minimum product price filter for shopping searches.
+    category: Shopping
+    required: false
+    type: decimal
+    example: 4.99
+
+  - term: shopping_price_max
+    label: Shopping Price Maximum
+    description: Maximum product price filter for shopping searches.
+    category: Shopping
+    required: false
+    type: decimal
+    example: 29.99
+
+  - term: shopping_condition
+    label: Shopping Condition
+    description: Filter shopping results by product condition.
+    category: Shopping
+    required: false
+    values:
+      - new
+      - used
+
+  - term: shopping_merchants
+    label: Shopping Merchants
+    description: >-
+      Comma-separated list of specific merchant IDs to filter shopping
+      results to.
+    category: Shopping
+    required: false
+
+  - term: shopping_buy_on_google
+    label: Shopping Buy on Google
+    description: >-
+      When true, filters shopping results to only show products
+      available via Google's Buy on Google program.
+    category: Shopping
+    required: false
+    type: boolean
+
+  - term: shopping_filter
+    label: Shopping Filter
+    description: >-
+      Filter shopping results by a specific attribute such as brand.
+    category: Shopping
+    required: false
+    example: brand
+
+  # Image Filters
+  - term: images_color
+    label: Images Color
+    description: Filter image search results by dominant color.
+    category: Images
+    required: false
+    values:
+      - "black and white"
+      - red
+      - orange
+      - yellow
+      - green
+      - teal
+      - blue
+      - purple
+      - pink
+      - white
+      - gray
+      - brown
+
+  - term: images_size
+    label: Images Size
+    description: Filter image search results by image dimensions/size.
+    category: Images
+    required: false
+    values:
+      - large
+      - medium
+      - icon
+
+  - term: images_type
+    label: Images Type
+    description: Filter image search results by image type or category.
+    category: Images
+    required: false
+    values:
+      - clipart
+      - "line drawing"
+      - gif
+
+  - term: images_usage
+    label: Images Usage Rights
+    description: Filter image results by usage rights/licensing.
+    category: Images
+    required: false
+    values:
+      - "non commercial reuse with modification"
+      - "non commercial reuse"
+
+  # Product Filters
+  - term: product_free_shipping
+    label: Product Free Shipping
+    description: >-
+      When true, filter product search results to only items
+      with free shipping available.
+    category: Product
+    required: false
+    type: boolean
+
+  - term: product_condition_new
+    label: Product Condition New
+    description: >-
+      When true, filter product results to new (non-used) items only.
+    category: Product
+    required: false
+    type: boolean
+
+  - term: product_condition_used
+    label: Product Condition Used
+    description: >-
+      When true, filter product results to used items only.
+    category: Product
+    required: false
+    type: boolean
+
+  # Response Features
+  - term: include_ai_overview
+    label: Include AI Overview
+    description: >-
+      When true, includes Google's AI-generated overview in the response.
+      Costs 1 additional credit when an AI overview is actually returned.
+    category: Content Features
+    required: false
+    type: boolean
+
+  - term: include_answer_box
+    label: Include Answer Box
+    description: >-
+      When true, includes the featured snippet/answer box as the first
+      item in organic results.
+    category: Content Features
+    required: false
+    type: boolean
+
+  - term: flatten_results
+    label: Flatten Results
+    description: >-
+      When true, flattens inline videos, inline images, and other inline
+      content blocks, surfacing them inline within the results array.
+    category: Content Features
+    required: false
+    type: boolean
+
+  - term: fields
+    label: Fields
+    description: >-
+      Comma-separated list of top-level response objects to return.
+      Reduces response payload size. Web-only feature.
+    category: Content Features
+    required: false
+    example: "organic_results,knowledge_graph"
+
+  - term: order_online
+    label: Order Online
+    description: >-
+      When true, returns pickup and delivery ordering options for
+      restaurants. US Google only. Costs 2 credits instead of 1.
+    category: Content Features
+    required: false
+    type: boolean
+
+  - term: ads_optimized
+    label: Ads Optimized
+    description: >-
+      When true, optimizes the response for ad retrieval rates.
+      Costs 3 additional credits.
+    category: Content Features
+    required: false
+    type: boolean
+
+  - term: knowledge_graph_id
+    label: Knowledge Graph ID
+    description: >-
+      Specific Google Knowledge Graph entity ID to retrieve
+      (e.g., /m/0jg24 for a specific entity).
+    category: Content Features
+    required: false
+    example: "/m/0jg24"
+
+  # News-Specific
+  - term: show_duplicates
+    label: Show Duplicates
+    description: >-
+      When true, includes duplicate news articles in the results.
+      Only applicable when sort_by=date.
+    category: News
+    required: false
+    type: boolean
+
+  - term: exclude_if_modified
+    label: Exclude If Modified
+    description: >-
+      When true, excludes news results that came from a query
+      modified by Google.
+    category: News
+    required: false
+    type: boolean
+
+  # Response Terms
+  - term: organic_results
+    label: Organic Results
+    description: >-
+      Array of organic (non-paid) Google search result listings.
+      Each result includes position, title, URL, domain, and snippet.
+    category: Response
+    type: array
+
+  - term: ads
+    label: Ads
+    description: >-
+      Array of paid advertisement results appearing in the SERP.
+      Includes headline, display URL, destination URL, and description.
+    category: Response
+    type: array
+
+  - term: knowledge_graph
+    label: Knowledge Graph
+    description: >-
+      Google Knowledge Graph panel data for entity-related searches.
+      Includes entity name, type, description, and associated facts.
+    category: Response
+    type: object
+
+  - term: answer_box
+    label: Answer Box
+    description: >-
+      Featured snippet or answer box content from the SERP.
+      Contains the direct answer, source URL, and answer type.
+    category: Response
+    type: object
+
+  - term: related_questions
+    label: Related Questions
+    description: >-
+      People Also Ask (PAA) questions and answers extracted from the SERP.
+    category: Response
+    type: array
+
+  - term: related_searches
+    label: Related Searches
+    description: >-
+      Related search queries suggested by Google at the bottom of the SERP.
+    category: Response
+    type: array
+
+  - term: places
+    label: Places
+    description: >-
+      Array of Google Maps local business listings returned for
+      places/maps searches.
+    category: Response
+    type: array
+
+  - term: shopping_results
+    label: Shopping Results
+    description: >-
+      Array of Google Shopping product listing results including
+      price, merchant, rating, and shipping details.
+    category: Response
+    type: array
+
+  - term: news_results
+    label: News Results
+    description: >-
+      Array of Google News article results including headline, source,
+      date, and snippet.
+    category: Response
+    type: array
+
+  - term: image_results
+    label: Image Results
+    description: >-
+      Array of Google Image search results including thumbnail, original
+      image URL, dimensions, and source.
+    category: Response
+    type: array
+
+  - term: search_metadata
+    label: Search Metadata
+    description: >-
+      Metadata about the search execution including unique ID, the
+      Google URL scraped, and total processing time.
+    category: Response
+    type: object
+
+  - term: request_info
+    label: Request Info
+    description: >-
+      Meta-information about the API request including success status,
+      credits used, and credits remaining.
+    category: Response
+    type: object
+
+  - term: credits_used
+    label: Credits Used
+    description: >-
+      Number of API credits consumed by the current request.
+      Standard searches cost 1 credit; premium features cost more.
+    category: Billing
+    type: integer
+
+  - term: credits_remaining
+    label: Credits Remaining
+    description: >-
+      Number of API credits remaining in the account after the request.
+    category: Billing
+    type: integer
+
+  # Response Codes
+  - term: http_200
+    label: HTTP 200 - Success
+    description: The request was processed successfully.
+    category: Response Codes
+    httpStatus: 200
+
+  - term: http_400
+    label: HTTP 400 - Bad Request
+    description: Invalid parameters or unsupported parameter combinations.
+    category: Response Codes
+    httpStatus: 400
+
+  - term: http_401
+    label: HTTP 401 - Unauthorized
+    description: The api_key supplied is not valid.
+    category: Response Codes
+    httpStatus: 401
+
+  - term: http_402
+    label: HTTP 402 - Payment Required
+    description: >-
+      The ValueSERP account has run out of available credits or there
+      is a payment issue.
+    category: Response Codes
+    httpStatus: 402
+
+  - term: http_404
+    label: HTTP 404 - Not Found
+    description: The request URL is invalid; check the path and HTTP verb.
+    category: Response Codes
+    httpStatus: 404
+
+  - term: http_429
+    label: HTTP 429 - Too Many Requests
+    description: >-
+      The plan's rate limit has been exceeded. Retry after the
+      Retry-After header interval.
+    category: Response Codes
+    httpStatus: 429
+
+  - term: http_500
+    label: HTTP 500 - Internal Server Error
+    description: Retry after a delay; contact support if the issue persists.
+    category: Response Codes
+    httpStatus: 500
+
+  - term: http_503
+    label: HTTP 503 - Service Unavailable
+    description: >-
+      Returned during parsing incidents. Requests are not charged.
+      Use skip_on_incident=true to opt out of data during incidents.
+    category: Response Codes
+    httpStatus: 503

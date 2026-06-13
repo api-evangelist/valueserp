@@ -1,0 +1,310 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/valueserp/main/json-schema/valueserp-search-response.json",
+  "title": "ValueSERP Search Response",
+  "description": "JSON response structure returned by the ValueSERP /search endpoint.",
+  "type": "object",
+  "properties": {
+    "request_info": {
+      "type": "object",
+      "description": "Meta-information about the API request and credit usage.",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "description": "Whether the request was processed successfully."
+        },
+        "message": {
+          "type": "string",
+          "description": "Status message (present on errors or incidents)."
+        },
+        "credits_used": {
+          "type": "integer",
+          "description": "Number of credits consumed by this request."
+        },
+        "credits_remaining": {
+          "type": "integer",
+          "description": "Number of credits remaining in the account."
+        }
+      },
+      "required": ["success"]
+    },
+    "search_metadata": {
+      "type": "object",
+      "description": "Metadata about the search execution.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this search request."
+        },
+        "google_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The Google URL scraped to generate results."
+        },
+        "total_time_taken": {
+          "type": "number",
+          "description": "Total processing time in seconds."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the search was executed."
+        }
+      }
+    },
+    "search_parameters": {
+      "type": "object",
+      "description": "Echo of the parameters used for the search.",
+      "properties": {
+        "q": { "type": "string" },
+        "search_type": { "type": "string" },
+        "gl": { "type": "string" },
+        "hl": { "type": "string" },
+        "google_domain": { "type": "string" }
+      }
+    },
+    "organic_results": {
+      "type": "array",
+      "description": "Organic search result listings (search only).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "type": "integer",
+            "description": "Rank position of the result."
+          },
+          "title": {
+            "type": "string",
+            "description": "Result page title."
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "Result URL."
+          },
+          "domain": {
+            "type": "string",
+            "description": "Domain of the result."
+          },
+          "snippet": {
+            "type": "string",
+            "description": "Text excerpt from the result page."
+          },
+          "cached_page_link": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to Google's cached version."
+          },
+          "related_pages_link": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to related pages on the same domain."
+          },
+          "sitelinks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "link": { "type": "string", "format": "uri" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ads": {
+      "type": "array",
+      "description": "Paid advertisement results.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "integer" },
+          "title": { "type": "string" },
+          "link": { "type": "string", "format": "uri" },
+          "display_link": { "type": "string" },
+          "snippet": { "type": "string" }
+        }
+      }
+    },
+    "knowledge_graph": {
+      "type": "object",
+      "description": "Google Knowledge Graph panel data.",
+      "properties": {
+        "title": { "type": "string" },
+        "type": { "type": "string" },
+        "description": { "type": "string" },
+        "source": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "link": { "type": "string", "format": "uri" }
+          }
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "src": { "type": "string", "format": "uri" },
+            "alt": { "type": "string" }
+          }
+        }
+      }
+    },
+    "answer_box": {
+      "type": "object",
+      "description": "Featured snippet / answer box.",
+      "properties": {
+        "type": { "type": "string" },
+        "title": { "type": "string" },
+        "answer": { "type": "string" },
+        "link": { "type": "string", "format": "uri" }
+      }
+    },
+    "related_questions": {
+      "type": "array",
+      "description": "People Also Ask related questions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": { "type": "string" },
+          "answer": { "type": "string" },
+          "link": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "related_searches": {
+      "type": "array",
+      "description": "Related search queries suggested by Google.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string" },
+          "link": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "places": {
+      "type": "array",
+      "description": "Google Maps / local business listings (places search only).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "integer" },
+          "title": { "type": "string" },
+          "place_id": { "type": "string" },
+          "address": { "type": "string" },
+          "rating": { "type": "number" },
+          "reviews": { "type": "integer" },
+          "type": { "type": "string" },
+          "phone": { "type": "string" },
+          "website": { "type": "string", "format": "uri" },
+          "hours": { "type": "string" },
+          "latitude": { "type": "number" },
+          "longitude": { "type": "number" }
+        }
+      }
+    },
+    "shopping_results": {
+      "type": "array",
+      "description": "Google Shopping product listings (shopping search only).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "integer" },
+          "title": { "type": "string" },
+          "link": { "type": "string", "format": "uri" },
+          "price": { "type": "string" },
+          "extracted_price": { "type": "number" },
+          "merchant": { "type": "string" },
+          "rating": { "type": "number" },
+          "reviews": { "type": "integer" },
+          "shipping": { "type": "string" },
+          "condition": { "type": "string" },
+          "thumbnail": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "news_results": {
+      "type": "array",
+      "description": "Google News article results (news search only).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "integer" },
+          "title": { "type": "string" },
+          "link": { "type": "string", "format": "uri" },
+          "source": { "type": "string" },
+          "date": { "type": "string" },
+          "snippet": { "type": "string" },
+          "thumbnail": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "image_results": {
+      "type": "array",
+      "description": "Google Image search results (images search only).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "integer" },
+          "title": { "type": "string" },
+          "link": { "type": "string", "format": "uri" },
+          "original": { "type": "string", "format": "uri" },
+          "thumbnail": { "type": "string", "format": "uri" },
+          "width": { "type": "integer" },
+          "height": { "type": "integer" },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "product_results": {
+      "type": "array",
+      "description": "Google product listing results (product search only, deprecated).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "integer" },
+          "title": { "type": "string" },
+          "link": { "type": "string", "format": "uri" },
+          "price": { "type": "string" },
+          "merchant": { "type": "string" },
+          "shipping": { "type": "string" },
+          "condition": { "type": "string" },
+          "free_shipping": { "type": "boolean" }
+        }
+      }
+    },
+    "filters": {
+      "type": "array",
+      "description": "Available filters for shopping results.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string" },
+                "link": { "type": "string", "format": "uri" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "description": "Pagination information for multi-page results.",
+      "properties": {
+        "current": { "type": "integer" },
+        "next": { "type": "string", "format": "uri" },
+        "other_pages": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    }
+  }
+}

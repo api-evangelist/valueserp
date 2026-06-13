@@ -1,0 +1,123 @@
+{
+  "title": "ValueSERP Organic Google Search Example",
+  "description": "Example request and response for a basic Google organic search using the ValueSERP API.",
+  "request": {
+    "method": "GET",
+    "url": "https://api.valueserp.com/search",
+    "parameters": {
+      "api_key": "demo",
+      "q": "pizza delivery new york",
+      "gl": "us",
+      "hl": "en",
+      "location": "new york,new york,united states",
+      "page": 1
+    }
+  },
+  "response": {
+    "request_info": {
+      "success": true,
+      "credits_used": 1,
+      "credits_remaining": 999
+    },
+    "search_metadata": {
+      "id": "abc123xyz",
+      "google_url": "https://www.google.com/search?q=pizza+delivery+new+york&gl=us&hl=en",
+      "total_time_taken": 1.45,
+      "created_at": "2026-06-13T12:00:00Z"
+    },
+    "search_parameters": {
+      "q": "pizza delivery new york",
+      "gl": "us",
+      "hl": "en",
+      "google_domain": "google.com"
+    },
+    "answer_box": {
+      "type": "organic",
+      "title": "Best Pizza Delivery in New York",
+      "answer": "New York City offers thousands of pizza delivery options...",
+      "link": "https://www.example.com/nyc-pizza"
+    },
+    "knowledge_graph": {
+      "title": "New York-style pizza",
+      "type": "Type of pizza",
+      "description": "New York–style pizza is a pizza made with a characteristically large hand-tossed thin crust.",
+      "source": {
+        "name": "Wikipedia",
+        "link": "https://en.wikipedia.org/wiki/New_York-style_pizza"
+      }
+    },
+    "organic_results": [
+      {
+        "position": 1,
+        "title": "Pizza Delivery Near You - Domino's Pizza",
+        "link": "https://www.dominos.com/en/",
+        "domain": "dominos.com",
+        "snippet": "Order pizza delivery from Domino's. Get pizza delivered fast anywhere in New York City.",
+        "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:dominos.com"
+      },
+      {
+        "position": 2,
+        "title": "Pizza Hut - Pizza Delivery & Carryout Near You",
+        "link": "https://www.pizzahut.com/",
+        "domain": "pizzahut.com",
+        "snippet": "Order pizza delivery or carryout from Pizza Hut. Find locations in New York City.",
+        "sitelinks": [
+          {
+            "title": "Order Online",
+            "link": "https://www.pizzahut.com/order"
+          },
+          {
+            "title": "Find a Location",
+            "link": "https://www.pizzahut.com/locator"
+          }
+        ]
+      },
+      {
+        "position": 3,
+        "title": "Best Pizza in NYC - Serious Eats",
+        "link": "https://www.seriouseats.com/best-pizza-nyc",
+        "domain": "seriouseats.com",
+        "snippet": "Our top picks for the best pizza delivery in New York City, from classic slices to gourmet pies."
+      }
+    ],
+    "related_questions": [
+      {
+        "question": "What is the best pizza delivery in NYC?",
+        "answer": "The best pizza delivery in NYC includes Domino's, Pizza Hut, and local favorites like Grimaldi's.",
+        "link": "https://www.timeout.com/newyork/restaurants/best-pizza-nyc"
+      },
+      {
+        "question": "How long does pizza delivery take in New York?",
+        "answer": "Pizza delivery in New York City typically takes 30-60 minutes depending on location and demand.",
+        "link": "https://www.example.com/nyc-delivery-times"
+      }
+    ],
+    "related_searches": [
+      {
+        "query": "best pizza in new york",
+        "link": "https://www.google.com/search?q=best+pizza+in+new+york"
+      },
+      {
+        "query": "pizza places near me open now",
+        "link": "https://www.google.com/search?q=pizza+places+near+me+open+now"
+      }
+    ],
+    "ads": [
+      {
+        "position": 1,
+        "title": "Pizza Delivery Fast - Order Now & Save",
+        "link": "https://www.example-pizza.com/order",
+        "display_link": "example-pizza.com",
+        "snippet": "Get pizza delivered in 30 minutes or less. Use code SAVE20 for 20% off your first order."
+      }
+    ],
+    "pagination": {
+      "current": 1,
+      "next": "https://api.valueserp.com/search?q=pizza+delivery+new+york&page=2&api_key=demo",
+      "other_pages": {
+        "2": "https://api.valueserp.com/search?q=pizza+delivery+new+york&page=2&api_key=demo",
+        "3": "https://api.valueserp.com/search?q=pizza+delivery+new+york&page=3&api_key=demo"
+      }
+    }
+  }
+}

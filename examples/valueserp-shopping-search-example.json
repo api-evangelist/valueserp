@@ -1,0 +1,117 @@
+{
+  "title": "ValueSERP Google Shopping Search Example",
+  "description": "Example request and response for a Google Shopping search using the ValueSERP API.",
+  "request": {
+    "method": "GET",
+    "url": "https://api.valueserp.com/search",
+    "parameters": {
+      "api_key": "demo",
+      "q": "running shoes",
+      "search_type": "shopping",
+      "gl": "us",
+      "hl": "en",
+      "location": "united states",
+      "sort_by": "price_low_to_high",
+      "shopping_price_min": 50,
+      "shopping_price_max": 150,
+      "shopping_condition": "new"
+    }
+  },
+  "response": {
+    "request_info": {
+      "success": true,
+      "credits_used": 1,
+      "credits_remaining": 998
+    },
+    "search_metadata": {
+      "id": "shop456abc",
+      "google_url": "https://www.google.com/search?q=running+shoes&tbm=shop&gl=us&hl=en",
+      "total_time_taken": 1.12,
+      "created_at": "2026-06-13T12:05:00Z"
+    },
+    "search_parameters": {
+      "q": "running shoes",
+      "search_type": "shopping",
+      "gl": "us",
+      "hl": "en",
+      "google_domain": "google.com"
+    },
+    "shopping_results": [
+      {
+        "position": 1,
+        "title": "Nike Air Zoom Pegasus 40 Running Shoes",
+        "link": "https://www.nike.com/t/air-zoom-pegasus-40",
+        "price": "$79.99",
+        "extracted_price": 79.99,
+        "merchant": "Nike",
+        "rating": 4.7,
+        "reviews": 2543,
+        "shipping": "Free shipping",
+        "condition": "new",
+        "thumbnail": "https://example.com/images/nike-pegasus.jpg"
+      },
+      {
+        "position": 2,
+        "title": "Adidas Ultraboost 22 Running Shoes - Men's",
+        "link": "https://www.adidas.com/us/ultraboost-22",
+        "price": "$89.95",
+        "extracted_price": 89.95,
+        "merchant": "Adidas",
+        "rating": 4.5,
+        "reviews": 1876,
+        "shipping": "Free shipping over $50",
+        "condition": "new",
+        "thumbnail": "https://example.com/images/adidas-ultraboost.jpg"
+      },
+      {
+        "position": 3,
+        "title": "ASICS Gel-Nimbus 25 Running Shoes",
+        "link": "https://www.asics.com/us/en-us/gel-nimbus-25",
+        "price": "$129.95",
+        "extracted_price": 129.95,
+        "merchant": "ASICS",
+        "rating": 4.8,
+        "reviews": 987,
+        "shipping": "Free shipping",
+        "condition": "new",
+        "thumbnail": "https://example.com/images/asics-nimbus.jpg"
+      }
+    ],
+    "filters": [
+      {
+        "name": "Brand",
+        "options": [
+          {
+            "text": "Nike",
+            "link": "https://www.google.com/search?q=running+shoes&tbm=shop&brand=nike"
+          },
+          {
+            "text": "Adidas",
+            "link": "https://www.google.com/search?q=running+shoes&tbm=shop&brand=adidas"
+          },
+          {
+            "text": "ASICS",
+            "link": "https://www.google.com/search?q=running+shoes&tbm=shop&brand=asics"
+          }
+        ]
+      },
+      {
+        "name": "Size",
+        "options": [
+          {
+            "text": "Size 9",
+            "link": "https://www.google.com/search?q=running+shoes&tbm=shop&size=9"
+          },
+          {
+            "text": "Size 10",
+            "link": "https://www.google.com/search?q=running+shoes&tbm=shop&size=10"
+          }
+        ]
+      }
+    ],
+    "pagination": {
+      "current": 1,
+      "next": "https://api.valueserp.com/search?q=running+shoes&search_type=shopping&page=2&api_key=demo"
+    }
+  }
+}

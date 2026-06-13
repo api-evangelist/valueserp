@@ -1,0 +1,517 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "hydra": "http://www.w3.org/ns/hydra/core#",
+    "valueserp": "https://api.valueserp.com/vocab#",
+
+    "ValueSERPAPI": {
+      "@id": "valueserp:API",
+      "@type": "@id"
+    },
+    "SearchRequest": {
+      "@id": "valueserp:SearchRequest",
+      "@type": "@id"
+    },
+    "SearchResponse": {
+      "@id": "valueserp:SearchResponse",
+      "@type": "@id"
+    },
+
+    "api_key": {
+      "@id": "valueserp:apiKey",
+      "@type": "xsd:string"
+    },
+    "q": {
+      "@id": "schema:query",
+      "@type": "xsd:string"
+    },
+    "search_type": {
+      "@id": "valueserp:searchType",
+      "@type": "xsd:string"
+    },
+
+    "location": {
+      "@id": "schema:addressLocality",
+      "@type": "xsd:string"
+    },
+    "location_auto": {
+      "@id": "valueserp:locationAuto",
+      "@type": "xsd:boolean"
+    },
+    "google_domain": {
+      "@id": "valueserp:googleDomain",
+      "@type": "xsd:string"
+    },
+    "gl": {
+      "@id": "schema:addressCountry",
+      "@type": "xsd:string"
+    },
+    "hl": {
+      "@id": "schema:inLanguage",
+      "@type": "xsd:string"
+    },
+    "lr": {
+      "@id": "valueserp:languageRestrict",
+      "@type": "xsd:string"
+    },
+    "cr": {
+      "@id": "valueserp:countryRestrict",
+      "@type": "xsd:string"
+    },
+    "uule": {
+      "@id": "valueserp:uule",
+      "@type": "xsd:string"
+    },
+
+    "page": {
+      "@id": "hydra:pageIndex",
+      "@type": "xsd:integer"
+    },
+    "max_page": {
+      "@id": "valueserp:maxPage",
+      "@type": "xsd:integer"
+    },
+    "images_page": {
+      "@id": "valueserp:imagesPage",
+      "@type": "xsd:integer"
+    },
+
+    "safe": {
+      "@id": "valueserp:safeSearch",
+      "@type": "xsd:string"
+    },
+    "nfpr": {
+      "@id": "valueserp:noFuzzyPageRewrite",
+      "@type": "xsd:integer"
+    },
+    "filter": {
+      "@id": "valueserp:resultFilter",
+      "@type": "xsd:integer"
+    },
+    "tbs": {
+      "@id": "valueserp:tbs",
+      "@type": "xsd:string"
+    },
+    "time_period": {
+      "@id": "valueserp:timePeriod",
+      "@type": "xsd:string"
+    },
+    "time_period_min": {
+      "@id": "valueserp:timePeriodMin",
+      "@type": "xsd:string"
+    },
+    "time_period_max": {
+      "@id": "valueserp:timePeriodMax",
+      "@type": "xsd:string"
+    },
+    "knowledge_graph_id": {
+      "@id": "valueserp:knowledgeGraphId",
+      "@type": "xsd:string"
+    },
+
+    "include_ai_overview": {
+      "@id": "valueserp:includeAiOverview",
+      "@type": "xsd:boolean"
+    },
+    "include_ai_overview_paa": {
+      "@id": "valueserp:includeAiOverviewPaa",
+      "@type": "xsd:boolean"
+    },
+    "include_answer_box": {
+      "@id": "valueserp:includeAnswerBox",
+      "@type": "xsd:boolean"
+    },
+    "flatten_results": {
+      "@id": "valueserp:flattenResults",
+      "@type": "xsd:boolean"
+    },
+    "fields": {
+      "@id": "valueserp:responseFields",
+      "@type": "xsd:string"
+    },
+    "order_online": {
+      "@id": "valueserp:orderOnline",
+      "@type": "xsd:boolean"
+    },
+    "ads_optimized": {
+      "@id": "valueserp:adsOptimized",
+      "@type": "xsd:boolean"
+    },
+
+    "sort_by": {
+      "@id": "valueserp:sortBy",
+      "@type": "xsd:string"
+    },
+    "shopping_buy_on_google": {
+      "@id": "valueserp:shoppingBuyOnGoogle",
+      "@type": "xsd:boolean"
+    },
+    "shopping_filter": {
+      "@id": "valueserp:shoppingFilter",
+      "@type": "xsd:string"
+    },
+    "shopping_price_min": {
+      "@id": "valueserp:shoppingPriceMin",
+      "@type": "xsd:decimal"
+    },
+    "shopping_price_max": {
+      "@id": "valueserp:shoppingPriceMax",
+      "@type": "xsd:decimal"
+    },
+    "shopping_condition": {
+      "@id": "schema:itemCondition",
+      "@type": "xsd:string"
+    },
+    "shopping_merchants": {
+      "@id": "valueserp:shoppingMerchants",
+      "@type": "xsd:string"
+    },
+
+    "images_color": {
+      "@id": "schema:color",
+      "@type": "xsd:string"
+    },
+    "images_size": {
+      "@id": "schema:size",
+      "@type": "xsd:string"
+    },
+    "images_type": {
+      "@id": "valueserp:imageType",
+      "@type": "xsd:string"
+    },
+    "images_usage": {
+      "@id": "schema:license",
+      "@type": "xsd:string"
+    },
+
+    "product_id": {
+      "@id": "schema:productID",
+      "@type": "xsd:string"
+    },
+    "product_free_shipping": {
+      "@id": "valueserp:productFreeShipping",
+      "@type": "xsd:boolean"
+    },
+    "product_condition_new": {
+      "@id": "valueserp:productConditionNew",
+      "@type": "xsd:boolean"
+    },
+    "product_condition_used": {
+      "@id": "valueserp:productConditionUsed",
+      "@type": "xsd:boolean"
+    },
+
+    "show_duplicates": {
+      "@id": "valueserp:showDuplicates",
+      "@type": "xsd:boolean"
+    },
+    "exclude_if_modified": {
+      "@id": "valueserp:excludeIfModified",
+      "@type": "xsd:boolean"
+    },
+
+    "request_info": {
+      "@id": "valueserp:requestInfo",
+      "@type": "@id"
+    },
+    "success": {
+      "@id": "valueserp:success",
+      "@type": "xsd:boolean"
+    },
+    "credits_used": {
+      "@id": "valueserp:creditsUsed",
+      "@type": "xsd:integer"
+    },
+    "credits_remaining": {
+      "@id": "valueserp:creditsRemaining",
+      "@type": "xsd:integer"
+    },
+
+    "search_metadata": {
+      "@id": "valueserp:searchMetadata",
+      "@type": "@id"
+    },
+    "google_url": {
+      "@id": "schema:url",
+      "@type": "xsd:anyURI"
+    },
+    "total_time_taken": {
+      "@id": "valueserp:totalTimeTaken",
+      "@type": "xsd:float"
+    },
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+
+    "search_parameters": {
+      "@id": "valueserp:searchParameters",
+      "@type": "@id"
+    },
+
+    "organic_results": {
+      "@id": "valueserp:organicResults",
+      "@container": "@list"
+    },
+    "OrganicResult": {
+      "@id": "valueserp:OrganicResult",
+      "@type": "@id"
+    },
+    "position": {
+      "@id": "schema:position",
+      "@type": "xsd:integer"
+    },
+    "title": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "link": {
+      "@id": "schema:url",
+      "@type": "xsd:anyURI"
+    },
+    "domain": {
+      "@id": "schema:domainIncludes",
+      "@type": "xsd:string"
+    },
+    "snippet": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "cached_page_link": {
+      "@id": "valueserp:cachedPageLink",
+      "@type": "xsd:anyURI"
+    },
+    "related_pages_link": {
+      "@id": "valueserp:relatedPagesLink",
+      "@type": "xsd:anyURI"
+    },
+    "sitelinks": {
+      "@id": "valueserp:sitelinks",
+      "@container": "@list"
+    },
+
+    "ads": {
+      "@id": "valueserp:ads",
+      "@container": "@list"
+    },
+    "AdResult": {
+      "@id": "valueserp:AdResult",
+      "@type": "@id"
+    },
+    "display_link": {
+      "@id": "valueserp:displayLink",
+      "@type": "xsd:string"
+    },
+
+    "knowledge_graph": {
+      "@id": "valueserp:knowledgeGraph",
+      "@type": "@id"
+    },
+    "KnowledgeGraph": {
+      "@id": "valueserp:KnowledgeGraph",
+      "@type": "@id"
+    },
+    "type": {
+      "@id": "@type"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "source": {
+      "@id": "schema:isBasedOn",
+      "@type": "@id"
+    },
+    "image": {
+      "@id": "schema:image",
+      "@type": "@id"
+    },
+    "src": {
+      "@id": "schema:url",
+      "@type": "xsd:anyURI"
+    },
+    "alt": {
+      "@id": "schema:alternativeHeadline",
+      "@type": "xsd:string"
+    },
+
+    "answer_box": {
+      "@id": "valueserp:answerBox",
+      "@type": "@id"
+    },
+    "AnswerBox": {
+      "@id": "valueserp:AnswerBox",
+      "@type": "@id"
+    },
+    "answer": {
+      "@id": "schema:text",
+      "@type": "xsd:string"
+    },
+
+    "related_questions": {
+      "@id": "valueserp:relatedQuestions",
+      "@container": "@list"
+    },
+    "RelatedQuestion": {
+      "@id": "schema:Question",
+      "@type": "@id"
+    },
+    "question": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+
+    "related_searches": {
+      "@id": "valueserp:relatedSearches",
+      "@container": "@list"
+    },
+
+    "places": {
+      "@id": "valueserp:places",
+      "@container": "@list"
+    },
+    "PlaceResult": {
+      "@id": "schema:LocalBusiness",
+      "@type": "@id"
+    },
+    "place_id": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+    "address": {
+      "@id": "schema:address",
+      "@type": "xsd:string"
+    },
+    "rating": {
+      "@id": "schema:ratingValue",
+      "@type": "xsd:float"
+    },
+    "reviews": {
+      "@id": "schema:reviewCount",
+      "@type": "xsd:integer"
+    },
+    "phone": {
+      "@id": "schema:telephone",
+      "@type": "xsd:string"
+    },
+    "website": {
+      "@id": "schema:sameAs",
+      "@type": "xsd:anyURI"
+    },
+    "hours": {
+      "@id": "schema:openingHours",
+      "@type": "xsd:string"
+    },
+    "latitude": {
+      "@id": "schema:latitude",
+      "@type": "xsd:float"
+    },
+    "longitude": {
+      "@id": "schema:longitude",
+      "@type": "xsd:float"
+    },
+
+    "shopping_results": {
+      "@id": "valueserp:shoppingResults",
+      "@container": "@list"
+    },
+    "ShoppingResult": {
+      "@id": "schema:Product",
+      "@type": "@id"
+    },
+    "price": {
+      "@id": "schema:price",
+      "@type": "xsd:string"
+    },
+    "extracted_price": {
+      "@id": "valueserp:extractedPrice",
+      "@type": "xsd:decimal"
+    },
+    "merchant": {
+      "@id": "schema:seller",
+      "@type": "xsd:string"
+    },
+    "shipping": {
+      "@id": "schema:shippingDetails",
+      "@type": "xsd:string"
+    },
+    "condition": {
+      "@id": "schema:itemCondition",
+      "@type": "xsd:string"
+    },
+    "thumbnail": {
+      "@id": "schema:thumbnailUrl",
+      "@type": "xsd:anyURI"
+    },
+
+    "news_results": {
+      "@id": "valueserp:newsResults",
+      "@container": "@list"
+    },
+    "NewsResult": {
+      "@id": "schema:NewsArticle",
+      "@type": "@id"
+    },
+    "source": {
+      "@id": "schema:publisher",
+      "@type": "xsd:string"
+    },
+    "date": {
+      "@id": "schema:datePublished",
+      "@type": "xsd:string"
+    },
+
+    "image_results": {
+      "@id": "valueserp:imageResults",
+      "@container": "@list"
+    },
+    "ImageResult": {
+      "@id": "schema:ImageObject",
+      "@type": "@id"
+    },
+    "original": {
+      "@id": "schema:contentUrl",
+      "@type": "xsd:anyURI"
+    },
+    "width": {
+      "@id": "schema:width",
+      "@type": "xsd:integer"
+    },
+    "height": {
+      "@id": "schema:height",
+      "@type": "xsd:integer"
+    },
+
+    "product_results": {
+      "@id": "valueserp:productResults",
+      "@container": "@list"
+    },
+    "free_shipping": {
+      "@id": "valueserp:freeShipping",
+      "@type": "xsd:boolean"
+    },
+
+    "filters": {
+      "@id": "valueserp:filters",
+      "@container": "@list"
+    },
+    "pagination": {
+      "@id": "hydra:view",
+      "@type": "@id"
+    },
+    "current": {
+      "@id": "hydra:pageIndex",
+      "@type": "xsd:integer"
+    },
+    "next": {
+      "@id": "hydra:next",
+      "@type": "xsd:anyURI"
+    },
+    "other_pages": {
+      "@id": "valueserp:otherPages",
+      "@type": "@id"
+    }
+  }
+}

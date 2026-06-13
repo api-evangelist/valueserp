@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/valueserp/main/json-schema/valueserp-search-request.json",
+  "title": "ValueSERP Search Request",
+  "description": "Query parameters for the ValueSERP /search endpoint supporting organic, shopping, news, images, places, and product searches.",
+  "type": "object",
+  "required": ["api_key", "q"],
+  "properties": {
+    "api_key": {
+      "type": "string",
+      "description": "ValueSERP API key for authentication.",
+      "example": "demo"
+    },
+    "q": {
+      "type": "string",
+      "description": "The keyword or search query to use.",
+      "example": "pizza"
+    },
+    "search_type": {
+      "type": "string",
+      "description": "Specifies the type of search. Omit for organic search.",
+      "enum": ["places", "shopping", "news", "images", "product"],
+      "example": "shopping"
+    },
+    "location": {
+      "type": "string",
+      "description": "Geographic location. Accepts location names or GPS coordinates.",
+      "example": "united states"
+    },
+    "location_auto": {
+      "type": "boolean",
+      "description": "Auto-update gl/hl based on built-in location. Defaults to true.",
+      "default": true
+    },
+    "google_domain": {
+      "type": "string",
+      "description": "Google domain to use for the search.",
+      "default": "google.com",
+      "example": "google.com"
+    },
+    "gl": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code for the Google country to use.",
+      "default": "us",
+      "example": "us"
+    },
+    "hl": {
+      "type": "string",
+      "description": "BCP-47 language code for Google UI language.",
+      "default": "en",
+      "example": "en"
+    },
+    "lr": {
+      "type": "string",
+      "description": "Limit results to specified language (e.g., lang_en).",
+      "example": "lang_en"
+    },
+    "cr": {
+      "type": "string",
+      "description": "Limit results to specified country (e.g., countryUS).",
+      "example": "countryUS"
+    },
+    "page": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 1,
+      "description": "Results page number.",
+      "example": 1
+    },
+    "max_page": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Retrieve multiple result pages in a single request.",
+      "example": 3
+    },
+    "safe": {
+      "type": "string",
+      "enum": ["active", "off"],
+      "description": "Safe search filter.",
+      "example": "active"
+    },
+    "nfpr": {
+      "type": "integer",
+      "enum": [0, 1],
+      "description": "Exclude auto-corrected spelling results (1=exclude, 0=include).",
+      "example": 0
+    },
+    "filter": {
+      "type": "integer",
+      "enum": [0, 1],
+      "default": 1,
+      "description": "Toggle similar/omitted result filters.",
+      "example": 1
+    },
+    "tbs": {
+      "type": "string",
+      "description": "Custom Google TBS parameter for advanced filtering."
+    },
+    "uule": {
+      "type": "string",
+      "description": "Custom Google UULE location parameter override."
+    },
+    "time_period": {
+      "type": "string",
+      "enum": ["last hour", "last day", "last week", "last month", "last year", "custom"],
+      "description": "Filter results by time period.",
+      "example": "last week"
+    },
+    "time_period_min": {
+      "type": "string",
+      "pattern": "^\\d{2}/\\d{2}/\\d{4}$",
+      "description": "Custom period start date (MM/DD/YYYY). Required when time_period=custom.",
+      "example": "01/01/2024"
+    },
+    "time_period_max": {
+      "type": "string",
+      "pattern": "^\\d{2}/\\d{2}/\\d{4}$",
+      "description": "Custom period end date (MM/DD/YYYY). Required when time_period=custom.",
+      "example": "12/31/2024"
+    },
+    "knowledge_graph_id": {
+      "type": "string",
+      "description": "Specific Google Knowledge Graph entity ID.",
+      "example": "/m/0jg24"
+    },
+    "include_ai_overview": {
+      "type": "boolean",
+      "description": "Include Google AI overview in response (+1 credit if returned)."
+    },
+    "include_ai_overview_paa": {
+      "type": "boolean",
+      "description": "Include AI overview answers in People Also Ask results."
+    },
+    "include_answer_box": {
+      "type": "boolean",
+      "description": "Include featured snippet as first organic result."
+    },
+    "flatten_results": {
+      "type": "boolean",
+      "description": "Flatten inline videos and images into results."
+    },
+    "fields": {
+      "type": "string",
+      "description": "Comma-separated list of top-level response objects to return.",
+      "example": "organic_results,knowledge_graph"
+    },
+    "order_online": {
+      "type": "boolean",
+      "description": "Return pickup/delivery info for restaurants (US only, 2 credits)."
+    },
+    "ads_optimized": {
+      "type": "boolean",
+      "description": "Optimize ad return rates (costs 3 additional credits)."
+    },
+    "sort_by": {
+      "type": "string",
+      "enum": ["relevance", "price_low_to_high", "price_high_to_low", "review_score", "date"],
+      "description": "Sort order for shopping or news results.",
+      "example": "relevance"
+    },
+    "shopping_buy_on_google": {
+      "type": "boolean",
+      "description": "Filter to Buy on Google products (shopping only)."
+    },
+    "shopping_filter": {
+      "type": "string",
+      "description": "Filter shopping results by attribute.",
+      "example": "brand"
+    },
+    "shopping_price_min": {
+      "type": "number",
+      "description": "Minimum product price (shopping only).",
+      "example": 4.99
+    },
+    "shopping_price_max": {
+      "type": "number",
+      "description": "Maximum product price (shopping only).",
+      "example": 29.99
+    },
+    "shopping_condition": {
+      "type": "string",
+      "enum": ["new", "used"],
+      "description": "Product condition filter (shopping only).",
+      "example": "new"
+    },
+    "shopping_merchants": {
+      "type": "string",
+      "description": "Comma-separated merchant IDs (shopping only)."
+    },
+    "show_duplicates": {
+      "type": "boolean",
+      "description": "Show duplicate news results when sort_by=date (news only)."
+    },
+    "exclude_if_modified": {
+      "type": "boolean",
+      "description": "Exclude results from queries modified by Google (news only)."
+    },
+    "images_page": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Image results page (100 images per page, images only).",
+      "example": 1
+    },
+    "images_color": {
+      "type": "string",
+      "enum": ["black and white", "red", "orange", "yellow", "green", "teal", "blue", "purple", "pink", "white", "gray", "brown"],
+      "description": "Filter images by color (images only)."
+    },
+    "images_size": {
+      "type": "string",
+      "enum": ["large", "medium", "icon"],
+      "description": "Filter images by size (images only)."
+    },
+    "images_type": {
+      "type": "string",
+      "enum": ["clipart", "line drawing", "gif"],
+      "description": "Filter images by type/category (images only)."
+    },
+    "images_usage": {
+      "type": "string",
+      "enum": ["non commercial reuse with modification", "non commercial reuse"],
+      "description": "Filter images by usage rights (images only)."
+    },
+    "product_id": {
+      "type": "string",
+      "description": "Google product identifier (product search only).",
+      "example": "13244508647295616715"
+    },
+    "product_free_shipping": {
+      "type": "boolean",
+      "description": "Filter to free-shipping products (product search only)."
+    },
+    "product_condition_new": {
+      "type": "boolean",
+      "description": "Filter to new products (product search only)."
+    },
+    "product_condition_used": {
+      "type": "boolean",
+      "description": "Filter to used products (product search only)."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "search_type": { "const": "product" }
+        },
+        "required": ["search_type"]
+      },
+      "then": {
+        "required": ["product_id"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "time_period": { "const": "custom" }
+        },
+        "required": ["time_period"]
+      },
+      "then": {
+        "required": ["time_period_min", "time_period_max"]
+      }
+    }
+  ]
+}

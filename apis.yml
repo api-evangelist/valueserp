@@ -49,7 +49,11 @@ apis:
       - type: Documentation
         url: https://docs.trajectdata.com/valueserp
       - type: OpenAPI
-        url: https://docs.trajectdata.com/valueserp/search-api/searches/google/search
+        url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/openapi/valueserp-search-openapi.yml
+      - type: JSONSchema
+        url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-request.json
+      - type: JSONSchema
+        url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
     contact:
       - FN: ValueSERP Support
         url: https://trajectdata.com/serp/value-serp-api/
@@ -78,6 +82,10 @@ common:
     url: rate-limits/valueserp-rate-limits.yml
   - type: FinOps
     url: finops/valueserp-finops.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/vocabulary/valueserp-vocabulary.yml
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-ld/valueserp-context.jsonld
 
 maintainers:
   - FN: Kin Lane

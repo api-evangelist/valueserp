@@ -1,0 +1,70 @@
+{
+  "title": "ValueSERP Google News Search Example",
+  "description": "Example request and response for a Google News search using the ValueSERP API.",
+  "request": {
+    "method": "GET",
+    "url": "https://api.valueserp.com/search",
+    "parameters": {
+      "api_key": "demo",
+      "q": "artificial intelligence regulation",
+      "search_type": "news",
+      "gl": "us",
+      "hl": "en",
+      "time_period": "last week",
+      "sort_by": "date"
+    }
+  },
+  "response": {
+    "request_info": {
+      "success": true,
+      "credits_used": 1,
+      "credits_remaining": 997
+    },
+    "search_metadata": {
+      "id": "news789def",
+      "google_url": "https://www.google.com/search?q=artificial+intelligence+regulation&tbm=nws&gl=us&hl=en",
+      "total_time_taken": 0.98,
+      "created_at": "2026-06-13T12:10:00Z"
+    },
+    "search_parameters": {
+      "q": "artificial intelligence regulation",
+      "search_type": "news",
+      "gl": "us",
+      "hl": "en",
+      "google_domain": "google.com"
+    },
+    "news_results": [
+      {
+        "position": 1,
+        "title": "EU AI Act: New Rules Take Effect for High-Risk AI Systems",
+        "link": "https://www.reuters.com/technology/ai-regulation-eu-act-2026",
+        "source": "Reuters",
+        "date": "2 hours ago",
+        "snippet": "The European Union's landmark AI regulation has entered into force for high-risk systems...",
+        "thumbnail": "https://example.com/images/eu-ai-act.jpg"
+      },
+      {
+        "position": 2,
+        "title": "US Congress Debates Federal AI Oversight Bill",
+        "link": "https://www.washingtonpost.com/technology/2026/06/13/ai-regulation-congress",
+        "source": "The Washington Post",
+        "date": "5 hours ago",
+        "snippet": "Congressional leaders are pushing for comprehensive federal oversight of artificial intelligence...",
+        "thumbnail": "https://example.com/images/congress-ai.jpg"
+      },
+      {
+        "position": 3,
+        "title": "Tech Giants Lobby Against Proposed AI Regulations",
+        "link": "https://www.nytimes.com/2026/06/12/technology/ai-regulation-lobbying.html",
+        "source": "The New York Times",
+        "date": "1 day ago",
+        "snippet": "Major technology companies are increasing lobbying efforts against proposed AI regulation...",
+        "thumbnail": "https://example.com/images/tech-lobby.jpg"
+      }
+    ],
+    "pagination": {
+      "current": 1,
+      "next": "https://api.valueserp.com/search?q=artificial+intelligence+regulation&search_type=news&page=2&api_key=demo"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "title": "ValueSERP Google Places / Maps Search Example",
+  "description": "Example request and response for a Google Places/Maps search using the ValueSERP API.",
+  "request": {
+    "method": "GET",
+    "url": "https://api.valueserp.com/search",
+    "parameters": {
+      "api_key": "demo",
+      "q": "coffee shop",
+      "search_type": "places",
+      "location": "san francisco,california,united states",
+      "gl": "us",
+      "hl": "en"
+    }
+  },
+  "response": {
+    "request_info": {
+      "success": true,
+      "credits_used": 1,
+      "credits_remaining": 996
+    },
+    "search_metadata": {
+      "id": "places321ghi",
+      "google_url": "https://www.google.com/maps/search/coffee+shop+near+san+francisco",
+      "total_time_taken": 1.23,
+      "created_at": "2026-06-13T12:15:00Z"
+    },
+    "search_parameters": {
+      "q": "coffee shop",
+      "search_type": "places",
+      "gl": "us",
+      "hl": "en",
+      "google_domain": "google.com"
+    },
+    "places": [
+      {
+        "position": 1,
+        "title": "Blue Bottle Coffee",
+        "place_id": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+        "address": "66 Mint St, San Francisco, CA 94103",
+        "rating": 4.5,
+        "reviews": 1243,
+        "type": "Coffee shop",
+        "phone": "+1 510-653-3394",
+        "website": "https://bluebottlecoffee.com",
+        "hours": "Mon-Fri 7AM-6PM, Sat-Sun 8AM-5PM",
+        "latitude": 37.7828,
+        "longitude": -122.4063
+      },
+      {
+        "position": 2,
+        "title": "Sightglass Coffee",
+        "place_id": "ChIJrTLr-GyuEmsRBfy61i59si0",
+        "address": "270 7th St, San Francisco, CA 94103",
+        "rating": 4.6,
+        "reviews": 2187,
+        "type": "Coffee roaster",
+        "phone": "+1 415-861-1313",
+        "website": "https://sightglasscoffee.com",
+        "hours": "Daily 7AM-6PM",
+        "latitude": 37.7751,
+        "longitude": -122.4089
+      },
+      {
+        "position": 3,
+        "title": "Ritual Coffee Roasters",
+        "place_id": "ChIJ8Q2WSpqAhYARzqiHK9gkT2I",
+        "address": "432B Octavia St, San Francisco, CA 94102",
+        "rating": 4.4,
+        "reviews": 876,
+        "type": "Coffee roaster",
+        "phone": "+1 415-865-0430",
+        "website": "https://ritualcoffee.com",
+        "hours": "Mon-Fri 6:30AM-6PM, Sat-Sun 7AM-6PM",
+        "latitude": 37.7760,
+        "longitude": -122.4254
+      }
+    ]
+  }
+}
