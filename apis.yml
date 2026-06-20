@@ -8,7 +8,7 @@ description: >-
   capabilities, and pay-as-you-go or subscription pricing starting at $50/month
   for 25,000 searches.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/apis.yml
 created: 2026-06-13
 modified: 2026-06-13
@@ -34,7 +34,7 @@ apis:
       news, images, places, and product results via simple GET requests
       authenticated with an API key. Returns structured JSON with organic
       results, ads, knowledge graphs, answer boxes, AI overviews, and more.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://trajectdata.com/serp/value-serp-api/
     baseURL: https://api.valueserp.com
     tags:
