@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/valueserp-search-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: apiKeyQuery
+  type: apiKey
+  in: query
+  parameter: api_key
+  description: API key for authentication. Pass as the api_key query parameter. Use "demo" as
+    the key for testing.
+  sources:
+  - openapi/valueserp-search-openapi.yml

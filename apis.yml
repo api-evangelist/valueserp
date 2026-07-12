@@ -60,6 +60,10 @@ apis:
         email: ""
 
 common:
+  - type: DomainSecurity
+    url: security/valueserp-domain-security.yml
+  - type: Authentication
+    url: authentication/valueserp-authentication.yml
   - type: Website
     url: https://trajectdata.com/serp/value-serp-api/
   - type: Documentation
