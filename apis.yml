@@ -60,6 +60,8 @@ apis:
         email: ""
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/valueserp-agentic-access.yml
   - type: DomainSecurity
     url: security/valueserp-domain-security.yml
   - type: Authentication
