@@ -1,0 +1,428 @@
+openapi: 3.0.3
+info:
+  title: ValueSERP Search Images API
+  description: Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.
+  version: '1.0'
+  contact:
+    name: ValueSERP Support
+    url: https://trajectdata.com/serp/value-serp-api/
+  termsOfService: https://trajectdata.com/serp/value-serp-api/
+  x-api-id: valueserp-search
+servers:
+- url: https://api.valueserp.com
+  description: ValueSERP Production API
+security:
+- apiKeyQuery: []
+tags:
+- name: Images
+  description: Google Image search results.
+paths:
+  /search#images:
+    get:
+      operationId: googleImages
+      summary: Google Images Search
+      description: Retrieve real-time Google Image search results for a given keyword. Set search_type=images. Returns 100 images per page with filtering by color, size, type, and usage rights.
+      tags:
+      - Images
+      parameters:
+      - $ref: '#/components/parameters/api_key'
+      - name: search_type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - images
+        description: Must be set to "images".
+        example: images
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/location'
+      - $ref: '#/components/parameters/location_auto'
+      - $ref: '#/components/parameters/google_domain'
+      - $ref: '#/components/parameters/gl'
+      - $ref: '#/components/parameters/hl'
+      - $ref: '#/components/parameters/lr'
+      - $ref: '#/components/parameters/cr'
+      - $ref: '#/components/parameters/safe'
+      - $ref: '#/components/parameters/tbs'
+      - $ref: '#/components/parameters/uule'
+      - $ref: '#/components/parameters/time_period'
+      - $ref: '#/components/parameters/time_period_min'
+      - $ref: '#/components/parameters/time_period_max'
+      - name: images_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+        description: Results page number (100 images per page).
+        example: 1
+      - name: images_color
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - black and white
+          - red
+          - orange
+          - yellow
+          - green
+          - teal
+          - blue
+          - purple
+          - pink
+          - white
+          - gray
+          - brown
+        description: Filter images by color.
+      - name: images_size
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - large
+          - medium
+          - icon
+        description: Filter images by size/dimensions.
+      - name: images_type
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - clipart
+          - line drawing
+          - gif
+        description: Filter images by image type/category.
+      - name: images_usage
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - non commercial reuse with modification
+          - non commercial reuse
+        description: Filter images by usage rights.
+      responses:
+        '200':
+          description: Successful image search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  parameters:
+    hl:
+      name: hl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Determines the Google UI language to return results in. BCP-47 language code.
+      example: en
+    safe:
+      name: safe
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - 'off'
+      description: Safe search filter setting.
+      example: active
+    uule:
+      name: uule
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google UULE parameter to override the location.
+    lr:
+      name: lr
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Limits results to pages in the specified language.
+      example: lang_en
+    location_auto:
+      name: location_auto
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
+    time_period_min:
+      name: time_period_min
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^\d{2}/\d{2}/\d{4}$
+      description: Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.
+      example: 01/01/2024
+    google_domain:
+      name: google_domain
+      in: query
+      required: false
+      schema:
+        type: string
+        default: google.com
+      description: The Google domain to use for the search.
+      example: google.com
+    location:
+      name: location
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
+      example: united states
+    gl:
+      name: gl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: us
+      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
+      example: us
+    cr:
+      name: cr
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Limits results to pages from the specified country.
+      example: countryUS
+    tbs:
+      name: tbs
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google TBS parameter value for advanced filtering.
+    api_key:
+      name: api_key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your ValueSERP API key. Use "demo" for testing limited queries.
+      example: demo
+    time_period:
+      name: time_period
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - last hour
+        - last day
+        - last week
+        - last month
+        - last year
+        - custom
+      description: Filter results by time period.
+      example: last week
+    time_period_max:
+      name: time_period_max
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^\d{2}/\d{2}/\d{4}$
+      description: Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.
+      example: 12/31/2024
+    q:
+      name: q
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The keyword or search query to use.
+      example: pizza
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Error response body.
+      properties:
+        request_info:
+          type: object
+          properties:
+            success:
+              type: boolean
+              example: false
+            message:
+              type: string
+              description: Human-readable error message.
+    RequestInfo:
+      type: object
+      description: Meta-information about the API request status.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was processed successfully.
+        message:
+          type: string
+          description: Status message (present on errors or incidents).
+        credits_used:
+          type: integer
+          description: Number of credits consumed by this request.
+        credits_remaining:
+          type: integer
+          description: Number of credits remaining in the account.
+    SearchParameters:
+      type: object
+      description: Echo of the parameters used for the search.
+      properties:
+        q:
+          type: string
+          description: The search query keyword used.
+        search_type:
+          type: string
+          description: The type of search performed.
+        gl:
+          type: string
+          description: Country code used.
+        hl:
+          type: string
+          description: Language code used.
+        google_domain:
+          type: string
+          description: Google domain used.
+    ImageResult:
+      type: object
+      description: A single Google Image search result.
+      properties:
+        position:
+          type: integer
+          description: Position in results.
+        title:
+          type: string
+          description: Image title.
+        link:
+          type: string
+          format: uri
+          description: Source page URL.
+        original:
+          type: string
+          format: uri
+          description: Direct URL to the original full-size image.
+        thumbnail:
+          type: string
+          format: uri
+          description: Thumbnail URL.
+        width:
+          type: integer
+          description: Image width in pixels.
+        height:
+          type: integer
+          description: Image height in pixels.
+        source:
+          type: string
+          description: Source domain/website.
+    SearchMetadata:
+      type: object
+      description: Metadata about the search execution.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this search request.
+        google_url:
+          type: string
+          format: uri
+          description: The Google URL that was scraped to generate results.
+        total_time_taken:
+          type: number
+          format: float
+          description: Total time taken to process the request in seconds.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the search was created.
+    ImagesResponse:
+      type: object
+      description: Google Image search results response.
+      properties:
+        request_info:
+          $ref: '#/components/schemas/RequestInfo'
+        search_metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+        image_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageResult'
+          description: Image search results (up to 100 per page).
+  responses:
+    InternalServerError:
+      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    PaymentRequired:
+      description: Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - The api_key supplied is not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServiceUnavailable:
+      description: Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests - Your plan's rate limit has been exceeded.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+      description: API key for authentication. Pass as the api_key query parameter. Use "demo" as the key for testing.
