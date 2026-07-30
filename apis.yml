@@ -8,7 +8,20 @@ description: >-
   capabilities, and pay-as-you-go or subscription pricing starting at $50/month
   for 25,000 searches.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: open
+  trial: true
+  try_now: true
+  public: true
+  label: Paid (free trial) · Open access
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/valueserp.png
 url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/apis.yml
 created: 2026-06-13
 modified: 2026-06-13
@@ -28,37 +41,114 @@ tags:
   - Data API
 
 apis:
-  - name: ValueSERP Search API
-    description: >-
-      Real-time Google SERP data API supporting organic search, shopping,
-      news, images, places, and product results via simple GET requests
-      authenticated with an API key. Returns structured JSON with organic
-      results, ads, knowledge graphs, answer boxes, AI overviews, and more.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://trajectdata.com/serp/value-serp-api/
-    baseURL: https://api.valueserp.com
-    tags:
-      - Google Search
-      - SERP
-      - Organic Results
-      - Shopping
-      - News
-      - Places
-      - Images
-    properties:
-      - type: Documentation
-        url: https://docs.trajectdata.com/valueserp
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/openapi/valueserp-search-openapi.yml
-      - type: JSONSchema
-        url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-request.json
-      - type: JSONSchema
-        url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
-    contact:
-      - FN: ValueSERP Support
-        url: https://trajectdata.com/serp/value-serp-api/
-        email: ""
-
+- aid: valueserp:valueserp-images-api
+  name: ValueSERP Images API
+  description: Google Image search results.
+  humanURL: https://trajectdata.com/serp/value-serp-api/
+  baseURL: https://api.valueserp.com
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/valueserp-images-api-openapi.yml
+  - type: Documentation
+    url: https://docs.trajectdata.com/valueserp
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-request.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
+- aid: valueserp:valueserp-news-api
+  name: ValueSERP News API
+  description: Google News article results.
+  humanURL: https://trajectdata.com/serp/value-serp-api/
+  baseURL: https://api.valueserp.com
+  tags:
+  - News
+  properties:
+  - type: OpenAPI
+    url: openapi/valueserp-news-api-openapi.yml
+  - type: Documentation
+    url: https://docs.trajectdata.com/valueserp
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-request.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
+- aid: valueserp:valueserp-places-api
+  name: ValueSERP Places API
+  description: Google Maps and local places search results.
+  humanURL: https://trajectdata.com/serp/value-serp-api/
+  baseURL: https://api.valueserp.com
+  tags:
+  - Places
+  properties:
+  - type: OpenAPI
+    url: openapi/valueserp-places-api-openapi.yml
+  - type: Documentation
+    url: https://docs.trajectdata.com/valueserp
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-request.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
+- aid: valueserp:valueserp-product-api
+  name: ValueSERP Product API
+  description: Google product knowledge panel data (deprecated).
+  humanURL: https://trajectdata.com/serp/value-serp-api/
+  baseURL: https://api.valueserp.com
+  tags:
+  - Product
+  properties:
+  - type: OpenAPI
+    url: openapi/valueserp-product-api-openapi.yml
+  - type: Documentation
+    url: https://docs.trajectdata.com/valueserp
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-request.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
+- aid: valueserp:valueserp-search-api
+  name: ValueSERP Search API
+  description: Google organic web search results.
+  humanURL: https://trajectdata.com/serp/value-serp-api/
+  baseURL: https://api.valueserp.com
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/valueserp-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.trajectdata.com/valueserp
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-request.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
+- aid: valueserp:valueserp-shopping-api
+  name: ValueSERP Shopping API
+  description: Google Shopping product results.
+  humanURL: https://trajectdata.com/serp/value-serp-api/
+  baseURL: https://api.valueserp.com
+  tags:
+  - Shopping
+  properties:
+  - type: OpenAPI
+    url: openapi/valueserp-shopping-api-openapi.yml
+  - type: Documentation
+    url: https://docs.trajectdata.com/valueserp
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-request.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
 common:
   - type: AgenticAccess
     url: agentic-access/valueserp-agentic-access.yml
