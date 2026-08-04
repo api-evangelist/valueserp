@@ -1,0 +1,1383 @@
+openapi: 3.0.3
+info:
+  title: ValueSERP Search API
+  description: >-
+    Real-time Google SERP data API supporting organic search, shopping, news,
+    images, places, and product results via simple GET requests authenticated
+    with an API key. Returns structured JSON with organic results, ads,
+    knowledge graphs, answer boxes, AI overviews, and more. Operated by
+    Traject Data.
+  version: "1.0"
+  contact:
+    name: ValueSERP Support
+    url: https://trajectdata.com/serp/value-serp-api/
+  termsOfService: https://trajectdata.com/serp/value-serp-api/
+  x-api-id: valueserp-search
+servers:
+  - url: https://api.valueserp.com
+    description: ValueSERP Production API
+
+security:
+  - apiKeyQuery: []
+
+paths:
+  /search:
+    get:
+      operationId: googleSearch
+      summary: Google Search (Organic)
+      description: >-
+        Retrieve real-time Google organic search results for a given keyword.
+        Returns organic listings, ads, knowledge graph data, answer boxes,
+        AI overviews, related questions, and more.
+      tags:
+        - Search
+      parameters:
+        - $ref: '#/components/parameters/api_key'
+        - $ref: '#/components/parameters/q'
+        - $ref: '#/components/parameters/location'
+        - $ref: '#/components/parameters/location_auto'
+        - $ref: '#/components/parameters/google_domain'
+        - $ref: '#/components/parameters/gl'
+        - $ref: '#/components/parameters/hl'
+        - $ref: '#/components/parameters/lr'
+        - $ref: '#/components/parameters/cr'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/max_page'
+        - $ref: '#/components/parameters/safe'
+        - $ref: '#/components/parameters/nfpr'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/tbs'
+        - $ref: '#/components/parameters/uule'
+        - $ref: '#/components/parameters/time_period'
+        - $ref: '#/components/parameters/time_period_min'
+        - $ref: '#/components/parameters/time_period_max'
+        - $ref: '#/components/parameters/knowledge_graph_id'
+        - name: include_ai_overview
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: >-
+            Adds Google's AI overview content to the response. Costs 1
+            additional credit when an AI overview is returned.
+        - name: include_ai_overview_paa
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: >-
+            Includes AI overview answers in related questions (People Also Ask).
+            Costs 1 credit per overview.
+        - name: include_answer_box
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: >-
+            When true, includes the featured snippet/answer box as the first
+            item in organic results.
+        - name: flatten_results
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: >-
+            Flattens inline videos, inline images, and other inline content
+            blocks so they appear inline in results.
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            Comma-separated list of top-level response objects to return
+            (web-only feature). Reduces response size.
+          example: "organic_results,knowledge_graph"
+        - name: order_online
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: >-
+            Returns pickup/delivery ordering info for restaurants (US only).
+            Costs 2 credits instead of 1.
+        - name: ads_optimized
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: >-
+            Optimizes ad return rates in the response. Costs 3 additional
+            credits.
+      responses:
+        '200':
+          description: Successful search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+              example:
+                request_info:
+                  success: true
+                search_metadata:
+                  id: "SEARCH_ID"
+                  google_url: "https://www.google.com/search?q=pizza"
+                  total_time_taken: 1.23
+                search_parameters:
+                  q: "pizza"
+                  gl: "us"
+                  hl: "en"
+                organic_results:
+                  - position: 1
+                    title: "Best Pizza Recipes"
+                    link: "https://example.com/pizza"
+                    domain: "example.com"
+                    snippet: "Find the best pizza recipes here."
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /search#places:
+    get:
+      operationId: googlePlaces
+      summary: Google Maps / Places Search
+      description: >-
+        Retrieve real-time Google Maps local business listings and places
+        results for a given search term. Set search_type=places.
+      tags:
+        - Places
+      parameters:
+        - $ref: '#/components/parameters/api_key'
+        - name: search_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [places]
+          description: Must be set to "places" for Maps/Places search.
+          example: places
+        - $ref: '#/components/parameters/q'
+        - $ref: '#/components/parameters/location'
+        - $ref: '#/components/parameters/location_auto'
+        - $ref: '#/components/parameters/google_domain'
+        - $ref: '#/components/parameters/gl'
+        - $ref: '#/components/parameters/hl'
+        - $ref: '#/components/parameters/nfpr'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/max_page'
+        - $ref: '#/components/parameters/uule'
+      responses:
+        '200':
+          description: Successful places search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlacesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /search#shopping:
+    get:
+      operationId: googleShopping
+      summary: Google Shopping Search
+      description: >-
+        Retrieve real-time Google Shopping product results for a given keyword.
+        Set search_type=shopping. Supports price filtering, condition,
+        merchant filtering, and sorting.
+      tags:
+        - Shopping
+      parameters:
+        - $ref: '#/components/parameters/api_key'
+        - name: search_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [shopping]
+          description: Must be set to "shopping".
+          example: shopping
+        - $ref: '#/components/parameters/q'
+        - $ref: '#/components/parameters/location'
+        - $ref: '#/components/parameters/location_auto'
+        - $ref: '#/components/parameters/google_domain'
+        - $ref: '#/components/parameters/gl'
+        - $ref: '#/components/parameters/hl'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/max_page'
+        - $ref: '#/components/parameters/uule'
+        - name: sort_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [relevance, price_low_to_high, price_high_to_low, review_score]
+          description: Sort order for shopping results.
+          example: relevance
+        - name: shopping_buy_on_google
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Include only "Buy on Google" products.
+        - name: shopping_filter
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            Filter shopping results by attribute (e.g., brand).
+          example: brand
+        - name: shopping_price_min
+          in: query
+          required: false
+          schema:
+            type: number
+            format: decimal
+          description: Minimum product price filter.
+          example: 4.99
+        - name: shopping_price_max
+          in: query
+          required: false
+          schema:
+            type: number
+            format: decimal
+          description: Maximum product price filter.
+          example: 29.99
+        - name: shopping_condition
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [new, used]
+          description: Filter by product condition.
+          example: new
+        - name: shopping_merchants
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated list of merchant IDs to filter results.
+      responses:
+        '200':
+          description: Successful shopping search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /search#news:
+    get:
+      operationId: googleNews
+      summary: Google News Search
+      description: >-
+        Retrieve real-time Google News results for a given keyword.
+        Set search_type=news. Supports time period filtering, language,
+        country, and sorting.
+      tags:
+        - News
+      parameters:
+        - $ref: '#/components/parameters/api_key'
+        - name: search_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [news]
+          description: Must be set to "news".
+          example: news
+        - $ref: '#/components/parameters/q'
+        - $ref: '#/components/parameters/location'
+        - $ref: '#/components/parameters/location_auto'
+        - $ref: '#/components/parameters/google_domain'
+        - $ref: '#/components/parameters/gl'
+        - $ref: '#/components/parameters/hl'
+        - $ref: '#/components/parameters/lr'
+        - $ref: '#/components/parameters/cr'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/max_page'
+        - $ref: '#/components/parameters/safe'
+        - $ref: '#/components/parameters/nfpr'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/tbs'
+        - $ref: '#/components/parameters/uule'
+        - $ref: '#/components/parameters/time_period'
+        - $ref: '#/components/parameters/time_period_min'
+        - $ref: '#/components/parameters/time_period_max'
+        - name: sort_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [relevance, date]
+          description: Sort news results by relevance or date.
+          example: relevance
+        - name: show_duplicates
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Display duplicate results when sort_by=date is used.
+        - name: exclude_if_modified
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Exclude results from queries that were modified by Google.
+      responses:
+        '200':
+          description: Successful news search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /search#images:
+    get:
+      operationId: googleImages
+      summary: Google Images Search
+      description: >-
+        Retrieve real-time Google Image search results for a given keyword.
+        Set search_type=images. Returns 100 images per page with filtering
+        by color, size, type, and usage rights.
+      tags:
+        - Images
+      parameters:
+        - $ref: '#/components/parameters/api_key'
+        - name: search_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [images]
+          description: Must be set to "images".
+          example: images
+        - $ref: '#/components/parameters/q'
+        - $ref: '#/components/parameters/location'
+        - $ref: '#/components/parameters/location_auto'
+        - $ref: '#/components/parameters/google_domain'
+        - $ref: '#/components/parameters/gl'
+        - $ref: '#/components/parameters/hl'
+        - $ref: '#/components/parameters/lr'
+        - $ref: '#/components/parameters/cr'
+        - $ref: '#/components/parameters/safe'
+        - $ref: '#/components/parameters/tbs'
+        - $ref: '#/components/parameters/uule'
+        - $ref: '#/components/parameters/time_period'
+        - $ref: '#/components/parameters/time_period_min'
+        - $ref: '#/components/parameters/time_period_max'
+        - name: images_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: Results page number (100 images per page).
+          example: 1
+        - name: images_color
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - black and white
+              - red
+              - orange
+              - yellow
+              - green
+              - teal
+              - blue
+              - purple
+              - pink
+              - white
+              - gray
+              - brown
+          description: Filter images by color.
+        - name: images_size
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [large, medium, icon]
+          description: Filter images by size/dimensions.
+        - name: images_type
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [clipart, line drawing, gif]
+          description: Filter images by image type/category.
+        - name: images_usage
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - non commercial reuse with modification
+              - non commercial reuse
+          description: Filter images by usage rights.
+      responses:
+        '200':
+          description: Successful image search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /search#product:
+    get:
+      operationId: googleProduct
+      summary: Google Product Results
+      description: >-
+        Retrieve Google product listing results for a given product ID.
+        Set search_type=product. Note: This endpoint is deprecated as of
+        October 31 and is being replaced by the Product Details endpoint.
+      tags:
+        - Product
+      deprecated: true
+      parameters:
+        - $ref: '#/components/parameters/api_key'
+        - name: search_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [product]
+          description: Must be set to "product".
+          example: product
+        - name: product_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Google product identifier.
+          example: "13244508647295616715"
+        - $ref: '#/components/parameters/location'
+        - $ref: '#/components/parameters/location_auto'
+        - $ref: '#/components/parameters/google_domain'
+        - $ref: '#/components/parameters/gl'
+        - $ref: '#/components/parameters/hl'
+        - $ref: '#/components/parameters/uule'
+        - name: product_free_shipping
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Filter to products with free shipping only.
+        - name: product_condition_new
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Filter to new (non-used) products only.
+        - name: product_condition_used
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Filter to used products only.
+      responses:
+        '200':
+          description: Successful product search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+      description: >-
+        API key for authentication. Pass as the api_key query parameter.
+        Use "demo" as the key for testing.
+
+  parameters:
+    api_key:
+      name: api_key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: >-
+        Your ValueSERP API key. Use "demo" for testing limited queries.
+      example: demo
+
+    q:
+      name: q
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The keyword or search query to use.
+      example: pizza
+
+    location:
+      name: location
+      in: query
+      required: false
+      schema:
+        type: string
+      description: >-
+        Geographic location for the search. Accepts location names
+        (e.g., "manhattan,new york,united states") or GPS coordinates
+        (e.g., "lat 43.437677,lon 3.8392765").
+      example: "united states"
+
+    location_auto:
+      name: location_auto
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+      description: >-
+        When true, automatically updates gl and hl parameters based on
+        the built-in location value. Defaults to true.
+
+    google_domain:
+      name: google_domain
+      in: query
+      required: false
+      schema:
+        type: string
+        default: google.com
+      description: The Google domain to use for the search.
+      example: google.com
+
+    gl:
+      name: gl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: us
+      description: >-
+        Determines the Google country to use for the query.
+        ISO 3166-1 alpha-2 country code.
+      example: us
+
+    hl:
+      name: hl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en
+      description: >-
+        Determines the Google UI language to return results in.
+        BCP-47 language code.
+      example: en
+
+    lr:
+      name: lr
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Limits results to pages in the specified language.
+      example: lang_en
+
+    cr:
+      name: cr
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Limits results to pages from the specified country.
+      example: countryUS
+
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: The results page number to retrieve. Defaults to 1.
+      example: 1
+
+    max_page:
+      name: max_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+      description: >-
+        Retrieve multiple result pages in a single API request.
+        Specifies the maximum page number to retrieve.
+      example: 3
+
+    safe:
+      name: safe
+      in: query
+      required: false
+      schema:
+        type: string
+        enum: [active, "off"]
+      description: Safe search filter setting.
+      example: active
+
+    nfpr:
+      name: nfpr
+      in: query
+      required: false
+      schema:
+        type: integer
+        enum: [0, 1]
+      description: >-
+        Exclude auto-corrected spelling results. Set to 1 to exclude,
+        0 to include (default).
+      example: 0
+
+    filter:
+      name: filter
+      in: query
+      required: false
+      schema:
+        type: integer
+        enum: [0, 1]
+        default: 1
+      description: >-
+        Toggle similar/omitted result filters. 1 enables filtering
+        (default), 0 disables it.
+      example: 1
+
+    tbs:
+      name: tbs
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google TBS parameter value for advanced filtering.
+
+    uule:
+      name: uule
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google UULE parameter to override the location.
+
+    time_period:
+      name: time_period
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - last hour
+          - last day
+          - last week
+          - last month
+          - last year
+          - custom
+      description: Filter results by time period.
+      example: last week
+
+    time_period_min:
+      name: time_period_min
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^\d{2}/\d{2}/\d{4}$'
+      description: >-
+        Custom time period start date in MM/DD/YYYY format.
+        Required when time_period=custom.
+      example: "01/01/2024"
+
+    time_period_max:
+      name: time_period_max
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^\d{2}/\d{2}/\d{4}$'
+      description: >-
+        Custom time period end date in MM/DD/YYYY format.
+        Required when time_period=custom.
+      example: "12/31/2024"
+
+    knowledge_graph_id:
+      name: knowledge_graph_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Specific Google Knowledge Graph entity ID.
+      example: /m/0jg24
+
+  schemas:
+    RequestInfo:
+      type: object
+      description: Meta-information about the API request status.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was processed successfully.
+        message:
+          type: string
+          description: Status message (present on errors or incidents).
+        credits_used:
+          type: integer
+          description: Number of credits consumed by this request.
+        credits_remaining:
+          type: integer
+          description: Number of credits remaining in the account.
+
+    SearchMetadata:
+      type: object
+      description: Metadata about the search execution.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this search request.
+        google_url:
+          type: string
+          format: uri
+          description: The Google URL that was scraped to generate results.
+        total_time_taken:
+          type: number
+          format: float
+          description: Total time taken to process the request in seconds.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the search was created.
+
+    SearchParameters:
+      type: object
+      description: Echo of the parameters used for the search.
+      properties:
+        q:
+          type: string
+          description: The search query keyword used.
+        search_type:
+          type: string
+          description: The type of search performed.
+        gl:
+          type: string
+          description: Country code used.
+        hl:
+          type: string
+          description: Language code used.
+        google_domain:
+          type: string
+          description: Google domain used.
+
+    OrganicResult:
+      type: object
+      description: A single organic search result.
+      properties:
+        position:
+          type: integer
+          description: Position/rank of the result on the page.
+        title:
+          type: string
+          description: Title of the result.
+        link:
+          type: string
+          format: uri
+          description: URL of the result.
+        domain:
+          type: string
+          description: Domain of the result URL.
+        snippet:
+          type: string
+          description: Text snippet/excerpt from the result page.
+        cached_page_link:
+          type: string
+          format: uri
+          description: Link to Google's cached version of the page.
+        related_pages_link:
+          type: string
+          format: uri
+          description: Link to related pages on the same domain.
+        sitelinks:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              link:
+                type: string
+                format: uri
+          description: Sitelinks shown beneath the result.
+
+    AdResult:
+      type: object
+      description: A paid advertisement result.
+      properties:
+        position:
+          type: integer
+          description: Ad position.
+        title:
+          type: string
+          description: Ad headline.
+        link:
+          type: string
+          format: uri
+          description: Ad destination URL.
+        display_link:
+          type: string
+          description: Display URL shown in the ad.
+        snippet:
+          type: string
+          description: Ad description text.
+
+    KnowledgeGraph:
+      type: object
+      description: Google Knowledge Graph panel data.
+      properties:
+        title:
+          type: string
+          description: Entity name.
+        type:
+          type: string
+          description: Entity type or category.
+        description:
+          type: string
+          description: Brief description of the entity.
+        source:
+          type: object
+          properties:
+            name:
+              type: string
+            link:
+              type: string
+              format: uri
+        image:
+          type: object
+          properties:
+            src:
+              type: string
+              format: uri
+            alt:
+              type: string
+
+    AnswerBox:
+      type: object
+      description: Featured snippet / answer box data.
+      properties:
+        type:
+          type: string
+          description: Type of answer box (e.g., organic, list, table).
+        title:
+          type: string
+          description: Answer box title.
+        answer:
+          type: string
+          description: The direct answer text.
+        link:
+          type: string
+          format: uri
+          description: Source URL for the answer.
+
+    RelatedQuestion:
+      type: object
+      description: A People Also Ask related question.
+      properties:
+        question:
+          type: string
+          description: The related question text.
+        answer:
+          type: string
+          description: Answer text for the question.
+        link:
+          type: string
+          format: uri
+          description: Source URL for the answer.
+
+    PlaceResult:
+      type: object
+      description: A single Google Maps / Places result.
+      properties:
+        position:
+          type: integer
+          description: Position in results.
+        title:
+          type: string
+          description: Name of the place.
+        place_id:
+          type: string
+          description: Google Place ID.
+        address:
+          type: string
+          description: Physical address.
+        rating:
+          type: number
+          format: float
+          description: Average star rating (1-5).
+        reviews:
+          type: integer
+          description: Total number of reviews.
+        type:
+          type: string
+          description: Business category/type.
+        phone:
+          type: string
+          description: Phone number.
+        website:
+          type: string
+          format: uri
+          description: Business website URL.
+        hours:
+          type: string
+          description: Business hours.
+        latitude:
+          type: number
+          format: double
+          description: Geographic latitude.
+        longitude:
+          type: number
+          format: double
+          description: Geographic longitude.
+
+    ShoppingResult:
+      type: object
+      description: A single Google Shopping product result.
+      properties:
+        position:
+          type: integer
+          description: Position in results.
+        title:
+          type: string
+          description: Product name/title.
+        link:
+          type: string
+          format: uri
+          description: Product page URL.
+        price:
+          type: string
+          description: Product price with currency symbol.
+        extracted_price:
+          type: number
+          format: decimal
+          description: Numeric price value.
+        merchant:
+          type: string
+          description: Merchant/seller name.
+        rating:
+          type: number
+          format: float
+          description: Product rating.
+        reviews:
+          type: integer
+          description: Number of reviews.
+        shipping:
+          type: string
+          description: Shipping information.
+        condition:
+          type: string
+          description: Product condition (new/used).
+        thumbnail:
+          type: string
+          format: uri
+          description: Product thumbnail image URL.
+
+    NewsResult:
+      type: object
+      description: A single Google News article result.
+      properties:
+        position:
+          type: integer
+          description: Position in results.
+        title:
+          type: string
+          description: Article headline.
+        link:
+          type: string
+          format: uri
+          description: Article URL.
+        source:
+          type: string
+          description: News source/publisher name.
+        date:
+          type: string
+          description: Publication date (relative or absolute).
+        snippet:
+          type: string
+          description: Article excerpt.
+        thumbnail:
+          type: string
+          format: uri
+          description: Article thumbnail image URL.
+
+    ImageResult:
+      type: object
+      description: A single Google Image search result.
+      properties:
+        position:
+          type: integer
+          description: Position in results.
+        title:
+          type: string
+          description: Image title.
+        link:
+          type: string
+          format: uri
+          description: Source page URL.
+        original:
+          type: string
+          format: uri
+          description: Direct URL to the original full-size image.
+        thumbnail:
+          type: string
+          format: uri
+          description: Thumbnail URL.
+        width:
+          type: integer
+          description: Image width in pixels.
+        height:
+          type: integer
+          description: Image height in pixels.
+        source:
+          type: string
+          description: Source domain/website.
+
+    ProductResult:
+      type: object
+      description: A single Google Product result.
+      properties:
+        position:
+          type: integer
+          description: Position in results.
+        title:
+          type: string
+          description: Product name.
+        link:
+          type: string
+          format: uri
+          description: Product page URL.
+        price:
+          type: string
+          description: Product price.
+        merchant:
+          type: string
+          description: Merchant name.
+        shipping:
+          type: string
+          description: Shipping details.
+        condition:
+          type: string
+          description: Product condition.
+        free_shipping:
+          type: boolean
+          description: Whether free shipping is available.
+
+    ErrorResponse:
+      type: object
+      description: Error response body.
+      properties:
+        request_info:
+          type: object
+          properties:
+            success:
+              type: boolean
+              example: false
+            message:
+              type: string
+              description: Human-readable error message.
+
+    SearchResponse:
+      type: object
+      description: Google organic search results response.
+      properties:
+        request_info:
+          $ref: '#/components/schemas/RequestInfo'
+        search_metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+        organic_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganicResult'
+          description: Organic search result listings.
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdResult'
+          description: Paid advertisement results.
+        knowledge_graph:
+          $ref: '#/components/schemas/KnowledgeGraph'
+        answer_box:
+          $ref: '#/components/schemas/AnswerBox'
+        related_questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedQuestion'
+          description: People Also Ask related questions.
+        related_searches:
+          type: array
+          items:
+            type: object
+            properties:
+              query:
+                type: string
+                description: Related search query text.
+              link:
+                type: string
+                format: uri
+          description: Related searches suggested by Google.
+        pagination:
+          type: object
+          properties:
+            current:
+              type: integer
+              description: Current page number.
+            next:
+              type: string
+              format: uri
+              description: URL for the next page of results.
+            other_pages:
+              type: object
+              additionalProperties:
+                type: string
+              description: Map of page numbers to page URLs.
+
+    PlacesResponse:
+      type: object
+      description: Google Maps / Places search results response.
+      properties:
+        request_info:
+          $ref: '#/components/schemas/RequestInfo'
+        search_metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+        places:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaceResult'
+          description: Local business/place listings.
+
+    ShoppingResponse:
+      type: object
+      description: Google Shopping search results response.
+      properties:
+        request_info:
+          $ref: '#/components/schemas/RequestInfo'
+        search_metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+        shopping_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShoppingResult'
+          description: Shopping product listings.
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              options:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                    link:
+                      type: string
+                      format: uri
+          description: Available shopping filters.
+
+    NewsResponse:
+      type: object
+      description: Google News search results response.
+      properties:
+        request_info:
+          $ref: '#/components/schemas/RequestInfo'
+        search_metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+        news_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsResult'
+          description: News article results.
+
+    ImagesResponse:
+      type: object
+      description: Google Image search results response.
+      properties:
+        request_info:
+          $ref: '#/components/schemas/RequestInfo'
+        search_metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+        image_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageResult'
+          description: Image search results (up to 100 per page).
+
+    ProductResponse:
+      type: object
+      description: Google Product search results response.
+      properties:
+        request_info:
+          $ref: '#/components/schemas/RequestInfo'
+        search_metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+        product_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductResult'
+          description: Product listing results.
+
+  responses:
+    BadRequest:
+      description: >-
+        Bad Request - Invalid parameters or unsupported parameter combinations.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    Unauthorized:
+      description: >-
+        Unauthorized - The api_key supplied is not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    PaymentRequired:
+      description: >-
+        Payment Required - Your ValueSERP account has run out of available
+        credits or there is a payment issue.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    TooManyRequests:
+      description: >-
+        Too Many Requests - Your plan's rate limit has been exceeded.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    InternalServerError:
+      description: >-
+        Internal Server Error - Retry after a delay; contact support if
+        the issue persists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    ServiceUnavailable:
+      description: >-
+        Service Unavailable - Returned during parsing incidents. Requests
+        are not charged. Use skip_on_incident=true to opt out automatically.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+tags:
+  - name: Search
+    description: Google organic web search results.
+  - name: Places
+    description: Google Maps and local places search results.
+  - name: Shopping
+    description: Google Shopping product results.
+  - name: News
+    description: Google News article results.
+  - name: Images
+    description: Google Image search results.
+  - name: Product
+    description: Google product knowledge panel data (deprecated).

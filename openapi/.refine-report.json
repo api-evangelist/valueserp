@@ -1,0 +1,24 @@
+{
+  "provider": "valueserp",
+  "sources": [
+    "valueserp-images-api-openapi.yml",
+    "valueserp-news-api-openapi.yml",
+    "valueserp-places-api-openapi.yml",
+    "valueserp-product-api-openapi.yml",
+    "valueserp-search-api-openapi.yml",
+    "valueserp-shopping-api-openapi.yml"
+  ],
+  "outputs": [
+    "valueserp-images-api-openapi.yml",
+    "valueserp-news-api-openapi.yml",
+    "valueserp-places-api-openapi.yml",
+    "valueserp-product-api-openapi.yml",
+    "valueserp-search-api-openapi.yml",
+    "valueserp-shopping-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
