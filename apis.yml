@@ -24,7 +24,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/valueserp.png
 url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/apis.yml
 created: 2026-06-13
-modified: 2026-06-13
+modified: 2026-08-13
 specificationVersion: "0.19"
 tags:
   - SERP
@@ -51,6 +51,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/valueserp-images-api-openapi.yml
+  - type: Overlay
+    url: overlays/valueserp-images-overlay.yaml
   - type: Documentation
     url: https://docs.trajectdata.com/valueserp
   - type: JSONSchema
@@ -69,6 +71,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/valueserp-news-api-openapi.yml
+  - type: Overlay
+    url: overlays/valueserp-news-overlay.yaml
   - type: Documentation
     url: https://docs.trajectdata.com/valueserp
   - type: JSONSchema
@@ -87,6 +91,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/valueserp-places-api-openapi.yml
+  - type: Overlay
+    url: overlays/valueserp-places-overlay.yaml
   - type: Documentation
     url: https://docs.trajectdata.com/valueserp
   - type: JSONSchema
@@ -105,6 +111,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/valueserp-product-api-openapi.yml
+  - type: Overlay
+    url: overlays/valueserp-product-overlay.yaml
   - type: Documentation
     url: https://docs.trajectdata.com/valueserp
   - type: JSONSchema
@@ -123,6 +131,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/valueserp-search-api-openapi.yml
+  - type: Overlay
+    url: overlays/valueserp-search-overlay.yaml
   - type: Documentation
     url: https://docs.trajectdata.com/valueserp
   - type: JSONSchema
@@ -141,6 +151,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/valueserp-shopping-api-openapi.yml
+  - type: Overlay
+    url: overlays/valueserp-shopping-overlay.yaml
   - type: Documentation
     url: https://docs.trajectdata.com/valueserp
   - type: JSONSchema
@@ -160,8 +172,6 @@ common:
     url: https://trajectdata.com/serp/value-serp-api/
   - type: Documentation
     url: https://docs.trajectdata.com/valueserp
-  - type: GitHubOrg
-    url: https://github.com/joejoinerr/python-valueserp
   - type: LinkedIn
     url: https://www.linkedin.com/company/traject-data/
   - type: Blog
@@ -182,7 +192,61 @@ common:
     url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/vocabulary/valueserp-vocabulary.yml
   - type: JSONLDContext
     url: https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-ld/valueserp-context.jsonld
+  - type: LLMsTxt
+    url: llms/valueserp-llms.txt
+  - type: Packages
+    url: packages/valueserp-packages.yml
+  - type: MCPServer
+    url: mcp/valueserp-mcp.yml
+  - type: Conventions
+    url: conventions/valueserp-conventions.yml
+  - type: ErrorCatalog
+    url: errors/valueserp-problem-types.yml
+  - type: Conformance
+    url: conformance/valueserp-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/valueserp-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/valueserp-changelog.yml
+  - type: Sandbox
+    url: sandbox/valueserp-sandbox.yml
+  - type: DataModel
+    url: data-model/valueserp-data-model.yml
+  - type: Webhooks
+    url: webhooks/valueserp-webhooks.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: VulnerabilityDisclosure
+    url: security/valueserp-vulnerability-disclosure.yml
+  - type: Security
+    url: security/valueserp-vulnerability-disclosure.yml
+  - type: APIReference
+    url: https://docs.trajectdata.com/valueserp/search-api/overview
+  - type: GettingStarted
+    url: https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p
+  - type: ChangeLog
+    url: https://docs.trajectdata.com/valueserp/product-updates
+  - type: SignUp
+    url: https://app.valueserp.com/signup
+  - type: Login
+    url: https://app.valueserp.com/
+  - type: Support
+    url: https://trajectdata.com/contact-us/
+  - type: FAQ
+    url: https://trajectdata.com/faqs/
+  - type: TermsOfService
+    url: https://trajectdata.com/traject-data-terms-of-service/
+  - type: PrivacyPolicy
+    url: https://trajectdata.com/privacy-policy/
+  - type: CaseStudies
+    url: https://trajectdata.com/case-studies
 
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+
+x-enrichment:
+  date: 2026-08-13
+  status: enriched
+  artifacts_added: 25
+  pass: local-v1
