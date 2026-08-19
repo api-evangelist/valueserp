@@ -1,0 +1,997 @@
+{
+  "item": [
+    {
+      "id": "590b7db4-7973-48c4-9b36-0122099399ef",
+      "name": "Shopping",
+      "description": {
+        "content": "Google Shopping product results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f753bc1b-489b-4698-ab2e-b62c1b71f127",
+          "name": "Google Shopping Search",
+          "request": {
+            "name": "Google Shopping Search",
+            "description": {
+              "content": "Retrieve real-time Google Shopping product results for a given keyword. Set search_type=shopping. Supports price filtering, condition, merchant filtering, and sorting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "hash": "shopping",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_type",
+                  "value": "<string>",
+                  "description": "(Required) Must be set to \"shopping\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) The keyword or search query to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
+                },
+                {
+                  "disabled": false,
+                  "key": "location_auto",
+                  "value": "true",
+                  "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
+                },
+                {
+                  "disabled": false,
+                  "key": "google_domain",
+                  "value": "google.com",
+                  "description": "The Google domain to use for the search."
+                },
+                {
+                  "disabled": false,
+                  "key": "gl",
+                  "value": "us",
+                  "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
+                },
+                {
+                  "disabled": false,
+                  "key": "hl",
+                  "value": "en",
+                  "description": "Determines the Google UI language to return results in. BCP-47 language code."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The results page number to retrieve. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_page",
+                  "value": "<integer>",
+                  "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "uule",
+                  "value": "<string>",
+                  "description": "Custom Google UULE parameter to override the location."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort order for shopping results."
+                },
+                {
+                  "disabled": false,
+                  "key": "shopping_buy_on_google",
+                  "value": "<boolean>",
+                  "description": "Include only \"Buy on Google\" products."
+                },
+                {
+                  "disabled": false,
+                  "key": "shopping_filter",
+                  "value": "<string>",
+                  "description": "Filter shopping results by attribute (e.g., brand)."
+                },
+                {
+                  "disabled": false,
+                  "key": "shopping_price_min",
+                  "value": "<decimal>",
+                  "description": "Minimum product price filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "shopping_price_max",
+                  "value": "<decimal>",
+                  "description": "Maximum product price filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "shopping_condition",
+                  "value": "<string>",
+                  "description": "Filter by product condition."
+                },
+                {
+                  "disabled": false,
+                  "key": "shopping_merchants",
+                  "value": "<string>",
+                  "description": "Comma-separated list of merchant IDs to filter results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "446d50e4-c4d6-4630-8fdc-90b51d518038",
+              "name": "Successful shopping search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "shopping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "shopping"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "shopping_buy_on_google",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "shopping_filter",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "shopping_price_min",
+                      "value": "4.99"
+                    },
+                    {
+                      "key": "shopping_price_max",
+                      "value": "29.99"
+                    },
+                    {
+                      "key": "shopping_condition",
+                      "value": "new"
+                    },
+                    {
+                      "key": "shopping_merchants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\",\n    \"credits_used\": 512,\n    \"credits_remaining\": 5270\n  },\n  \"search_metadata\": {\n    \"id\": \"string\",\n    \"google_url\": \"https://hCFim.cqaznXgud-cwMNSUWl0yS7v93U,yy8YSEn3VIXpXc9N1P9wWOFw4jYnDvOxeTcDTv1vWtB\",\n    \"total_time_taken\": 8708.463988016238,\n    \"created_at\": \"2024-03-23T06:32:48.675Z\"\n  },\n  \"search_parameters\": {\n    \"q\": \"string\",\n    \"search_type\": \"string\",\n    \"gl\": \"string\",\n    \"hl\": \"string\",\n    \"google_domain\": \"string\"\n  },\n  \"shopping_results\": [\n    {\n      \"position\": 5368,\n      \"title\": \"string\",\n      \"link\": \"https://kKlLBZFpKdzRsBM.ucmkxWGjMSMnpE8sJvPCXyvrl3QCWK,.Lg.UDS4scihnfV3LpJPsFp0\",\n      \"price\": \"string\",\n      \"extracted_price\": 7754.7636484040695,\n      \"merchant\": \"string\",\n      \"rating\": 2639.959582890963,\n      \"reviews\": 5495,\n      \"shipping\": \"string\",\n      \"condition\": \"string\",\n      \"thumbnail\": \"http://pYWFFZNJAyLIAQqJmlWIZpUJMvaVMKuEm.cwgAzcskktXvIsawPhXydL4CywwkZKFrgA4eLPwimvcG1wiPfbHsgDx-\"\n    },\n    {\n      \"position\": 438,\n      \"title\": \"string\",\n      \"link\": \"https://HVURCOWTsxerjjhSxH.anbfuyOoX4ekC.u.KPB.aPJXpyBXKStuG10bjKhNwwoVVRA3U1y8L+XIJqdC9b\",\n      \"price\": \"string\",\n      \"extracted_price\": 6424.942813740004,\n      \"merchant\": \"string\",\n      \"rating\": 7591.671119012495,\n      \"reviews\": 726,\n      \"shipping\": \"string\",\n      \"condition\": \"string\",\n      \"thumbnail\": \"http://wkutWJhNURtgsnDVjshAmcAPUYApuTKuC.qunKA-VBkQxry3iHjgYZjqEF9BnQrrHk1FJpcTngghO8C-Ltow5yk9T6AcwkjAUJ.WtOe\"\n    }\n  ],\n  \"filters\": [\n    {\n      \"name\": \"string\",\n      \"options\": [\n        {\n          \"text\": \"string\",\n          \"link\": \"https://Ez.slczUIzL-3XpZ+3GjmoKPSPOw+vppmPgSgx21jfOp2BD7UzJ4-TyyVzopPrhXz8\"\n        },\n        {\n          \"text\": \"string\",\n          \"link\": \"http://YDt.uxzOwH6MPxMZOY\"\n        }\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"options\": [\n        {\n          \"text\": \"string\",\n          \"link\": \"http://WLCgQcGGUBC.ftdpqtssSTu4tCijKMNxoPOwKS7DQn.Ybnt\"\n        },\n        {\n          \"text\": \"string\",\n          \"link\": \"http://nJwoIWPaxDSfMcng.oxB9rvCm4GWGL-xAVBOPCrs6.VFOxj\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b30b6e5b-cf71-4134-8e7d-f03fb307df11",
+              "name": "Bad Request - Invalid parameters or unsupported parameter combinations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "shopping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "shopping"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "shopping_buy_on_google",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "shopping_filter",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "shopping_price_min",
+                      "value": "4.99"
+                    },
+                    {
+                      "key": "shopping_price_max",
+                      "value": "29.99"
+                    },
+                    {
+                      "key": "shopping_condition",
+                      "value": "new"
+                    },
+                    {
+                      "key": "shopping_merchants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "beb14477-c2bc-4f69-9e8f-c06a053743dc",
+              "name": "Unauthorized - The api_key supplied is not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "shopping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "shopping"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "shopping_buy_on_google",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "shopping_filter",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "shopping_price_min",
+                      "value": "4.99"
+                    },
+                    {
+                      "key": "shopping_price_max",
+                      "value": "29.99"
+                    },
+                    {
+                      "key": "shopping_condition",
+                      "value": "new"
+                    },
+                    {
+                      "key": "shopping_merchants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcd68d05-e412-4c1a-b2bf-eae174d733e7",
+              "name": "Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "shopping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "shopping"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "shopping_buy_on_google",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "shopping_filter",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "shopping_price_min",
+                      "value": "4.99"
+                    },
+                    {
+                      "key": "shopping_price_max",
+                      "value": "29.99"
+                    },
+                    {
+                      "key": "shopping_condition",
+                      "value": "new"
+                    },
+                    {
+                      "key": "shopping_merchants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "483f8631-a010-467a-8206-f32fa9e21c26",
+              "name": "Too Many Requests - Your plan's rate limit has been exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "shopping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "shopping"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "shopping_buy_on_google",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "shopping_filter",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "shopping_price_min",
+                      "value": "4.99"
+                    },
+                    {
+                      "key": "shopping_price_max",
+                      "value": "29.99"
+                    },
+                    {
+                      "key": "shopping_condition",
+                      "value": "new"
+                    },
+                    {
+                      "key": "shopping_merchants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "4563"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "941ddfbf-2b19-4a96-86c4-dadf5c59cbb3",
+              "name": "Internal Server Error - Retry after a delay; contact support if the issue persists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "shopping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "shopping"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "shopping_buy_on_google",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "shopping_filter",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "shopping_price_min",
+                      "value": "4.99"
+                    },
+                    {
+                      "key": "shopping_price_max",
+                      "value": "29.99"
+                    },
+                    {
+                      "key": "shopping_condition",
+                      "value": "new"
+                    },
+                    {
+                      "key": "shopping_merchants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b5fb499-7234-4ce2-89bb-6edaae0ee78b",
+              "name": "Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "shopping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "shopping"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "shopping_buy_on_google",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "shopping_filter",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "shopping_price_min",
+                      "value": "4.99"
+                    },
+                    {
+                      "key": "shopping_price_max",
+                      "value": "29.99"
+                    },
+                    {
+                      "key": "shopping_condition",
+                      "value": "new"
+                    },
+                    {
+                      "key": "shopping_merchants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "4563"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.valueserp.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b0ca6d9d-6632-47cb-b6e5-c7c9136e3922",
+    "name": "ValueSERP Search Images Shopping API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.\n\nContact Support:\n Name: ValueSERP Support",
+      "type": "text/plain"
+    }
+  }
+}

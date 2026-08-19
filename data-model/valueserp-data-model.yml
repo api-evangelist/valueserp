@@ -1,0 +1,190 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/valueserp-search-api-openapi.yml (components.schemas $ref graph),
+  openapi/valueserp-{news,images,places,shopping,product}-api-openapi.yml,
+  json-schema/valueserp-search-response.json,
+  json-schema/valueserp-search-request.json, and the published object reference
+  at https://docs.trajectdata.com/valueserp/results
+description: >-
+  The entity graph of a ValueSERP response. This is a READ-ONLY, non-persistent
+  data model: there are no server-side resources to create, no object ids to
+  store, and no relationships between calls. Every entity below is a projection
+  of one Google SERP at one moment, returned inside a single response document.
+  The only durable identifiers in the whole surface are search_metadata.id (the
+  request receipt), knowledge_graph_id (a Google entity id, not a ValueSERP
+  one), and — on the asynchronous side — batch.id and result_set.id.
+persistence: none
+id_prefixes: []
+id_note: >-
+  ValueSERP publishes no prefixed-id scheme (nothing analogous to Stripe's
+  cus_/ch_). Identifiers are opaque strings or integers with no type tag.
+
+root:
+  entity: SearchResponse
+  description: >-
+    The single top-level document returned by GET /search. Its shape varies by
+    `search_type`: organic_results for search, news_results for news, and so on.
+    Absent sections are omitted rather than returned empty, so consumers must
+    treat every array as optional.
+
+entities:
+  - name: SearchResponse
+    root: true
+    description: The response envelope for any real-time search.
+    fields:
+      - request_info
+      - search_metadata
+      - search_parameters
+      - organic_results[]
+      - ads[]
+      - knowledge_graph
+      - answer_box
+      - related_questions[]
+      - related_searches[]
+      - pagination
+
+  - name: RequestInfo
+    description: >-
+      Meta-information about the request itself: whether it succeeded, an
+      optional message, and the account's credit position after the call. The
+      one object present on BOTH success and error responses.
+    fields:
+      - {name: success, type: boolean}
+      - {name: message, type: string}
+      - {name: credits_used, type: integer}
+      - {name: credits_remaining, type: integer}
+
+  - name: SearchMetadata
+    description: >-
+      Provenance of the scrape. The closest thing ValueSERP has to a resource
+      identifier — quote `id` to support.
+    fields:
+      - {name: id, type: string, role: request receipt}
+      - {name: google_url, type: uri, role: the exact Google URL scraped}
+      - {name: total_time_taken, type: number}
+      - {name: created_at, type: date-time}
+
+  - name: SearchParameters
+    description: Echo of the request parameters ValueSERP resolved and used.
+
+  - name: OrganicResult
+    description: >-
+      One organic listing. Carries position, and — when max_page is used — page
+      and position_overall so a caller can tell which physical page a row came
+      from.
+
+  - name: AdResult
+    description: One paid advertisement result, with its own position ordering.
+
+  - name: KnowledgeGraph
+    description: >-
+      The Google knowledge panel for the query's primary entity. Since the
+      September 2025 release, `knowledge_graph_id` (e.g. /g/11b6w9zg1z) is also
+      surfaced on local/places results, which is the ONLY cross-response join
+      key in the model.
+
+  - name: AnswerBox
+    description: The featured snippet / direct answer block, when Google shows one.
+
+  - name: RelatedQuestion
+    description: >-
+      A People Also Ask entry. Since October 2025 each may carry a nested
+      `ai_overview` object when include_ai_overview is set — an AI Overview can
+      therefore appear in two places in one response.
+
+  - name: Pagination
+    description: Page cursor block for the response.
+    fields:
+      - {name: current, type: integer}
+      - {name: next, type: uri}
+      - {name: other_pages, type: 'map<page-number, uri>'}
+
+relationships:
+  - from: SearchResponse
+    to: RequestInfo
+    type: has_one
+    via: request_info
+  - from: SearchResponse
+    to: SearchMetadata
+    type: has_one
+    via: search_metadata
+  - from: SearchResponse
+    to: SearchParameters
+    type: has_one
+    via: search_parameters
+  - from: SearchResponse
+    to: OrganicResult
+    type: has_many
+    via: organic_results
+  - from: SearchResponse
+    to: AdResult
+    type: has_many
+    via: ads
+  - from: SearchResponse
+    to: KnowledgeGraph
+    type: has_one
+    via: knowledge_graph
+  - from: SearchResponse
+    to: AnswerBox
+    type: has_one
+    via: answer_box
+  - from: SearchResponse
+    to: RelatedQuestion
+    type: has_many
+    via: related_questions
+  - from: SearchResponse
+    to: Pagination
+    type: has_one
+    via: pagination
+  - from: RelatedQuestion
+    to: AIOverview
+    type: has_one
+    via: ai_overview
+    conditional: include_ai_overview=true
+    source: https://docs.trajectdata.com/valueserp/product-updates
+
+async_entities:
+  note: >-
+    The Batches surface DOES have persistent, addressable resources. This
+    repository holds no OpenAPI for it, so the graph below is derived from the
+    published Batches API documentation and the webhook payload rather than from
+    a spec.
+  entities:
+    - name: Batch
+      id: batch.id (opaque string, e.g. "9E867FAA")
+      lifecycle: created -> searches added -> started -> running -> completed
+      expiry: deleted after 2 months if never started
+    - name: Search
+      belongs_to: Batch
+      limits: 15,000 per batch (100 when include_html=true); 1,000 added per API request
+    - name: ResultSet
+      belongs_to: Batch
+      id: result_set.id (integer, monotonic within the batch)
+      expiry: downloadable for 14 days
+    - name: Destination
+      description: An S3 / GCS / Azure Blob / Alibaba OSS target that Result Sets are pushed to.
+      limit: 50 per account
+    - name: ErrorLog
+      description: A failed real-time request that returned HTTP 500.
+      expiry: retained 3 days
+  relationships:
+    - {from: Batch, to: Search, type: has_many, via: batch_id}
+    - {from: Batch, to: ResultSet, type: has_many, via: batch_id}
+    - {from: Batch, to: Destination, type: has_many, via: destination assignment}
+    - {from: ResultSet, to: Batch, type: belongs_to, via: batch.id}
+
+variant_roots:
+  description: >-
+    Each search_type replaces the primary array on the response root. Derived
+    from the per-tag OpenAPI documents in openapi/.
+  by_search_type:
+    search: organic_results[] (+ ads, knowledge_graph, answer_box, related_questions)
+    news: news_results[]
+    images: image_results[]
+    places: places_results[] / local_results[]
+    shopping: shopping_results[]
+    product: product_results (deprecated — see lifecycle/valueserp-lifecycle.yml)
+
+render: null
+render_note: No subway/ diagram exists for this provider.

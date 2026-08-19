@@ -1,3 +1,10 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://trajectdata.com/serp/value-serp-api/pricing/ (per-plan per-minute
+  ceilings) and https://docs.trajectdata.com/valueserp — response-codes,
+  batches-api/limits and account-api pages.
+limit_count: 11
 name: ValueSERP Rate Limits
 description: >-
   ValueSERP enforces per-minute request rate limits that scale with subscription
@@ -96,6 +103,45 @@ rateLimits:
     period: minute
     scope: account
     type: requests
+
+signaling:
+  description: >-
+    What an agent actually observes at runtime when it hits a limit. ValueSERP
+    publishes NO rate-limit response headers — the runtime signal is the status
+    code plus a credit counter in the response body.
+  status_on_exhaustion:
+    rate_limit: 429
+    quota_exhausted: 402
+    parsing_incident: 503
+  response_headers:
+    ratelimit_standard: none
+    x_ratelimit: none
+    retry_after: >-
+      Documented as retry guidance for 429 and 503 and declared on those
+      responses in openapi/valueserp-search-api-openapi.yml. The 503 additionally
+      returns retry_after in the JSON BODY (3600 in the provider's documented
+      example), which is the value printed verbatim in the docs.
+  quota_in_body:
+    - field: request_info.credits_used
+      description: Credits consumed by this request. Present on successful responses.
+    - field: request_info.credits_remaining
+      description: >-
+        Credits left on the account. This is ValueSERP's substitute for
+        RateLimit-Remaining and the only quota signal a client gets per call.
+  quota_endpoint:
+    operation: GET /account
+    billed: false
+    returns: >-
+      Searches made this month, credits used/remaining, 3 months of usage
+      history, and live platform status.
+    url: https://docs.trajectdata.com/valueserp/account-api
+  billing_rule: >-
+    No request that returns a non-200 status code is charged, so a 429 or 503
+    costs nothing but latency.
+  gap: >-
+    Without RateLimit-* or X-RateLimit-* headers a client cannot see how close it
+    is to the per-minute ceiling before crossing it — only that it has crossed.
+    The credits counter tracks the monthly quota, not the per-minute window.
 
 policies:
   - name: Billable Requests

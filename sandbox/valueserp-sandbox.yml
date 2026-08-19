@@ -1,0 +1,102 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p (Send Requests),
+  https://docs.trajectdata.com/valueserp/account-api,
+  https://docs.trajectdata.com/valueserp/api-playground,
+  https://docs.trajectdata.com/valueserp/-2P6-4NlHRx7tWcejsBlY (Error Handling),
+  https://trajectdata.com/serp/value-serp-api/pricing/
+description: >-
+  ValueSERP has no separate sandbox environment and no test-vs-live key
+  separation. What it publishes instead is a shared demo API key that works
+  against the real production endpoint, a hosted playground in the dashboard,
+  and a billing rule that makes exploration cheap: unsuccessful requests are
+  never charged. There is no test-mode namespace, no fixture data, no time
+  simulation, and no way to exercise the Batches or Destinations surfaces
+  without a funded account.
+sandbox_environment: false
+test_mode: false
+separate_base_url: false
+base_url: https://api.valueserp.com
+
+modes:
+  - name: production
+    base_url: https://api.valueserp.com
+    key_prefixes: []
+    note: >-
+      The only environment. Keys are opaque — the documentation shows no
+      test/live prefix convention (nothing analogous to sk_test_ / sk_live_),
+      so a key cannot be identified as test or production by inspection.
+
+test_credentials:
+  - name: demo key
+    value: demo
+    parameter: api_key
+    published_verbatim: true
+    source: https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p
+    description: >-
+      The literal string `demo` is used as the api_key in every code sample
+      across the documentation (Send Requests, Account API, and each reference
+      page) — e.g.
+      https://api.valueserp.com/search?api_key=demo&q=pizza. It is a
+      vendor-published shared demo credential, not a secret, and it is quoted
+      here exactly as the vendor prints it.
+    caveats: >-
+      Shared and rate-limited by definition; the docs do not state what quota or
+      restrictions apply to it, and it is not suitable for anything beyond a
+      first request.
+    also_declared_in: >-
+      openapi/valueserp-search-api-openapi.yml — the apiKeyQuery securityScheme
+      description says 'Use "demo" as the key for testing.'
+
+free_trial:
+  offered: true
+  amount: 100 searches
+  credit_card_required: false
+  source: https://trajectdata.com/serp/value-serp-api/pricing/
+  note: >-
+    "100 free requests on signup" with no credit card required, per the pricing
+    page and plans/valueserp-plans-pricing.yml. This is the realistic path to a
+    working key.
+
+hosted_playground:
+  available: true
+  url: https://app.valueserp.com/playground
+  docs: https://docs.trajectdata.com/valueserp/api-playground
+  authentication: dashboard login required
+  description: >-
+    An interactive request builder in the ValueSERP dashboard. It executes
+    against production and consumes account credits like any other successful
+    request.
+
+free_operations:
+  description: >-
+    Endpoints that never consume credits, which function as a no-cost way to
+    verify connectivity and key validity before spending anything.
+  operations:
+    - endpoint: GET /account
+      note: >-
+        "There is no charge for calls made to the Account API." Returns credits
+        used/remaining, 3 months of usage history, and live platform status.
+    - endpoint: Locations API
+      note: Not billed.
+    - endpoint: Error Logs API
+      note: Not billed.
+
+billing_safety_net:
+  statement: >-
+    "You won't be charged for any request that does not return a successful
+    (200) status code. Only successful requests incur charges, so you can test
+    and explore with confidence."
+  source: https://docs.trajectdata.com/valueserp/-2P6-4NlHRx7tWcejsBlY
+  implication: >-
+    Malformed experiments, bad keys, rate-limit rejections and parsing-incident
+    503s are all free. This is ValueSERP's substitute for a sandbox.
+
+not_available:
+  - Separate sandbox or staging base URL.
+  - Test-mode API keys distinguishable from live keys.
+  - Deterministic fixture or canned-response data.
+  - Time simulation / test clocks.
+  - Any way to exercise Batches, Destinations or the completion webhook without a funded production account.
+  - A published trigger tool for simulating the batch_resultset_completed webhook (the Resend Webhook operation replays a REAL result set only).

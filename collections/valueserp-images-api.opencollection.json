@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ValueSERP Search Images API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Images Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.valueserp.com/search#images",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "demo",
+                "type": "query",
+                "description": "Your ValueSERP API key. Use \"demo\" for testing limited queries."
+              },
+              {
+                "name": "search_type",
+                "value": "images",
+                "type": "query",
+                "description": "Must be set to \"images\"."
+              },
+              {
+                "name": "q",
+                "value": "pizza",
+                "type": "query",
+                "description": "The keyword or search query to use."
+              },
+              {
+                "name": "location",
+                "value": "united states",
+                "type": "query",
+                "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
+              },
+              {
+                "name": "location_auto",
+                "value": "",
+                "type": "query",
+                "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
+              },
+              {
+                "name": "google_domain",
+                "value": "google.com",
+                "type": "query",
+                "description": "The Google domain to use for the search."
+              },
+              {
+                "name": "gl",
+                "value": "us",
+                "type": "query",
+                "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
+              },
+              {
+                "name": "hl",
+                "value": "en",
+                "type": "query",
+                "description": "Determines the Google UI language to return results in. BCP-47 language code."
+              },
+              {
+                "name": "lr",
+                "value": "lang_en",
+                "type": "query",
+                "description": "Limits results to pages in the specified language."
+              },
+              {
+                "name": "cr",
+                "value": "countryUS",
+                "type": "query",
+                "description": "Limits results to pages from the specified country."
+              },
+              {
+                "name": "safe",
+                "value": "active",
+                "type": "query",
+                "description": "Safe search filter setting."
+              },
+              {
+                "name": "tbs",
+                "value": "",
+                "type": "query",
+                "description": "Custom Google TBS parameter value for advanced filtering."
+              },
+              {
+                "name": "uule",
+                "value": "",
+                "type": "query",
+                "description": "Custom Google UULE parameter to override the location."
+              },
+              {
+                "name": "time_period",
+                "value": "last week",
+                "type": "query",
+                "description": "Filter results by time period."
+              },
+              {
+                "name": "time_period_min",
+                "value": "01/01/2024",
+                "type": "query",
+                "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom."
+              },
+              {
+                "name": "time_period_max",
+                "value": "12/31/2024",
+                "type": "query",
+                "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom."
+              },
+              {
+                "name": "images_page",
+                "value": "1",
+                "type": "query",
+                "description": "Results page number (100 images per page)."
+              },
+              {
+                "name": "images_color",
+                "value": "",
+                "type": "query",
+                "description": "Filter images by color."
+              },
+              {
+                "name": "images_size",
+                "value": "",
+                "type": "query",
+                "description": "Filter images by size/dimensions."
+              },
+              {
+                "name": "images_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter images by image type/category."
+              },
+              {
+                "name": "images_usage",
+                "value": "",
+                "type": "query",
+                "description": "Filter images by usage rights."
+              }
+            ]
+          },
+          "docs": "Retrieve real-time Google Image search results for a given keyword. Set search_type=images. Returns 100 images per page with filtering by color, size, type, and usage rights."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

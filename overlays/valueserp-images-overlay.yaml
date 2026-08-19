@@ -1,0 +1,78 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — ValueSERP Images API
+  version: 1.0.0
+  description: Non-destructive enrichment applied by the API Evangelist pipeline on top of openapi/valueserp-images-api-openapi.yml.
+    It adds provenance, agent-governance classification, billing and retry semantics, and cross-links
+    to the runtime-semantics artifacts in this repository. It changes no path, parameter, schema or response
+    defined by the underlying document.
+  x-generated: '2026-08-13'
+  x-method: generated
+  x-source: openapi/valueserp-images-api-openapi.yml
+extends: openapi/valueserp-images-api-openapi.yml
+actions:
+- target: $.info
+  description: Record the provenance of this document and cross-link the runtime-semantics artifacts that
+    OpenAPI cannot express.
+  update:
+    x-provenance:
+      authored-by: API Evangelist
+      method: derived
+      source: https://docs.trajectdata.com/valueserp
+      note: Traject Data publishes no OpenAPI for ValueSERP. api.valueserp.com returns HTTP 404 for /openapi.json,
+        /openapi.yaml, /swagger.json, /api-docs and /docs; docs.trajectdata.com is an Archbee SPA that
+        answers 200 with an HTML shell. This document was derived from the published reference, not harvested.
+    x-artifacts:
+      conventions: conventions/valueserp-conventions.yml
+      errors: errors/valueserp-problem-types.yml
+      rate-limits: rate-limits/valueserp-rate-limits.yml
+      plans: plans/valueserp-plans-pricing.yml
+      lifecycle: lifecycle/valueserp-lifecycle.yml
+      authentication: authentication/valueserp-authentication.yml
+      webhooks: webhooks/valueserp-webhooks.yml
+      data-model: data-model/valueserp-data-model.yml
+      sandbox: sandbox/valueserp-sandbox.yml
+      llms: llms/valueserp-llms.txt
+- target: $.info
+  description: 'State the versioning posture explicitly: ValueSERP publishes no API version in the path,
+    query or any header.'
+  update:
+    x-versioning:
+      scheme: none
+      pinnable: false
+      detail: lifecycle/valueserp-lifecycle.yml
+- target: $.paths['/search#images'].get
+  description: Attach the agent-governance classification and the runtime rules an agent needs before
+    calling this operation.
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      subject: optional
+      token:
+        max-ttl: 3600
+      audit: none
+    x-billing:
+      unit: credit
+      billed-on: HTTP 200 only
+      per-page: Each successfully retrieved page costs one credit when max_page is used.
+      quota-in-response:
+      - request_info.credits_used
+      - request_info.credits_remaining
+      source: https://docs.trajectdata.com/valueserp/response-codes
+    x-retry:
+      retryable-statuses:
+      - 429
+      - 500
+      - 503
+      honor-header: Retry-After
+      incident-opt-out: skip_on_incident
+      note: Non-200 responses are never billed, so a retry costs nothing but time.
+- target: $.components.securitySchemes.apiKeyQuery
+  description: Flag that the API key travels in the query string, which is a real operational exposure
+    an agent runtime should know about.
+  update:
+    x-transport-risk:
+      in: query
+      risk: The api_key is written to proxy logs, browser history and server access logs by default.
+      header-alternative: false

@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/valueserp-search-api-openapi.yml, openapi/valueserp-news-api-openapi.yml,
+  openapi/valueserp-images-api-openapi.yml, openapi/valueserp-places-api-openapi.yml,
+  openapi/valueserp-shopping-api-openapi.yml, openapi/valueserp-product-api-openapi.yml
+  and llms/valueserp-llms.txt. Provider search (docs.trajectdata.com,
+  trajectdata.com, npm, GitHub, mcp.so) found no first-party MCP server.
+description: >-
+  ValueSERP / Traject Data ship NO Model Context Protocol server. The tool list
+  below is a CANDIDATE derived from the documented REST operations so an agent
+  integrator has a starting point; it is not something the provider publishes,
+  hosts, or supports. Probes of the obvious remote endpoints all missed:
+  mcp.valueserp.com does not resolve, https://api.valueserp.com/mcp returns HTTP
+  404 ("Cannot POST /mcp"), and https://mcp.trajectdata.com is a WPEngine
+  wildcard that answers "Site Not Configured" (HTTP 404 on GET, 405 on POST) —
+  it is a parked hostname, not a server.
+status: candidate
+
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+  note: >-
+    mode is `none` because the provider ships no server of either kind. The
+    `auth` value records what a server WOULD need: ValueSERP authenticates with
+    an `api_key` query-string parameter (authentication/valueserp-authentication.yml).
+    A community server exists (see third_party below) but a third-party npm
+    package is not a provider agent surface and is deliberately not recorded as
+    this provider's deployment.
+
+probes:
+  - url: https://mcp.valueserp.com/mcp
+    method: POST
+    status: null
+    result: DNS does not resolve
+  - url: https://api.valueserp.com/mcp
+    method: POST
+    status: 404
+    result: 'Cannot POST /mcp'
+  - url: https://mcp.trajectdata.com/mcp
+    method: POST
+    status: 405
+    result: >-
+      nginx 405 behind Cloudflare; GET on the same host returns a WPEngine
+      "Site Not Configured | 404 Not Found" page. Parked hostname, not an MCP server.
+  - url: https://api.valueserp.com/.well-known/mcp.json
+    method: GET
+    status: 404
+
+third_party:
+  - name: ValueSerp MCP Server
+    package: '@incorporo/valueserp-mcp'
+    repository: https://github.com/Incorporo/valueserp-googlesearch-mcp
+    maintainer: Incorporo
+    official: false
+    mode: local-stdio
+    version: 1.0.0
+    published: '2025-09-09'
+    license: GPL-3.0
+    note: >-
+      Community-built, self-hosted stdio server; requires the operator to supply
+      their own ValueSERP API key. Listed for completeness. Not endorsed,
+      hosted, or maintained by Traject Data, and NOT counted as a ValueSERP
+      agent surface.
+
+candidate_tools:
+  - name: google_search
+    description: Run a real-time Google organic web search and return structured SERP JSON.
+    rest: googleSearch
+    operation: GET /search
+    derived_from: openapi/valueserp-search-api-openapi.yml
+    required_inputs: [api_key, q]
+    key_inputs: [q, location, google_domain, gl, hl, page, max_page, output, include_ai_overview]
+  - name: google_news_search
+    description: Retrieve Google News article results for a query.
+    rest: googleNews
+    operation: GET /search?search_type=news
+    derived_from: openapi/valueserp-news-api-openapi.yml
+  - name: google_image_search
+    description: Retrieve Google Images results for a query.
+    rest: googleImages
+    operation: GET /search?search_type=images
+    derived_from: openapi/valueserp-images-api-openapi.yml
+  - name: google_places_search
+    description: Retrieve Google Maps / local places results for a query and location.
+    rest: googlePlaces
+    operation: GET /search?search_type=places
+    derived_from: openapi/valueserp-places-api-openapi.yml
+  - name: google_shopping_search
+    description: Retrieve Google Shopping product results for a query.
+    rest: googleShopping
+    operation: GET /search?search_type=shopping
+    derived_from: openapi/valueserp-shopping-api-openapi.yml
+  - name: google_product_details
+    description: >-
+      Retrieve Google product knowledge-panel data for a product_id. DEPRECATED
+      by the provider — the legacy `product` request type is being replaced by
+      Product Details. See lifecycle/valueserp-lifecycle.yml before wiring this.
+    rest: googleProduct
+    operation: GET /search?search_type=product
+    derived_from: openapi/valueserp-product-api-openapi.yml
+    deprecated: true
+
+surface_not_in_openapi:
+  note: >-
+    The published documentation describes several further API surfaces that this
+    repository holds no OpenAPI for, so no candidate tool is derived for them.
+    Listed here so the gap is explicit rather than silent.
+  apis:
+    - Locations API (GET /locations) — https://docs.trajectdata.com/valueserp/locations-api/overview
+    - Batches API (create/update/start/stop/delete/get/list batches, searches, result sets) — https://docs.trajectdata.com/valueserp/batches-api/overview
+    - Destinations API (S3 / GCS / Azure Blob / Alibaba OSS result delivery) — https://docs.trajectdata.com/valueserp/destinations-api/overview
+    - Error Logs API (GET) — https://docs.trajectdata.com/valueserp/errorlogs-api/overview
+    - Account API (GET /account) — https://docs.trajectdata.com/valueserp/account-api
+    - Google Videos, Map Place Details, Place Details, Product Details, Product Reviews, Online Sellers search types

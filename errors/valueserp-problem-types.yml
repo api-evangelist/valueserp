@@ -1,0 +1,191 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.trajectdata.com/valueserp/response-codes and
+  https://docs.trajectdata.com/valueserp/-2P6-4NlHRx7tWcejsBlY (Error Handling),
+  cross-checked against the 4xx/5xx responses declared in
+  openapi/valueserp-search-api-openapi.yml (components.responses +
+  components.schemas.ErrorResponse).
+description: >-
+  ValueSERP's error surface. The API does NOT implement RFC 9457
+  application/problem+json. Errors are returned as ordinary application/json
+  using the same `request_info` envelope as a success response, with
+  `request_info.success` set to false and a human-readable
+  `request_info.message`. There is no machine-readable error code, type URI, or
+  stable error identifier anywhere in the response — the HTTP status code plus
+  an English sentence is the entire contract, which means clients must branch on
+  status codes and cannot programmatically distinguish two different causes of
+  the same status.
+format: custom-json
+rfc9457: false
+media_type: application/json
+docs: https://docs.trajectdata.com/valueserp/response-codes
+
+envelope:
+  shape: |
+    {
+      "request_info": {
+        "success": false,
+        "message": "Human-readable error message."
+      }
+    }
+  fields:
+    - name: request_info.success
+      type: boolean
+      description: false on any error. The primary programmatic signal in the body.
+    - name: request_info.message
+      type: string
+      description: >-
+        Human-readable error message. Free text — not an enumerated or stable
+        code. Do not pattern-match on it in production.
+  note: >-
+    On success the same `request_info` object carries `credits_used` and
+    `credits_remaining`, so a client can read quota state from every response.
+
+billing_note: >-
+  "You won't be charged for any request that does not return a successful (200)
+  status code." Only 200 responses consume credits — quoted verbatim from the
+  Error Handling page.
+
+problem_types:
+  - status: 400
+    name: Bad Request
+    openapi_response: BadRequest
+    title: The request you specified is invalid.
+    detail: >-
+      The details of the error are shown in the JSON body of the response. The
+      most common cause of an HTTP 400 response is passing invalid parameters to
+      the APIs, or combinations of parameter values that are not supported.
+    remediation: >-
+      Read request_info.message, then re-check the parameter reference for the
+      search_type in use. Parameter validity is per-search_type; a parameter
+      legal for `search` may be rejected for `shopping`.
+    retryable: false
+    billed: false
+
+  - status: 401
+    name: Unauthorized
+    openapi_response: Unauthorized
+    title: The API Key supplied with your request is not valid.
+    remediation: >-
+      Verify the api_key query parameter against the key shown in the ValueSERP
+      dashboard. Note the key travels in the query string, so a truncated or
+      URL-mangled key surfaces here rather than as a 400.
+    retryable: false
+    billed: false
+
+  - status: 402
+    name: Payment Required
+    openapi_response: PaymentRequired
+    title: >-
+      Your VALUE SERP account has either run out of available credits, or there
+      is a payment problem.
+    remediation: >-
+      Enable Overage or upgrade the plan, or resolve the billing problem in the
+      dashboard. Poll GET /account (free, not billed) to read remaining credits
+      before a large run rather than discovering exhaustion mid-batch.
+    retryable: false
+    billed: false
+
+  - status: 404
+    name: Not Found
+    title: The request URL you specified is invalid.
+    detail: >-
+      Check the request URL you are using (if you receive an HTTP 404 it's
+      likely the path you're using is not correct). It could also be you are
+      using an incorrect HTTP verb - i.e. making an HTTP POST where a GET is
+      required.
+    remediation: >-
+      All real-time search operations are GET https://api.valueserp.com/search
+      differentiated by the `search_type` query parameter — not by path. A 404
+      usually means a path was invented.
+    retryable: false
+    billed: false
+
+  - status: 429
+    name: Too Many Requests
+    openapi_response: TooManyRequests
+    title: >-
+      If you are on a Plan with a rate limit, or making a call on an endpoint
+      that is rate-limited, and this limit is hit then an HTTP 429 response is
+      returned.
+    headers:
+      - name: Retry-After
+        type: integer
+        description: Seconds to wait before retrying.
+    remediation: >-
+      Back off for the Retry-After interval. Per-minute ceilings are per plan
+      (250/min on entry plans up to 5,000/min at the top tier) — see
+      rate-limits/valueserp-rate-limits.yml. Move high-volume workloads to the
+      Batches API, which is not subject to the per-minute real-time limit.
+    retryable: true
+    billed: false
+
+  - status: 500
+    name: Internal Server Error
+    openapi_response: InternalServerError
+    title: There was a problem processing your request.
+    detail: >-
+      You should retry your request after a delay and if you continue to
+      experience the same result please contact our support team.
+    remediation: >-
+      Retry with backoff. Real-time requests that end in a 500 are the ONLY
+      failures surfaced by the Error Logs API — use it to tell whether the cause
+      is your request or the upstream target site. Error logs are retained for 3
+      days.
+    retryable: true
+    billed: false
+    observability: https://docs.trajectdata.com/valueserp/errorlogs-api/overview
+
+  - status: 503
+    name: Service Unavailable
+    openapi_response: ServiceUnavailable
+    title: >-
+      Returned when a request type is temporarily unavailable due to a live
+      parsing incident.
+    detail: >-
+      "We've implemented a system that returns a 503 status when a request type
+      is down due to a parsing incident. This helps avoid serving unstable or
+      partial data." The body's `message` property names the request type that
+      is affected.
+    example_body: |
+      {
+        "message": "Request type google-web is temporarily unavailable. You have not been charged for this request",
+        "retry_after": 3600
+      }
+    headers:
+      - name: Retry-After
+        type: integer
+        description: Seconds to wait before retrying.
+    body_fields:
+      - name: retry_after
+        type: integer
+        description: >-
+          Seconds to wait, echoed in the JSON body as well as the header
+          (3600 in the documented example).
+    opt_in_parameter:
+      name: skip_on_incident
+      description: >-
+        Request parameter that makes the API fail fast with a 503 during an
+        active parsing incident instead of returning possibly-degraded data.
+        "Especially useful for automated systems that prefer to fail gracefully
+        rather than risk bad data."
+    remediation: >-
+      Treat as a scheduled outage for that one request type, not a hard failure:
+      wait retry_after seconds and retry. Check
+      https://valueserp.statuspage.io/ for the incident, and GET /account for
+      live platform status.
+    retryable: true
+    billed: false
+
+gaps:
+  - >-
+    No stable machine-readable error code or type URI. Two different 400 causes
+    are indistinguishable to a client without parsing English prose.
+  - >-
+    Not RFC 9457 (application/problem+json). Agents and generic HTTP clients get
+    no structured `type`/`title`/`detail`/`instance`.
+  - >-
+    `request_info.message` is documented as present on error but is not
+    enumerated anywhere, so no catalog of possible messages can be built from
+    the published docs.

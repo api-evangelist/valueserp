@@ -1,0 +1,205 @@
+specification: API Commons Webhooks
+specificationVersion: '0.1'
+provider: ValueSERP
+providerId: valueserp
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.trajectdata.com/valueserp/batches-api/batches/webhook,
+  https://docs.trajectdata.com/valueserp/batches-api/results/resend-webhook,
+  https://docs.trajectdata.com/valueserp/batches-api/overview,
+  https://docs.trajectdata.com/valueserp/destinations-api/overview
+created: '2026-08-13'
+modified: '2026-08-13'
+reconciled: true
+modeled: false
+tags:
+  - Webhooks
+  - Notifications
+  - Batches
+  - Callbacks
+  - SERP
+description: >-
+  ValueSERP publishes exactly ONE webhook: the Batch completion callback. When a
+  Batch whose `notification_webhook` property is set finishes running, ValueSERP
+  makes an HTTP POST to that URL carrying the batch identity and download links
+  for the new Result Set. This is the completion signal for the asynchronous
+  Batches API — the counterpart to the synchronous real-time /search endpoint.
+  There is no event subscription API, no event type taxonomy beyond this single
+  callback, and no AsyncAPI document; the payload shape below is captured
+  verbatim from the provider's own documented example, not modelled.
+asyncapi_published: false
+asyncapi_note: >-
+  Traject Data publishes no AsyncAPI (or CloudEvents) description of this
+  surface. No /asyncapi.json or /asyncapi.yaml was found on api.valueserp.com or
+  docs.trajectdata.com. A single-event webhook is a genuinely small event
+  surface, so the absence is proportionate — but it does mean the callback
+  contract is only readable as prose.
+
+configuration:
+  per_batch:
+    property: notification_webhook
+    set_on: Create Batch / Update Batch (Batches API)
+    docs: https://docs.trajectdata.com/valueserp/batches-api/batches/create
+  account_fallback:
+    description: >-
+      "if no Webhook URL is supplied in the Batch's notification_webhook
+      property VALUE SERP will fallback to using the Webhook URL defined on your
+      account profile."
+    url: https://app.valueserp.com/profile
+  payload_toggles:
+    description: >-
+      Whether the `json` and `csv` download links appear in the callback body
+      depends on the Batch's notification_as_json, notification_as_jsonlines and
+      notification_as_csv properties.
+    properties:
+      - notification_as_json
+      - notification_as_jsonlines
+      - notification_as_csv
+
+delivery:
+  transport: HTTP POST
+  content_type: application/json
+  timeout_seconds: 5
+  timeout_behavior: >-
+    "the webhook has a timeout of 5 seconds, your app should ingest the webhook
+    HTTP POST within this timeout. If your app takes longer than 5 seconds to
+    respond the API will terminate the HTTP POST."
+  retries: true
+  retry_policy: >-
+    "If a timeout or error occurs, we will retry up to 5 times with exponential
+    backoff (increasing delays between each attempt)."
+  max_attempts: 5
+  backoff: exponential
+  failure_notification: >-
+    "If all 5 attempts fail, we will send an email notification of the failure
+    (up to one per 24 hours)."
+  manual_replay:
+    supported: true
+    operation: Resend Webhook (Result Sets)
+    docs: https://docs.trajectdata.com/valueserp/batches-api/results/resend-webhook
+  ordering: not documented
+  at_least_once: >-
+    Implied by the retry policy — a slow-but-successful consumer can be retried,
+    so receivers should treat result_set.id as the dedupe key.
+
+security:
+  signed: false
+  signature_header: null
+  authentication: none
+  note: >-
+    GAP — the callback is UNAUTHENTICATED and UNSIGNED. No HMAC signature
+    header, shared secret, or mTLS is documented, so a receiver cannot verify
+    that a POST originated from ValueSERP. The practical mitigation is to treat
+    the callback purely as a trigger and then confirm state with an
+    authenticated GET Result Set call, and/or to embed an unguessable token in
+    the notification_webhook URL itself. Download links in the payload point at
+    results.valueserp.com and the CSV links carry a long hash segment, which
+    functions as capability-style access rather than authentication.
+  download_host: https://results.valueserp.com
+
+events:
+  - name: batch_resultset_completed
+    verbatim: true
+    trigger: >-
+      A Batch completes running and a new Result Set is available for download.
+    request_info_type: batch_resultset_completed
+    description: >-
+      The only documented ValueSERP webhook event. The `request_info.type` field
+      in the payload carries this literal value.
+    payload_fields:
+      - name: request_info.success
+        type: boolean
+      - name: request_info.type
+        type: string
+        value: batch_resultset_completed
+      - name: batch.id
+        type: string
+        description: Batch identifier (e.g. "9E867FAA").
+      - name: batch.name
+        type: string
+      - name: result_set.id
+        type: integer
+        description: Monotonic Result Set number within the batch. Use as the dedupe key.
+      - name: result_set.started_at
+        type: string
+        format: date-time
+      - name: result_set.ended_at
+        type: string
+        format: date-time
+      - name: result_set.searches_completed
+        type: integer
+      - name: result_set.searches_failed
+        type: integer
+      - name: result_set.download_links.json.pages
+        type: array
+        description: Per-page JSON download URLs. Present only if notification_as_json is set.
+      - name: result_set.download_links.json.all_pages
+        type: string
+        description: ZIP of all JSON pages.
+      - name: result_set.download_links.csv.pages
+        type: array
+        description: Per-page CSV download URLs. Present only if notification_as_csv is set.
+      - name: result_set.download_links.csv.all_pages
+        type: string
+    example_payload: |
+      {
+        "request_info": {
+          "success": true,
+          "type": "batch_resultset_completed"
+        },
+        "batch": {
+          "id": "9E867FAA",
+          "name": "My Second Batch"
+        },
+        "result_set": {
+          "id": 4,
+          "started_at": "2020-01-01T00:00:00.000Z",
+          "ended_at": "2020-01-01T00:00:10.000Z",
+          "searches_completed": 1,
+          "searches_failed": 0,
+          "download_links": {
+            "json": {
+              "pages": [
+                "https://results.valueserp.com/Batch_Results_9E867FAA_4_Page_1.json"
+              ],
+              "all_pages": "https://results.valueserp.com/Batch_Results_9E867FAA_4_All_Pages.zip"
+            },
+            "csv": {
+              "pages": [
+                "https://results.valueserp.com/Batch_Results_9E867FAA_4_Page_1_REDACTED_HASH.csv"
+              ],
+              "all_pages": "https://results.valueserp.com/Batch_Results_9E867FAA_4_All_Pages_REDACTED_HASH.csv"
+            }
+          }
+        }
+      }
+    example_note: >-
+      Verbatim from the provider's documentation except that the two CSV URL
+      hash segments have been replaced with REDACTED_HASH — they are
+      capability-shaped tokens in the vendor's example and are not needed to
+      understand the contract.
+
+alternative_delivery:
+  name: Destinations
+  description: >-
+    Instead of (or in addition to) a webhook, a Batch can push its Result Sets
+    directly to object storage the customer already runs.
+  supported_targets:
+    - Amazon S3
+    - Google Cloud Storage
+    - Microsoft Azure Blob Storage
+    - Alibaba Cloud OSS
+    - Any other S3-compatible object storage
+  limit: 50 Destinations per account
+  guidance: >-
+    "We highly recommend creating new credentials just for use by VALUE SERP on
+    your destination provider."
+  docs: https://docs.trajectdata.com/valueserp/destinations-api/overview
+
+gaps:
+  - No webhook signature or shared secret — receivers cannot verify origin.
+  - No AsyncAPI / CloudEvents description of the callback.
+  - No event subscription API; the webhook URL is a property of a Batch or of the account profile.
+  - Only one event type; there are no batch.started, batch.failed or search.failed notifications.
+  - Delivery ordering is not documented.

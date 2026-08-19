@@ -1,0 +1,228 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from openapi/valueserp-*-openapi.yml, authentication/valueserp-authentication.yml,
+  errors/valueserp-problem-types.yml, conventions/valueserp-conventions.yml,
+  webhooks/valueserp-webhooks.yml, well-known/valueserp-well-known.yml and
+  security/valueserp-domain-security.yml — plus a docs search of
+  docs.trajectdata.com and trajectdata.com for compliance claims (2026-08-13).
+description: >-
+  Which industry and cross-cutting standards the ValueSERP API actually
+  conforms to. ValueSERP is a single-tenant-key, GET-only SERP data API with no
+  regulated payload, so most of these standards are genuinely not applicable
+  rather than failed. The honest summary is that it conforms to almost none of
+  the cross-cutting HTTP/API conventions an agent would look for: no RFC 9457
+  problem details, no RFC 6749 OAuth, no RFC 8594 deprecation signalling, no
+  RFC 9116 security.txt, no RateLimit header standard, and no OpenAPI published
+  by the provider itself.
+conforms_count: 2
+applicable_count: 11
+
+standards:
+  - id: openapi
+    name: OpenAPI Specification
+    conforms: false
+    provider_published: false
+    evidence: >-
+      No OpenAPI document is served by the provider. api.valueserp.com returns
+      404 for /openapi.json, /openapi.yaml, /swagger.json, /api-docs and /docs;
+      docs.trajectdata.com is an Archbee SPA that answers 200 with an HTML shell
+      for /openapi.json and is therefore a miss, not a spec. The six OpenAPI
+      documents in openapi/ are API Evangelist derivations from the published
+      reference, not provider artifacts.
+
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749)
+    conforms: false
+    applicable: false
+    evidence: >-
+      Authentication is a single api_key query-string parameter. No
+      securityScheme of type oauth2 exists in any spec, and
+      /.well-known/oauth-authorization-server 404s on every host. No OAuth is
+      documented anywhere on docs.trajectdata.com.
+
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    applicable: false
+    evidence: /.well-known/openid-configuration returns 404 or an SPA shell on every probed host.
+
+  - id: rfc9457
+    name: Problem Details for HTTP APIs (RFC 9457 / RFC 7807)
+    conforms: false
+    applicable: true
+    evidence: >-
+      Errors are application/json with a custom
+      {"request_info": {"success": false, "message": "..."}} envelope. No
+      application/problem+json media type, no type/title/detail/instance
+      members, no stable error code. See errors/valueserp-problem-types.yml.
+
+  - id: http-status-semantics
+    name: Correct HTTP status-code semantics (RFC 9110)
+    conforms: true
+    applicable: true
+    evidence: >-
+      The documented status codes are used for what they mean — 400 for invalid
+      parameters, 401 for a bad key, 402 for exhausted credits, 404 for a wrong
+      path or verb, 429 for rate limiting, 500 for server faults, and 503 for a
+      live parsing incident with a retry_after. The API does not fall into the
+      soft-200 pattern of returning success codes for failures, and it
+      explicitly does not bill non-200 responses.
+      Source: https://docs.trajectdata.com/valueserp/response-codes
+
+  - id: retry-after
+    name: Retry-After (RFC 9110 §10.2.3)
+    conforms: true
+    applicable: true
+    evidence: >-
+      Retry semantics are published for both 429 and 503, and the 503 body
+      carries an explicit retry_after value (3600 in the vendor's documented
+      example). Declared as a response header on the 429 and 503 responses in
+      openapi/valueserp-search-api-openapi.yml.
+    caveat: >-
+      The header itself is documented as guidance rather than observed on a live
+      unauthenticated response; the retry_after BODY field is the value the
+      provider prints verbatim.
+
+  - id: ratelimit-headers
+    name: RateLimit header fields for HTTP (draft-ietf-httpapi-ratelimit-headers)
+    conforms: false
+    applicable: true
+    evidence: >-
+      No RateLimit-* or X-RateLimit-* response headers are documented. Quota is
+      exposed in the response BODY instead, as request_info.credits_used and
+      request_info.credits_remaining, and via the free GET /account endpoint.
+      See rate-limits/valueserp-rate-limits.yml.
+
+  - id: rfc8594
+    name: Sunset and Deprecation HTTP headers (RFC 8594 / draft-deprecation-header)
+    conforms: false
+    applicable: true
+    evidence: >-
+      Four request types are announced as deprecating in the documentation
+      navigation and page titles ("deprecating 10/31"), but no Sunset or
+      Deprecation response header is emitted and no year is stated. See
+      lifecycle/valueserp-lifecycle.yml.
+
+  - id: rfc9116
+    name: security.txt (RFC 9116)
+    conforms: false
+    applicable: true
+    evidence: >-
+      /.well-known/security.txt returns 404 on trajectdata.com and
+      api.valueserp.com, and an HTML SPA shell on www.valueserp.com and
+      app.valueserp.com. A real vulnerability disclosure policy IS published at
+      https://trajectdata.com/vulnerability-reporting-policy/ with the contact
+      security@bytraject.com — it is simply not machine-discoverable. See
+      security/valueserp-vulnerability-disclosure.yml.
+
+  - id: pagination
+    name: Consistent, documented pagination
+    conforms: true
+    applicable: true
+    evidence: >-
+      Page-number pagination with `page`, server-side multi-page concatenation
+      with `max_page`, a `pagination` object in the response
+      (current/next/other_pages), and position/page/position_overall added to
+      concatenated results. Per-page credit cost and per-context max_page limits
+      (5 real-time, 100 in batches, 20 for automatic pagination) are documented.
+      Some request types use an infinite-scroll `next_page_token` instead.
+      Source: https://docs.trajectdata.com/valueserp/search-api/pagination
+
+  - id: idempotency
+    name: Idempotency keys for unsafe requests
+    conforms: false
+    applicable: true
+    evidence: >-
+      No Idempotency-Key header or equivalent is documented. Not needed on the
+      GET-only real-time surface, but the Batches API's Create Batch and Create
+      Searches POST operations are non-idempotent, so a retried create after a
+      timeout can duplicate a batch and its credit spend.
+
+  - id: asyncapi
+    name: AsyncAPI
+    conforms: false
+    applicable: true
+    evidence: >-
+      One real webhook exists (batch_resultset_completed) but no AsyncAPI or
+      CloudEvents description of it is published. See
+      webhooks/valueserp-webhooks.yml.
+
+  - id: webhook-signing
+    name: Signed webhook callbacks (HMAC or RFC 9421 HTTP Message Signatures)
+    conforms: false
+    applicable: true
+    evidence: >-
+      The batch completion callback is unauthenticated and unsigned; no
+      signature header or shared secret is documented, so a receiver cannot
+      verify origin.
+
+  - id: tls
+    name: TLS 1.2+ on all API and documentation hosts
+    conforms: true
+    applicable: true
+    evidence: >-
+      api.valueserp.com and trajectdata.com both negotiate TLSv1.3. HSTS is NOT
+      set on trajectdata.com and was not observed on api.valueserp.com; DNSSEC
+      is off and no CAA records are published for either trajectdata.com or
+      valueserp.com. See security/valueserp-domain-security.yml.
+    partial: true
+
+  - id: gdpr
+    name: GDPR
+    conforms: unknown
+    applicable: true
+    evidence: >-
+      Traject Data publishes a GDPR page (https://trajectdata.com/gdpr/, HTTP
+      200) and a privacy policy. This is a stated position, not an audited
+      certification, and no processor terms or DPA were found in the public
+      developer documentation.
+
+  - id: soc2
+    name: SOC 2
+    conforms: unknown
+    applicable: true
+    evidence: >-
+      No SOC 2 report, ISO 27001 certificate, PCI attestation or trust centre
+      was found on trajectdata.com or docs.trajectdata.com. /trust/ and /sla/
+      return 404; /security/ 301s to a security-research contributors page. No
+      Compliance pointer is emitted in apis.yml, because no certification is
+      published.
+
+  - id: fhir
+    name: HL7 FHIR
+    conforms: false
+    applicable: false
+    evidence: Not a healthcare API.
+
+  - id: fapi
+    name: FAPI (Financial-grade API)
+    conforms: false
+    applicable: false
+    evidence: Not a financial API; no OAuth surface at all.
+
+  - id: scim
+    name: SCIM
+    conforms: false
+    applicable: false
+    evidence: No identity or user-provisioning surface.
+
+  - id: odata
+    name: OData
+    conforms: false
+    applicable: false
+    evidence: Not an OData service.
+
+  - id: json-api
+    name: 'JSON:API'
+    conforms: false
+    applicable: false
+    evidence: >-
+      Responses are a bespoke SERP result envelope, not a JSON:API document.
+      Not a goal of this API.
+
+  - id: psd2
+    name: PSD2 / Open Banking
+    conforms: false
+    applicable: false
+    evidence: Not a payments API.

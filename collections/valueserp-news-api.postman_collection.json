@@ -1,0 +1,1167 @@
+{
+  "item": [
+    {
+      "id": "30686aff-ebe1-4842-b54a-22f538974bb8",
+      "name": "News",
+      "description": {
+        "content": "Google News article results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71eae710-9915-4a14-9544-f7da7f7f61f2",
+          "name": "Google News Search",
+          "request": {
+            "name": "Google News Search",
+            "description": {
+              "content": "Retrieve real-time Google News results for a given keyword. Set search_type=news. Supports time period filtering, language, country, and sorting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "hash": "news",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_type",
+                  "value": "<string>",
+                  "description": "(Required) Must be set to \"news\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) The keyword or search query to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
+                },
+                {
+                  "disabled": false,
+                  "key": "location_auto",
+                  "value": "true",
+                  "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
+                },
+                {
+                  "disabled": false,
+                  "key": "google_domain",
+                  "value": "google.com",
+                  "description": "The Google domain to use for the search."
+                },
+                {
+                  "disabled": false,
+                  "key": "gl",
+                  "value": "us",
+                  "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
+                },
+                {
+                  "disabled": false,
+                  "key": "hl",
+                  "value": "en",
+                  "description": "Determines the Google UI language to return results in. BCP-47 language code."
+                },
+                {
+                  "disabled": false,
+                  "key": "lr",
+                  "value": "<string>",
+                  "description": "Limits results to pages in the specified language."
+                },
+                {
+                  "disabled": false,
+                  "key": "cr",
+                  "value": "<string>",
+                  "description": "Limits results to pages from the specified country."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The results page number to retrieve. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_page",
+                  "value": "<integer>",
+                  "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "safe",
+                  "value": "<string>",
+                  "description": "Safe search filter setting."
+                },
+                {
+                  "disabled": false,
+                  "key": "nfpr",
+                  "value": "<integer>",
+                  "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "1",
+                  "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it."
+                },
+                {
+                  "disabled": false,
+                  "key": "tbs",
+                  "value": "<string>",
+                  "description": "Custom Google TBS parameter value for advanced filtering."
+                },
+                {
+                  "disabled": false,
+                  "key": "uule",
+                  "value": "<string>",
+                  "description": "Custom Google UULE parameter to override the location."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_period",
+                  "value": "<string>",
+                  "description": "Filter results by time period."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_period_min",
+                  "value": "<string>",
+                  "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_period_max",
+                  "value": "<string>",
+                  "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort news results by relevance or date."
+                },
+                {
+                  "disabled": false,
+                  "key": "show_duplicates",
+                  "value": "<boolean>",
+                  "description": "Display duplicate results when sort_by=date is used."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_if_modified",
+                  "value": "<boolean>",
+                  "description": "Exclude results from queries that were modified by Google."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "606bcf0b-cd73-4c73-9ba2-16e7247f131c",
+              "name": "Successful news search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "news",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "news"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "lr",
+                      "value": "lang_en"
+                    },
+                    {
+                      "key": "cr",
+                      "value": "countryUS"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_period",
+                      "value": "last week"
+                    },
+                    {
+                      "key": "time_period_min",
+                      "value": "01/01/2024"
+                    },
+                    {
+                      "key": "time_period_max",
+                      "value": "12/31/2024"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "show_duplicates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_if_modified",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\",\n    \"credits_used\": 6477,\n    \"credits_remaining\": 9519\n  },\n  \"search_metadata\": {\n    \"id\": \"string\",\n    \"google_url\": \"http://nXGDRWiQaMxJBZUpWUzOqHhhs.etuqjO3Qxn4KLq8R77CSCv2jEbp,0-\",\n    \"total_time_taken\": 8004.303115237557,\n    \"created_at\": \"2020-01-14T05:43:46.697Z\"\n  },\n  \"search_parameters\": {\n    \"q\": \"string\",\n    \"search_type\": \"string\",\n    \"gl\": \"string\",\n    \"hl\": \"string\",\n    \"google_domain\": \"string\"\n  },\n  \"news_results\": [\n    {\n      \"position\": 1491,\n      \"title\": \"string\",\n      \"link\": \"http://lQNmtgXVIGxRZTApWjIkAlWl.yogqNW.wHDD+eA.E4NYZplx2GX,4e24LtWLvANLrE8U13ckjHMXAmRacDlrLYGVYqT2I.XoHHZlRxZatTkCY\",\n      \"source\": \"string\",\n      \"date\": \"string\",\n      \"snippet\": \"string\",\n      \"thumbnail\": \"https://yQiangRW.rsu\"\n    },\n    {\n      \"position\": 7751,\n      \"title\": \"string\",\n      \"link\": \"http://DHIrsjqUbXgIBUcyHYW.rcpwKVA2ZM33Pq-dIsXfQ,taPrUigtKNdCkea\",\n      \"source\": \"string\",\n      \"date\": \"string\",\n      \"snippet\": \"string\",\n      \"thumbnail\": \"http://XpVhtgDXmtvomveXBK.nuyxImZVH-EhJh3BjhI94YWSzJGgpdV-B9oOhSsJJ6h,inA2JZqBss50CYtv\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eff5c226-40c3-4cb6-96ed-bb2d976ac739",
+              "name": "Bad Request - Invalid parameters or unsupported parameter combinations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "news",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "news"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "lr",
+                      "value": "lang_en"
+                    },
+                    {
+                      "key": "cr",
+                      "value": "countryUS"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_period",
+                      "value": "last week"
+                    },
+                    {
+                      "key": "time_period_min",
+                      "value": "01/01/2024"
+                    },
+                    {
+                      "key": "time_period_max",
+                      "value": "12/31/2024"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "show_duplicates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_if_modified",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b986b5f4-6fce-4829-8284-1540f843f8b0",
+              "name": "Unauthorized - The api_key supplied is not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "news",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "news"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "lr",
+                      "value": "lang_en"
+                    },
+                    {
+                      "key": "cr",
+                      "value": "countryUS"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_period",
+                      "value": "last week"
+                    },
+                    {
+                      "key": "time_period_min",
+                      "value": "01/01/2024"
+                    },
+                    {
+                      "key": "time_period_max",
+                      "value": "12/31/2024"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "show_duplicates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_if_modified",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1df09b93-71ea-496b-9976-21ef161a0b82",
+              "name": "Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "news",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "news"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "lr",
+                      "value": "lang_en"
+                    },
+                    {
+                      "key": "cr",
+                      "value": "countryUS"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_period",
+                      "value": "last week"
+                    },
+                    {
+                      "key": "time_period_min",
+                      "value": "01/01/2024"
+                    },
+                    {
+                      "key": "time_period_max",
+                      "value": "12/31/2024"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "show_duplicates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_if_modified",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc933ed7-da1a-41e2-86ee-fd64f3f44576",
+              "name": "Too Many Requests - Your plan's rate limit has been exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "news",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "news"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "lr",
+                      "value": "lang_en"
+                    },
+                    {
+                      "key": "cr",
+                      "value": "countryUS"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_period",
+                      "value": "last week"
+                    },
+                    {
+                      "key": "time_period_min",
+                      "value": "01/01/2024"
+                    },
+                    {
+                      "key": "time_period_max",
+                      "value": "12/31/2024"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "show_duplicates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_if_modified",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "6818"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3598447b-465d-4587-9224-78b2cdaa33f0",
+              "name": "Internal Server Error - Retry after a delay; contact support if the issue persists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "news",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "news"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "lr",
+                      "value": "lang_en"
+                    },
+                    {
+                      "key": "cr",
+                      "value": "countryUS"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_period",
+                      "value": "last week"
+                    },
+                    {
+                      "key": "time_period_min",
+                      "value": "01/01/2024"
+                    },
+                    {
+                      "key": "time_period_max",
+                      "value": "12/31/2024"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "show_duplicates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_if_modified",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4d860b4-8bfa-4ca6-adf7-6ac221f25e83",
+              "name": "Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "news",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "news"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "lr",
+                      "value": "lang_en"
+                    },
+                    {
+                      "key": "cr",
+                      "value": "countryUS"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_period",
+                      "value": "last week"
+                    },
+                    {
+                      "key": "time_period_min",
+                      "value": "01/01/2024"
+                    },
+                    {
+                      "key": "time_period_max",
+                      "value": "12/31/2024"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "show_duplicates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_if_modified",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "6818"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.valueserp.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c98b2b72-574b-4b5d-9b18-bed8418e0779",
+    "name": "ValueSERP Search Images News API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.\n\nContact Support:\n Name: ValueSERP Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  Packaged Agent Skills generated from the OpenAPI documents in ../openapi/ and
+  the published ValueSERP documentation at https://docs.trajectdata.com/valueserp.
+  Every operationId named in a skill was verified verbatim in ../openapi/*.yml
+  before it was written. Cross-cutting rules cite ../conventions/, ../errors/,
+  ../rate-limits/, ../lifecycle/, ../authentication/, ../sandbox/ and
+  ../webhooks/.
+description: >-
+  Five marquee flows for the ValueSERP API. Traject Data publishes no
+  AGENTS.md, no skills, and no first-party SDK, so these are generated rather
+  than harvested. Where a flow crosses into a surface this repository holds no
+  OpenAPI for (the Batches, Destinations, Locations and Account APIs), the skill
+  says so explicitly and names documented operations rather than pretending to
+  cite an operationId.
+provider_published_skills: false
+provider_agents_md: false
+skills:
+  - file: valueserp-rank-track-a-keyword.md
+    name: Rank-track a keyword in a specific market
+    api: openapi/valueserp-search-api-openapi.yml
+    operations: [googleSearch]
+  - file: valueserp-capture-ai-overview.md
+    name: Capture Google AI Overviews for a query
+    api: openapi/valueserp-search-api-openapi.yml
+    operations: [googleSearch]
+  - file: valueserp-monitor-local-pack.md
+    name: Monitor a business in the Google local pack
+    api: openapi/valueserp-places-api-openapi.yml
+    operations: [googlePlaces]
+  - file: valueserp-track-shopping-and-news.md
+    name: Track a product across Google Shopping and News
+    api: openapi/valueserp-shopping-api-openapi.yml
+    operations: [googleShopping, googleNews, googleProduct]
+  - file: valueserp-bulk-collect-with-batches.md
+    name: Collect SERPs in bulk with Batches and a webhook
+    api: openapi/valueserp-search-api-openapi.yml
+    operations: [googleSearch]
+    note: >-
+      The batch steps are grounded in the published Batches API documentation,
+      not in an operationId — no OpenAPI for that surface exists in this repo.

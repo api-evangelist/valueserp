@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ValueSERP Search Images Product API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Product Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.valueserp.com/search#product",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "demo",
+                "type": "query",
+                "description": "Your ValueSERP API key. Use \"demo\" for testing limited queries."
+              },
+              {
+                "name": "search_type",
+                "value": "product",
+                "type": "query",
+                "description": "Must be set to \"product\"."
+              },
+              {
+                "name": "product_id",
+                "value": "13244508647295616715",
+                "type": "query",
+                "description": "Google product identifier."
+              },
+              {
+                "name": "location",
+                "value": "united states",
+                "type": "query",
+                "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
+              },
+              {
+                "name": "location_auto",
+                "value": "",
+                "type": "query",
+                "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
+              },
+              {
+                "name": "google_domain",
+                "value": "google.com",
+                "type": "query",
+                "description": "The Google domain to use for the search."
+              },
+              {
+                "name": "gl",
+                "value": "us",
+                "type": "query",
+                "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
+              },
+              {
+                "name": "hl",
+                "value": "en",
+                "type": "query",
+                "description": "Determines the Google UI language to return results in. BCP-47 language code."
+              },
+              {
+                "name": "uule",
+                "value": "",
+                "type": "query",
+                "description": "Custom Google UULE parameter to override the location."
+              },
+              {
+                "name": "product_free_shipping",
+                "value": "",
+                "type": "query",
+                "description": "Filter to products with free shipping only."
+              },
+              {
+                "name": "product_condition_new",
+                "value": "",
+                "type": "query",
+                "description": "Filter to new (non-used) products only."
+              },
+              {
+                "name": "product_condition_used",
+                "value": "",
+                "type": "query",
+                "description": "Filter to used products only."
+              }
+            ]
+          },
+          "docs": "Retrieve Google product listing results for a given product ID. Set search_type=product. Note: This endpoint is deprecated as of October 31 and is being replaced by the Product Details endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

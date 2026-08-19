@@ -1,0 +1,148 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.trajectdata.com/valueserp/product-updates
+description: >-
+  ValueSERP's Product Updates page is a month-grouped, narrative changelog of
+  parser and feature changes. It is not versioned — because the API itself is
+  unversioned, entries describe behaviour that has ALREADY changed for every
+  caller rather than a release a client can pin to. Entries are typed only as
+  "Enhancement" or "New Feature"; there is no breaking-change category and no
+  deprecation entries appear on this page even though four request types are
+  currently marked as deprecating in the sidebar.
+docs: https://docs.trajectdata.com/valueserp/product-updates
+subscribe: https://app.valueserp.com/product-updates
+
+versioning:
+  scheme: none
+  header: null
+  current: null
+  detail: lifecycle/valueserp-lifecycle.yml
+
+freshness:
+  latest_entry: '2025-10'
+  observed_on: '2026-08-13'
+  staleness_note: >-
+    FINDING — as read on 2026-08-13 the newest entry on the page is October 2025,
+    roughly ten months old, and the page carries no entries for any month in
+    2026. Either the API has shipped nothing customer-visible since October
+    2025, or the public changelog has stopped being maintained. Nothing on the
+    page distinguishes the two, which is the problem: a prospective integrator
+    cannot tell a stable API from an abandoned one.
+  months_present:
+    - '2025-10'
+    - '2025-09'
+    - '2025-06'
+    - '2025-05'
+    - '2025-04'
+    - '2025-03'
+    - '2025-02'
+  gaps_in_sequence: >-
+    July and August 2025 have no entries; the page skips from June to September.
+    February 2025 is by far the largest month (32 typed entries) and reads like a
+    backfill of prior history rather than one month's work.
+  entry_type_counts:
+    Enhancement: 28
+    New Feature: 16
+  breaking_entries: 0
+
+entries:
+  - month: '2025-10'
+    type: Enhancement
+    title: Capture AI Overviews Embedded in Related Questions
+    breaking: false
+    highlights:
+      - >-
+        Parses `ai_overview` content embedded inside each `related_questions`
+        block (People Also Ask) when present.
+      - Enabled with `include_ai_overview: true`; no additional request is made.
+      - Each AI Overview returned adds 1 credit to the query cost.
+    surfaces: [Google Web]
+
+  - month: '2025-09'
+    type: Enhancement
+    title: >-
+      Enhance Entity Matching, Contextual Insight, and Mobile Parity Across
+      Google SERPs
+    breaking: false
+    highlights:
+      - >-
+        Local business listings now include `knowledge_graph_id` (e.g.
+        /g/11b6w9zg1z) for entity deduplication and cross-referencing.
+      - >-
+        `conversion_table` is now parsed from Google Web results (exchange-rate
+        widgets and unit conversions).
+      - >-
+        `shopping_graphs` is now included in Google Web results when
+        `device=mobile` is specified.
+    surfaces: [Google Web, Google Places, Google Shopping]
+
+  - month: '2025-09'
+    type: New Feature
+    title: Enable Ads-Optimized Search via CSV Batch Uploads
+    breaking: false
+    surfaces: [Batches]
+
+  - month: '2025-06'
+    type: Enhancement
+    title: >-
+      More Complete Pickup & Delivery Data from Google — Now with Fee Info and
+      Mobile Support
+    breaking: false
+    surfaces: [Google Shopping]
+
+  - month: '2025-06'
+    type: Enhancement
+    title: Capture AI Overviews from All Google Domains Worldwide
+    breaking: false
+    surfaces: [Google Web]
+
+  - month: '2025-05'
+    type: Enhancement
+    title: Improved Google Shopping Structure + Knowledge Graph IDs in Places
+    breaking: false
+    surfaces: [Google Shopping, Google Places]
+
+  - month: '2025-05'
+    type: Enhancement
+    title: Track Appearances in the Google "Courses" Carousel
+    breaking: false
+    surfaces: [Google Web]
+
+  - month: '2025-05'
+    type: Enhancement
+    title: Save More & Stay Covered With Two New Billing Features
+    breaking: false
+    surfaces: [Billing]
+    related: plans/valueserp-plans-pricing.yml
+
+  - month: '2025-04'
+    type: Enhancement
+    title: >-
+      Selective Parsing: Control Which Fields Are Returned in Google Web
+      Responses
+    breaking: false
+    surfaces: [Google Web]
+    docs: https://docs.trajectdata.com/valueserp/google-web-selective-parsing
+    note: >-
+      April 2025 carries three typed entries; only the first is titled in the
+      page's table markup.
+
+  - month: '2025-03'
+    type: Enhancement
+    title: null
+    breaking: false
+    note: One untitled Enhancement entry; the page's table markup carries no heading for it.
+
+  - month: '2025-02'
+    type: mixed
+    title: null
+    breaking: false
+    note: >-
+      32 entries (18 Enhancement, 14 New Feature) with no per-entry headings in
+      the page markup. Not itemized here; read the page directly.
+
+gaps:
+  - No entry has a specific date — the finest granularity published is the month.
+  - No breaking-change or deprecation entry type, and no deprecation notice appears here despite four request types being marked "deprecating 10/31" in the docs navigation.
+  - No RSS/Atom or JSON feed for the changelog; email subscription is via the dashboard only.
+  - No entry newer than October 2025 as of 2026-08-13.

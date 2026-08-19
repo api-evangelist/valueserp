@@ -1,0 +1,201 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ValueSERP Images Search API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Search (Organic)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.valueserp.com/search",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "demo",
+                "type": "query",
+                "description": "Your ValueSERP API key. Use \"demo\" for testing limited queries."
+              },
+              {
+                "name": "q",
+                "value": "pizza",
+                "type": "query",
+                "description": "The keyword or search query to use."
+              },
+              {
+                "name": "location",
+                "value": "united states",
+                "type": "query",
+                "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
+              },
+              {
+                "name": "location_auto",
+                "value": "",
+                "type": "query",
+                "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
+              },
+              {
+                "name": "google_domain",
+                "value": "google.com",
+                "type": "query",
+                "description": "The Google domain to use for the search."
+              },
+              {
+                "name": "gl",
+                "value": "us",
+                "type": "query",
+                "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
+              },
+              {
+                "name": "hl",
+                "value": "en",
+                "type": "query",
+                "description": "Determines the Google UI language to return results in. BCP-47 language code."
+              },
+              {
+                "name": "lr",
+                "value": "lang_en",
+                "type": "query",
+                "description": "Limits results to pages in the specified language."
+              },
+              {
+                "name": "cr",
+                "value": "countryUS",
+                "type": "query",
+                "description": "Limits results to pages from the specified country."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "The results page number to retrieve. Defaults to 1."
+              },
+              {
+                "name": "max_page",
+                "value": "3",
+                "type": "query",
+                "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve."
+              },
+              {
+                "name": "safe",
+                "value": "active",
+                "type": "query",
+                "description": "Safe search filter setting."
+              },
+              {
+                "name": "nfpr",
+                "value": "0",
+                "type": "query",
+                "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default)."
+              },
+              {
+                "name": "filter",
+                "value": "1",
+                "type": "query",
+                "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it."
+              },
+              {
+                "name": "tbs",
+                "value": "",
+                "type": "query",
+                "description": "Custom Google TBS parameter value for advanced filtering."
+              },
+              {
+                "name": "uule",
+                "value": "",
+                "type": "query",
+                "description": "Custom Google UULE parameter to override the location."
+              },
+              {
+                "name": "time_period",
+                "value": "last week",
+                "type": "query",
+                "description": "Filter results by time period."
+              },
+              {
+                "name": "time_period_min",
+                "value": "01/01/2024",
+                "type": "query",
+                "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom."
+              },
+              {
+                "name": "time_period_max",
+                "value": "12/31/2024",
+                "type": "query",
+                "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom."
+              },
+              {
+                "name": "knowledge_graph_id",
+                "value": "/m/0jg24",
+                "type": "query",
+                "description": "Specific Google Knowledge Graph entity ID."
+              },
+              {
+                "name": "include_ai_overview",
+                "value": "",
+                "type": "query",
+                "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned."
+              },
+              {
+                "name": "include_ai_overview_paa",
+                "value": "",
+                "type": "query",
+                "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview."
+              },
+              {
+                "name": "include_answer_box",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes the featured snippet/answer box as the first item in organic results."
+              },
+              {
+                "name": "flatten_results",
+                "value": "",
+                "type": "query",
+                "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results."
+              },
+              {
+                "name": "fields",
+                "value": "organic_results,knowledge_graph",
+                "type": "query",
+                "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size."
+              },
+              {
+                "name": "order_online",
+                "value": "",
+                "type": "query",
+                "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1."
+              },
+              {
+                "name": "ads_optimized",
+                "value": "",
+                "type": "query",
+                "description": "Optimizes ad return rates in the response. Costs 3 additional credits."
+              }
+            ]
+          },
+          "docs": "Retrieve real-time Google organic search results for a given keyword. Returns organic listings, ads, knowledge graph data, answer boxes, AI overviews, related questions, and more."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

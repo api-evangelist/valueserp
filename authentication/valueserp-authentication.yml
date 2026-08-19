@@ -1,17 +1,82 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/valueserp-search-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p (Send Requests),
+  https://docs.trajectdata.com/valueserp/account-api,
+  https://docs.trajectdata.com/valueserp/response-codes — confirmed against the
+  securitySchemes block in openapi/valueserp-search-api-openapi.yml.
+docs: https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p
+description: >-
+  ValueSERP authenticates every request with a single API key passed as the
+  `api_key` QUERY-STRING parameter. That is the whole scheme: no OAuth, no
+  OpenID Connect, no bearer tokens, no HMAC request signing, no mTLS, and no
+  scopes. There is one key type with one level of access — a key that can read
+  can also create batches and destinations and spend the account's credits.
 summary:
   types:
   - apiKey
   api_key_in:
   - query
+  oauth: false
+  oidc: false
+  mtls: false
+  scopes: false
+  key_rotation_documented: false
+  multiple_keys_documented: false
 schemes:
 - name: apiKeyQuery
   type: apiKey
   in: query
   parameter: api_key
-  description: API key for authentication. Pass as the api_key query parameter. Use "demo" as
-    the key for testing.
+  required: true
+  applies_to: >-
+    Every documented endpoint — the real-time Search API, Locations API, Account
+    API, Error Logs API, Batches API and Destinations API.
+  description: >-
+    API key for authentication, passed as the api_key query parameter on every
+    request, e.g.
+    https://api.valueserp.com/search?api_key=YOUR_KEY&q=pizza
+  test_value: 'demo'
+  test_value_note: >-
+    The documentation uses the literal key `demo` in every code sample. See
+    sandbox/valueserp-sandbox.yml.
   sources:
-  - openapi/valueserp-search-openapi.yml
+  - openapi/valueserp-search-api-openapi.yml
+  - https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p
+  header_alternative: false
+  obtain: https://app.valueserp.com/signup
+failure_modes:
+  - status: 401
+    meaning: The API key supplied with your request is not valid.
+    note: >-
+      Because the key travels in the query string, a truncated or URL-mangled
+      key surfaces as a 401 rather than a 400.
+  - status: 402
+    meaning: >-
+      The key is valid but the account has run out of credits, or there is a
+      payment problem. Authentication and authorization-to-spend are separate
+      failures here.
+risks:
+  - >-
+    KEY IN THE URL. The api_key is part of the request URI, so it is written to
+    proxy logs, load-balancer access logs, browser history and any referrer
+    header by default. No header-based alternative is documented, so a caller
+    cannot avoid this.
+  - >-
+    NO SCOPES. One key grants the full surface. There is no read-only key, no
+    per-endpoint restriction, and no way to issue a limited key to a
+    contractor or a client-side process.
+  - >-
+    NO DOCUMENTED ROTATION. The docs describe no key rotation, expiry, or
+    multi-key workflow, so there is no published way to roll a leaked key
+    without a support conversation.
+  - >-
+    A leaked key is directly monetizable — it spends the account's purchased
+    credits — which raises the practical impact of the two risks above.
+mitigations:
+  - >-
+    Proxy ValueSERP calls server-side; never place a ValueSERP key in
+    client-side code, where the URL is trivially readable.
+  - >-
+    Poll the free GET /account endpoint for credits_remaining to detect
+    unexpected consumption early. It is the only abuse signal available.

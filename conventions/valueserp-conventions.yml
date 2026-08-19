@@ -1,0 +1,191 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.trajectdata.com/valueserp (Overview, Send Requests, Result
+  Formats, Real Time vs. Batches), /valueserp/search-api/pagination,
+  /valueserp/response-codes, /valueserp/batches-api/limits,
+  /valueserp/account-api, /valueserp/errorlogs-api/overview — cross-derived from
+  openapi/valueserp-*-openapi.yml.
+description: >-
+  The cross-cutting request/response semantics that apply to every ValueSERP
+  call and that OpenAPI does not fully express. ValueSERP is a deliberately
+  minimal surface: one GET endpoint differentiated by a `search_type` query
+  parameter, an API key in the query string, and no request bodies on the
+  real-time API. That simplicity is also the source of most of its gaps —
+  there is no idempotency mechanism, no request-id tracing header, no API
+  version, and no rate-limit response headers.
+
+base_url: https://api.valueserp.com
+api_style: >-
+  REST-ish over HTTPS. Real-time search is a single GET /search endpoint;
+  the resource is selected by the `search_type` query parameter rather than by
+  path. All parameters are query-string. Responses are JSON by default, with
+  HTML and CSV available via `output`.
+
+authentication:
+  scheme: API key in the query string
+  parameter: api_key
+  location: query
+  transport_warning: >-
+    The key travels in the URL, so it is written to proxy logs, browser history
+    and server access logs by default. There is no header-based alternative
+    documented.
+  test_key: 'demo'
+  docs: https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p
+  detail: authentication/valueserp-authentication.yml
+
+idempotency:
+  supported: false
+  mechanism: null
+  note: >-
+    No Idempotency-Key header or equivalent is documented. It is not needed on
+    the real-time search surface, which is GET-only and therefore inherently
+    idempotent. It IS a real gap on the Batches API, whose Create Batch /
+    Create Searches operations are non-idempotent POSTs: a retried batch
+    creation after a timeout can duplicate work and consume credits twice.
+    NOTE: no `Idempotency` pointer is emitted in apis.yml, because the provider
+    publishes no idempotency mechanism.
+
+pagination:
+  style: page-number, with optional server-side multi-page concatenation
+  docs: https://docs.trajectdata.com/valueserp/search-api/pagination
+  request_params:
+    page: >-
+      Request a single explicit page of results, e.g. page=5 returns page 5.
+    max_page: >-
+      Retrieve up to N pages and concatenate them into one response, e.g.
+      max_page=5 yields pages 1-5. Combine with `page` to set the start page:
+      page=2&max_page=4 yields pages 2, 3 and 4.
+    next_page_token: >-
+      Used instead of page numbers by request types that implement
+      infinite-scrolling pagination; for those, starting from an explicit page
+      number is not possible.
+  response_fields:
+    pagination.current: Current page number.
+    pagination.next: URL for the next page of results.
+    pagination.other_pages: Map of page number to page URL.
+    position: Position of the result on its own page.
+    page: The page the result came from (added when max_page is used).
+    position_overall: >-
+      Position of the result across all requested pages (with 10 results/page
+      and max_page=2, the last result on page 2 is position_overall=20).
+  limits:
+    real_time_max_page: 5
+    batch_search_max_page: 100
+    batch_automatic_pagination_max_page: 20
+  billing: >-
+    Each successfully retrieved page costs one API credit. If fewer pages exist
+    than requested, only the pages actually returned are charged (max_page=5
+    yielding 3 pages costs 3 credits).
+
+output_formats:
+  parameter: output
+  values: [json, html, csv]
+  json: Default. Structured result objects.
+  html: >-
+    Raw Google HTML. With max_page, the returned HTML is each page concatenated
+    and delimited by a horizontal rule.
+  csv: Flattened rows; field list at /valueserp/search-api/reference/csv-fields.
+  include_html: >-
+    include_html=true adds the source HTML alongside the parsed JSON. With
+    max_page set, `html` becomes an array with one entry per page. Sharply
+    lowers batch limits (100 searches per batch instead of 15,000).
+
+field_selection:
+  supported: true
+  mechanism: Google Web Selective Parsing
+  description: >-
+    Control which fields are returned in Google Web responses, rather than
+    receiving the full parsed payload. Introduced in the product updates
+    changelog and documented at /valueserp/google-web-selective-parsing.
+  docs: https://docs.trajectdata.com/valueserp/google-web-selective-parsing
+
+request_tracing:
+  request_id_header: false
+  response_field: search_metadata.id
+  description: >-
+    No X-Request-Id / correlation header is documented. Each successful search
+    response carries `search_metadata.id` (a unique identifier for the search)
+    plus `search_metadata.created_at`, `search_metadata.total_time_taken` and
+    `search_metadata.google_url` (the exact Google URL that was scraped). Quote
+    search_metadata.id to support. Failed real-time requests that return HTTP
+    500 are additionally retrievable via the Error Logs API for 3 days.
+  error_log_api: https://docs.trajectdata.com/valueserp/errorlogs-api/overview
+
+versioning:
+  scheme: none
+  in_path: false
+  in_header: false
+  current: >-
+    No API version appears in the base URL, path, or any request header. The
+    contract is unversioned; changes are announced on the Product Updates page
+    and take effect for all callers. See changelog/valueserp-changelog.yml and
+    lifecycle/valueserp-lifecycle.yml.
+
+error_envelope:
+  media_type: application/json
+  rfc9457: false
+  shape: '{"request_info": {"success": false, "message": "..."}}'
+  detail: errors/valueserp-problem-types.yml
+  note: >-
+    Success and failure share the `request_info` envelope; `success` is the
+    boolean discriminator. Only HTTP 200 responses are billed.
+
+rate_limit_signaling:
+  response_headers: none_documented
+  status_on_exhaustion: 429
+  retry_after: >-
+    Retry-After (seconds) is declared on the 429 and 503 responses in our
+    OpenAPI, derived from the documented retry guidance and the `retry_after`
+    field in the 503 body.
+  quota_in_body: >-
+    request_info.credits_used and request_info.credits_remaining are returned on
+    successful responses, which is ValueSERP's substitute for RateLimit-* /
+    X-RateLimit-* headers. GET /account (free) exposes the same counters plus
+    3 months of usage history and live platform status.
+  detail: rate-limits/valueserp-rate-limits.yml
+
+async_and_bulk:
+  real_time: >-
+    Synchronous. "This API endpoint uses a synchronous request model. The
+    response will be delivered immediately upon completion of the request."
+  batches: >-
+    Asynchronous. Up to 15,000 searches per batch (100 when include_html=true),
+    1,000 searches added per API request, 10,000 batches per account, 5
+    concurrent batches of <=250 searches (1 above that). Batches expire after 2
+    months if never started; result sets are downloadable for 14 days. A
+    15,000-search batch returns in roughly 2-3 minutes.
+  completion_signal: >-
+    notification_webhook on the batch, or a Destination (S3 / Google Cloud
+    Storage / Azure Blob / Alibaba OSS / any S3-compatible store). See
+    webhooks/valueserp-webhooks.yml.
+  docs: https://docs.trajectdata.com/valueserp/batches-api/limits
+
+localization:
+  description: >-
+    Setting `location` auto-adjusts `google_domain`, `gl` and `hl` to match —
+    e.g. location=Paris,Ile-de-France,France switches the request to google.fr
+    with hl=fr. Explicit values override the inference. Canonical location
+    strings come from the Locations API.
+  reference_lists:
+    - https://docs.trajectdata.com/valueserp/search-api/reference/google-domains
+    - https://docs.trajectdata.com/valueserp/search-api/reference/google-countries
+    - https://docs.trajectdata.com/valueserp/search-api/reference/google-languages
+    - https://docs.trajectdata.com/valueserp/search-api/reference/google-lr-languages
+    - https://docs.trajectdata.com/valueserp/search-api/reference/google-cr-countries
+
+incident_handling:
+  parameter: skip_on_incident
+  behavior: >-
+    Opt in to receive HTTP 503 (unbilled) rather than possibly-degraded data
+    while a parsing incident is active for the requested search type. The
+    recommended default for automated pipelines.
+  status_page: https://valueserp.statuspage.io/
+
+cross_links:
+  authentication: authentication/valueserp-authentication.yml
+  errors: errors/valueserp-problem-types.yml
+  rate_limits: rate-limits/valueserp-rate-limits.yml
+  lifecycle: lifecycle/valueserp-lifecycle.yml
+  plans: plans/valueserp-plans-pricing.yml
+  webhooks: webhooks/valueserp-webhooks.yml

@@ -1,0 +1,115 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  npm registry search + registry.npmjs.org metadata, pypi.org/pypi/<name>/json,
+  repo.packagist.org, rubygems.org, crates.io, GitHub code search, and the
+  ValueSERP documentation (https://docs.trajectdata.com/valueserp) — probed
+  2026-08-13.
+description: >-
+  ValueSERP / Traject Data publish NO first-party client libraries. The
+  documentation teaches the API through copy-paste request examples only
+  (HTTP, curl, Node.js/axios, Python/requests, PHP/curl) on every reference
+  page, and there is no Traject Data or ValueSERP organization on GitHub, npm,
+  PyPI, Packagist, RubyGems or crates.io. Everything listed below is
+  community-maintained by unaffiliated third parties; official is false on
+  every entry. No `SDKs` pointer is emitted in apis.yml because the provider
+  ships no SDK.
+official_package_count: 0
+third_party_package_count: 4
+languages_with_official_sdk: []
+official_sdk_source: >-
+  None. The API is a single-verb GET/JSON surface authenticated by an api_key
+  query parameter, which the vendor treats as self-service enough not to need a
+  wrapper.
+inline_code_examples:
+  published: true
+  languages: [HTTP, curl, Node.js (axios), Python (requests), PHP (cURL)]
+  note: >-
+    Every ValueSERP reference page renders the same request in these five
+    languages via Archbee CodeblockTabs. These are examples, not distributable
+    packages, and are not counted above.
+  source: https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p
+
+packages:
+  - name: valueserp
+    language: Python
+    registry: none
+    official: false
+    maintainer: Joe Joiner (joejoinerr) — unaffiliated community author
+    repository: https://github.com/joejoinerr/python-valueserp
+    version: 0.5.0
+    published: null
+    license: MIT
+    note: >-
+      Version 0.5.0 read from the repository's pyproject.toml. NOT published to
+      PyPI — https://pypi.org/pypi/valueserp/json returns HTTP 404, so there is
+      no registry metadata endpoint and no release date to record; consumers
+      must install from source. Last commit to the default branch 2025-02-21.
+      apis.yml previously listed this repository as ValueSERP's GitHubOrg; it is
+      an individual's personal repository, not a Traject Data organization, and
+      that pointer has been removed.
+
+  - name: '@incorporo/valueserp-mcp'
+    language: TypeScript/Node.js
+    registry: npm
+    official: false
+    maintainer: Incorporo — unaffiliated community author
+    repository: https://github.com/Incorporo/valueserp-googlesearch-mcp
+    registry_url: https://www.npmjs.com/package/@incorporo/valueserp-mcp
+    version: 1.0.0
+    published: '2025-09-09'
+    license: GPL-3.0
+    note: >-
+      A community MCP server wrapping the ValueSERP search endpoints. Single
+      1.0.0 release; upstream repository last pushed 2025-09-09. See
+      mcp/valueserp-mcp.yml — this is NOT a Traject Data product.
+
+  - name: tallesairan/laravel-valueserp
+    language: PHP (Laravel)
+    registry: packagist
+    official: false
+    maintainer: tallesairan — unaffiliated community author
+    registry_url: https://packagist.org/packages/tallesairan/laravel-valueserp
+    version: '1.2'
+    published: '2023-07-19'
+    note: >-
+      Laravel service-provider wrapper. Fork lineage of wdevs/laravel-valueserp.
+      Last stable release predates every 2025 ValueSERP product update.
+
+  - name: wdevs/laravel-valueserp
+    language: PHP (Laravel)
+    registry: packagist
+    official: false
+    maintainer: wdevs — unaffiliated community author
+    registry_url: https://packagist.org/packages/wdevs/laravel-valueserp
+    version: '1.0'
+    published: '2021-10-28'
+    note: >-
+      The original Laravel wrapper; unmaintained since 2021, roughly four years
+      of ValueSERP feature releases behind the live API.
+
+registries_checked:
+  - registry: npm
+    result: no first-party package; 2 community packages found (1 MCP server, 1 unrelated CLI)
+  - registry: PyPI
+    result: no package named valueserp, value-serp, python-valueserp or valueserp-python (all HTTP 404)
+  - registry: Packagist
+    result: no first-party vendor namespace; 2 community Laravel packages
+  - registry: RubyGems
+    result: HTTP 404 — no gem
+  - registry: crates.io
+    result: no crate
+  - registry: Maven Central / NuGet / pkg.go.dev
+    result: no first-party artifact found
+  - registry: GitHub
+    result: >-
+      No `trajectdata` or `valueserp` organization or user exists (both
+      api.github.com/orgs/... and /users/... return 404). All ValueSERP
+      repositories on GitHub belong to individual customers.
+
+decay_signal: >-
+  Every community package is stale relative to the API. The newest — the MCP
+  server — is a single release from 2025-09-09; the Laravel packages date to
+  2023 and 2021. Because the provider ships nothing first-party, there is no
+  vendor-published release cadence to read at all, which is itself the finding:
+  an integrator has no supported client to depend on.

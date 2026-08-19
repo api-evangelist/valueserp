@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ValueSERP Search Images Shopping API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shopping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Shopping Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.valueserp.com/search#shopping",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "demo",
+                "type": "query",
+                "description": "Your ValueSERP API key. Use \"demo\" for testing limited queries."
+              },
+              {
+                "name": "search_type",
+                "value": "shopping",
+                "type": "query",
+                "description": "Must be set to \"shopping\"."
+              },
+              {
+                "name": "q",
+                "value": "pizza",
+                "type": "query",
+                "description": "The keyword or search query to use."
+              },
+              {
+                "name": "location",
+                "value": "united states",
+                "type": "query",
+                "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
+              },
+              {
+                "name": "location_auto",
+                "value": "",
+                "type": "query",
+                "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
+              },
+              {
+                "name": "google_domain",
+                "value": "google.com",
+                "type": "query",
+                "description": "The Google domain to use for the search."
+              },
+              {
+                "name": "gl",
+                "value": "us",
+                "type": "query",
+                "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
+              },
+              {
+                "name": "hl",
+                "value": "en",
+                "type": "query",
+                "description": "Determines the Google UI language to return results in. BCP-47 language code."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "The results page number to retrieve. Defaults to 1."
+              },
+              {
+                "name": "max_page",
+                "value": "3",
+                "type": "query",
+                "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve."
+              },
+              {
+                "name": "uule",
+                "value": "",
+                "type": "query",
+                "description": "Custom Google UULE parameter to override the location."
+              },
+              {
+                "name": "sort_by",
+                "value": "relevance",
+                "type": "query",
+                "description": "Sort order for shopping results."
+              },
+              {
+                "name": "shopping_buy_on_google",
+                "value": "",
+                "type": "query",
+                "description": "Include only \"Buy on Google\" products."
+              },
+              {
+                "name": "shopping_filter",
+                "value": "brand",
+                "type": "query",
+                "description": "Filter shopping results by attribute (e.g., brand)."
+              },
+              {
+                "name": "shopping_price_min",
+                "value": "4.99",
+                "type": "query",
+                "description": "Minimum product price filter."
+              },
+              {
+                "name": "shopping_price_max",
+                "value": "29.99",
+                "type": "query",
+                "description": "Maximum product price filter."
+              },
+              {
+                "name": "shopping_condition",
+                "value": "new",
+                "type": "query",
+                "description": "Filter by product condition."
+              },
+              {
+                "name": "shopping_merchants",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of merchant IDs to filter results."
+              }
+            ]
+          },
+          "docs": "Retrieve real-time Google Shopping product results for a given keyword. Set search_type=shopping. Supports price filtering, condition, merchant filtering, and sorting."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,793 @@
+{
+  "item": [
+    {
+      "id": "6d86794f-1e50-4875-8307-8aa4edc4dbe8",
+      "name": "Places",
+      "description": {
+        "content": "Google Maps and local places search results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "59d92671-a544-4a98-b880-3372baefbd62",
+          "name": "Google Maps / Places Search",
+          "request": {
+            "name": "Google Maps / Places Search",
+            "description": {
+              "content": "Retrieve real-time Google Maps local business listings and places results for a given search term. Set search_type=places.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "hash": "places",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_type",
+                  "value": "<string>",
+                  "description": "(Required) Must be set to \"places\" for Maps/Places search."
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) The keyword or search query to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
+                },
+                {
+                  "disabled": false,
+                  "key": "location_auto",
+                  "value": "true",
+                  "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
+                },
+                {
+                  "disabled": false,
+                  "key": "google_domain",
+                  "value": "google.com",
+                  "description": "The Google domain to use for the search."
+                },
+                {
+                  "disabled": false,
+                  "key": "gl",
+                  "value": "us",
+                  "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
+                },
+                {
+                  "disabled": false,
+                  "key": "hl",
+                  "value": "en",
+                  "description": "Determines the Google UI language to return results in. BCP-47 language code."
+                },
+                {
+                  "disabled": false,
+                  "key": "nfpr",
+                  "value": "<integer>",
+                  "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The results page number to retrieve. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_page",
+                  "value": "<integer>",
+                  "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "uule",
+                  "value": "<string>",
+                  "description": "Custom Google UULE parameter to override the location."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb9dac81-6bf5-4f23-9fdd-5638538989a8",
+              "name": "Successful places search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "places",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "places"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": true,\n    \"message\": \"string\",\n    \"credits_used\": 8562,\n    \"credits_remaining\": 6880\n  },\n  \"search_metadata\": {\n    \"id\": \"string\",\n    \"google_url\": \"http://RxkhGwzcZfyqcFdlwS.cdyHs3YmjnefV58O2Q0xUqFu\",\n    \"total_time_taken\": 6283.487429176832,\n    \"created_at\": \"1980-01-18T21:57:35.651Z\"\n  },\n  \"search_parameters\": {\n    \"q\": \"string\",\n    \"search_type\": \"string\",\n    \"gl\": \"string\",\n    \"hl\": \"string\",\n    \"google_domain\": \"string\"\n  },\n  \"places\": [\n    {\n      \"position\": 8870,\n      \"title\": \"string\",\n      \"place_id\": \"string\",\n      \"address\": \"string\",\n      \"rating\": 8138.926379755708,\n      \"reviews\": 2759,\n      \"type\": \"string\",\n      \"phone\": \"string\",\n      \"website\": \"https://FQBzpKnKqdAFIOGDpjpQWjcFJyGhDy.lkqZezOLb-vB8iNrUXVooUWM4cNqxx.qUECkrgN9u\",\n      \"hours\": \"string\",\n      \"latitude\": 398.67875841799406,\n      \"longitude\": 3561.7385804778214\n    },\n    {\n      \"position\": 7873,\n      \"title\": \"string\",\n      \"place_id\": \"string\",\n      \"address\": \"string\",\n      \"rating\": 3779.2632004164375,\n      \"reviews\": 9484,\n      \"type\": \"string\",\n      \"phone\": \"string\",\n      \"website\": \"https://qEznAkcGm.cgoroLssRR4t-0TXZihV+xLz9EXCZHvi1Ku2sM0igfYW+hH5\",\n      \"hours\": \"string\",\n      \"latitude\": 8950.25647692095,\n      \"longitude\": 3241.7976239004265\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a22bbdb-6678-4b57-b83d-96510eae8e8b",
+              "name": "Bad Request - Invalid parameters or unsupported parameter combinations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "places",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "places"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "133e55bc-8558-4576-979d-1ab2a24baf39",
+              "name": "Unauthorized - The api_key supplied is not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "places",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "places"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5876b423-7f41-4c66-a299-b0711051bfe7",
+              "name": "Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "places",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "places"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10be0583-b3fb-458d-bd9e-04927ae2715f",
+              "name": "Too Many Requests - Your plan's rate limit has been exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "places",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "places"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "4193"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38d335fd-00b8-4d07-847f-a317843fc1e8",
+              "name": "Internal Server Error - Retry after a delay; contact support if the issue persists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "places",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "places"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20402d0f-4b6f-45cb-b062-19f98852afa1",
+              "name": "Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "hash": "places",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "places"
+                    },
+                    {
+                      "key": "q",
+                      "value": "pizza"
+                    },
+                    {
+                      "key": "location",
+                      "value": "united states"
+                    },
+                    {
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_page",
+                      "value": "3"
+                    },
+                    {
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "4193"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.valueserp.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7eaa27ed-9751-4ce9-a58b-d28b16fdee5e",
+    "name": "ValueSERP Search Images Places API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.\n\nContact Support:\n Name: ValueSERP Support",
+      "type": "text/plain"
+    }
+  }
+}

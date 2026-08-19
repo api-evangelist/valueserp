@@ -1,0 +1,138 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.trajectdata.com/valueserp/product-updates,
+  https://docs.trajectdata.com/valueserp/search-api/searches/google/product,
+  https://docs.trajectdata.com/valueserp/batches-api/limits,
+  https://docs.trajectdata.com/valueserp/errorlogs-api/overview,
+  https://valueserp.statuspage.io/api/v2/status.json (HTTP 200),
+  https://trajectdata.com/traject-data-terms-of-service/ — probed 2026-08-13.
+description: >-
+  How ValueSERP versions, deprecates, and reports on its API. The short version:
+  it does not version at all. There is no version segment in the base URL or
+  path, no version request header, and no dated release train — changes land for
+  every caller at once and are announced in prose on the Product Updates page.
+  Deprecations ARE announced with a named calendar date and a named replacement,
+  which is better than most unversioned APIs manage, but they are announced only
+  in the docs sidebar and page titles, never in a response header.
+
+versioning:
+  scheme: none
+  in_path: false
+  in_header: false
+  in_query: false
+  base_url: https://api.valueserp.com
+  notes: >-
+    Every documented endpoint is unversioned (GET /search, /account, /locations,
+    /batches, /destinations, /errorlogs). Consumers cannot pin behaviour. New
+    response fields are added in place — the changelog is explicit that fields
+    such as knowledge_graph_id, conversion_table and shopping_graphs "are now
+    included" in existing responses — so clients must be tolerant readers.
+
+deprecation:
+  policy_url: null
+  policy_published: false
+  changelog: https://docs.trajectdata.com/valueserp/product-updates
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  mechanism: >-
+    Deprecations are communicated by renaming the documentation page (the title
+    itself becomes "Google Product deprecating on 10/31") and by publishing a
+    replacement page. There is no Sunset or Deprecation response header, no
+    machine-readable notice, and no standing deprecation policy document that
+    states a minimum notice period.
+  notes: >-
+    The dated deprecations below are labelled "10/31" in the documentation
+    without a year. They accompany the "*New*" replacement request types and the
+    October 2025 changelog cycle, so 10/31 most plausibly means 2025-10-31 — but
+    the provider does not state the year, and that ambiguity is itself the
+    finding. Do not treat the resolved year as published fact.
+
+deprecated_operations:
+  - name: Google Product
+    search_type: product
+    aid: valueserp:valueserp-product-api
+    openapi: openapi/valueserp-product-api-openapi.yml
+    operationId: googleProduct
+    announced_sunset: '10/31 (year not stated by the provider)'
+    superseded_by: Google Product Details (search_type=product_details)
+    replacement_docs: https://docs.trajectdata.com/valueserp/search-api/searches/google/product-details
+    reason: >-
+      "Google no longer supports individual Shopping product pages. Product
+      information now appears within a right-hand Product Knowledge Panel when
+      you click an item in the Shopping results. As a result, we are replacing
+      the Google Shopping Product request with the new Google Product Details
+      request, which extracts data directly from this panel."
+    evidence: https://docs.trajectdata.com/valueserp/search-api/searches/google/product
+  - name: Google Product Reviews (legacy)
+    docs: https://docs.trajectdata.com/valueserp/search-api/searches/google/product-reviews-old
+    announced_sunset: '10/31 (year not stated by the provider)'
+    superseded_by: Reviews — https://docs.trajectdata.com/valueserp/search-api/searches/google/product-reviews
+  - name: Google Online Sellers (legacy)
+    docs: https://docs.trajectdata.com/valueserp/search-api/searches/google/product-online-sellers-old
+    announced_sunset: '10/31 (year not stated by the provider)'
+    superseded_by: Online Sellers — https://docs.trajectdata.com/valueserp/search-api/searches/google/product-online-sellers
+  - name: Google Product Specifications
+    docs: https://docs.trajectdata.com/valueserp/search-api/searches/google/product-specifications
+    announced_sunset: '10/31 (year not stated by the provider)'
+    superseded_by: >-
+      Folded into Google Product Details — "The Product Details request replaces
+      the legacy Product, Online Sellers and Specifications requests."
+
+status_page:
+  url: https://valueserp.statuspage.io/
+  provider: Atlassian Statuspage
+  machine_readable: https://valueserp.statuspage.io/api/v2/status.json
+  probed: '2026-08-13'
+  http_status: 200
+  observed:
+    page_id: sqxhjx8dtx1c
+    page_name: VALUE SERP
+    time_zone: Europe/London
+    indicator: none
+    description: All Systems Operational
+    page_updated_at: '2026-07-17T14:53:45.204+01:00'
+  in_api: >-
+    GET /account also returns live platform status, so an integration can read
+    incident state without leaving the API. The Error Logs API is the
+    recommended companion for distinguishing a caller-side failure from a
+    platform one.
+
+incident_semantics:
+  parsing_incidents: >-
+    When a request type cannot be parsed reliably, ValueSERP returns HTTP 503
+    for that type rather than serving partial data, with a body naming the
+    affected type and a retry_after value. Callers opt in with
+    skip_on_incident. Requests that fail this way are not charged.
+  docs: https://docs.trajectdata.com/valueserp/response-codes
+
+sla:
+  url: https://trajectdata.com/traject-data-terms-of-service/
+  public_uptime_target: null
+  notes: >-
+    No numeric uptime commitment is published for self-serve plans. The pricing
+    page attaches "Custom SLAs" and dedicated support to the Enterprise tier
+    only, so availability commitments are contractual rather than published.
+  enterprise_sla: true
+
+data_retention:
+  error_logs: 3 days
+  batch_result_sets: 14 days
+  unstarted_batches: >-
+    Automatically deleted after 2 months; a shorter expiry can be set on the
+    dashboard Profile page.
+  account_usage_history: 3 months (returned by GET /account)
+  source: https://docs.trajectdata.com/valueserp/batches-api/limits
+
+support:
+  contact: https://trajectdata.com/contact-us/
+  batch_limit_changes: hello@valueserp.com
+  product_update_subscription: https://app.valueserp.com/product-updates
+
+gaps:
+  - No API versioning of any kind — consumers cannot pin behaviour.
+  - No published deprecation policy or minimum notice period.
+  - Deprecation dates are published without a year.
+  - No RFC 8594 Sunset/Deprecation response headers on deprecated request types.
+  - No published numeric SLA outside Enterprise agreements.

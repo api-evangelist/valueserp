@@ -1,0 +1,126 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live HTTP probes of the /.well-known/ discovery surface on every host named in
+  apis.yml (baseURL https://api.valueserp.com), the OpenAPI servers[] host, the
+  documentation host (docs.trajectdata.com), the corporate site
+  (trajectdata.com) and the product marketing site (valueserp.com /
+  www.valueserp.com). Status is the HTTP code observed at fetch time.
+description: >-
+  ValueSERP / Traject Data serve NO /.well-known/ discovery documents. Every
+  probed path either 404s or is answered by a catch-all that returns an HTML
+  shell with a 200. No document was saved and NO WellKnown or SecurityTxt
+  pointer is emitted in apis.yml, because nothing on any host returned a real
+  well-known payload. This file records a verified absence, not a presence.
+result: none
+hosts:
+  - host: https://api.valueserp.com
+    note: >-
+      Express-style API host. Returns "Cannot GET /..." HTML with an HTTP 404 for
+      every unrouted path.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/mcp.json
+        status: 404
+  - host: https://docs.trajectdata.com
+    note: Archbee-hosted documentation portal. Returns a Next.js 404 page for each path.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://trajectdata.com
+    note: >-
+      WordPress corporate site. security.txt returns a hard nginx 404; three
+      paths 301 without resolving to a document; the rest return the WordPress
+      404 template (HTTP 404).
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 301
+      - path: /.well-known/oauth-authorization-server
+        status: 301
+      - path: /.well-known/api-catalog
+        status: 301
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://www.valueserp.com
+    note: >-
+      FALSE POSITIVE — this host is an SPA/marketing catch-all. EVERY
+      /.well-known/ path answers HTTP 200 with the same 254,750-byte
+      text/html home page. None of these is a document; all are recorded as
+      misses and nothing was saved.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/agent-card.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/agent.json
+        status: 200
+        content_type: text/html
+        real_document: false
+  - host: https://app.valueserp.com
+    note: Customer dashboard SPA. Returns the app shell (HTTP 200, text/html) for well-known paths.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/html
+        real_document: false
+notes:
+  - >-
+    Traject Data DOES publish a vulnerability reporting policy as a normal web
+    page (https://trajectdata.com/vulnerability-reporting-policy/) with a named
+    security contact — it is simply not advertised via
+    /.well-known/security.txt. See security/valueserp-vulnerability-disclosure.yml.
+  - >-
+    No OAuth or OpenID Connect discovery document exists because the API
+    authenticates with a query-string API key only. See
+    authentication/valueserp-authentication.yml.

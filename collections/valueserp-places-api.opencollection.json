@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ValueSERP Search Images Places API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Places",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Maps / Places Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.valueserp.com/search#places",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "demo",
+                "type": "query",
+                "description": "Your ValueSERP API key. Use \"demo\" for testing limited queries."
+              },
+              {
+                "name": "search_type",
+                "value": "places",
+                "type": "query",
+                "description": "Must be set to \"places\" for Maps/Places search."
+              },
+              {
+                "name": "q",
+                "value": "pizza",
+                "type": "query",
+                "description": "The keyword or search query to use."
+              },
+              {
+                "name": "location",
+                "value": "united states",
+                "type": "query",
+                "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
+              },
+              {
+                "name": "location_auto",
+                "value": "",
+                "type": "query",
+                "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
+              },
+              {
+                "name": "google_domain",
+                "value": "google.com",
+                "type": "query",
+                "description": "The Google domain to use for the search."
+              },
+              {
+                "name": "gl",
+                "value": "us",
+                "type": "query",
+                "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
+              },
+              {
+                "name": "hl",
+                "value": "en",
+                "type": "query",
+                "description": "Determines the Google UI language to return results in. BCP-47 language code."
+              },
+              {
+                "name": "nfpr",
+                "value": "0",
+                "type": "query",
+                "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default)."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "The results page number to retrieve. Defaults to 1."
+              },
+              {
+                "name": "max_page",
+                "value": "3",
+                "type": "query",
+                "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve."
+              },
+              {
+                "name": "uule",
+                "value": "",
+                "type": "query",
+                "description": "Custom Google UULE parameter to override the location."
+              }
+            ]
+          },
+          "docs": "Retrieve real-time Google Maps local business listings and places results for a given search term. Set search_type=places."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
