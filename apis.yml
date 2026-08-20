@@ -47,6 +47,8 @@ apis:
   humanURL: https://trajectdata.com/serp/value-serp-api/
   baseURL: https://api.valueserp.com
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
