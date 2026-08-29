@@ -8,6 +8,18 @@ description: >-
   capabilities, and pay-as-you-go or subscription pricing starting at $50/month
   for 25,000 searches.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: open
