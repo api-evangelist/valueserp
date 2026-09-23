@@ -1,12 +1,7 @@
 {
   "provider": "valueserp",
   "sources": [
-    "valueserp-images-api-openapi.yml",
-    "valueserp-news-api-openapi.yml",
-    "valueserp-places-api-openapi.yml",
-    "valueserp-product-api-openapi.yml",
-    "valueserp-search-api-openapi.yml",
-    "valueserp-shopping-api-openapi.yml"
+    "_original/valueserp-search-openapi.yml"
   ],
   "outputs": [
     "valueserp-images-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "valueserp-search-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "valueserp-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "valueserp-news-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "valueserp-places-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "valueserp-product-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "valueserp-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "valueserp-shopping-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

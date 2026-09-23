@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enrichment overlay — ValueSERP News API
   version: 1.0.0
-  description: Non-destructive enrichment applied by the API Evangelist pipeline on top of openapi/valueserp-news-api-openapi.yml.
+  x-description: Non-destructive enrichment applied by the API Evangelist pipeline on top of openapi/valueserp-news-api-openapi.yml.
     It adds provenance, agent-governance classification, billing and retry semantics, and cross-links
     to the runtime-semantics artifacts in this repository. It changes no path, parameter, schema or response
     defined by the underlying document.

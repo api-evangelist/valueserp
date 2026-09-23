@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ValueSERP Images Search API
+  title: ValueSERP Search API
   description: Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.
   version: '1.0'
   contact:
@@ -126,15 +126,6 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
 components:
   parameters:
-    hl:
-      name: hl
-      in: query
-      required: false
-      schema:
-        type: string
-        default: en
-      description: Determines the Google UI language to return results in. BCP-47 language code.
-      example: en
     safe:
       name: safe
       in: query
@@ -146,38 +137,14 @@ components:
         - 'off'
       description: Safe search filter setting.
       example: active
-    uule:
-      name: uule
+    api_key:
+      name: api_key
       in: query
-      required: false
+      required: true
       schema:
         type: string
-      description: Custom Google UULE parameter to override the location.
-    lr:
-      name: lr
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Limits results to pages in the specified language.
-      example: lang_en
-    location_auto:
-      name: location_auto
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: true
-      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
-    time_period_min:
-      name: time_period_min
-      in: query
-      required: false
-      schema:
-        type: string
-        pattern: ^\d{2}/\d{2}/\d{4}$
-      description: Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.
-      example: 01/01/2024
+      description: Your ValueSERP API key. Use "demo" for testing limited queries.
+      example: demo
     google_domain:
       name: google_domain
       in: query
@@ -187,36 +154,6 @@ components:
         default: google.com
       description: The Google domain to use for the search.
       example: google.com
-    filter:
-      name: filter
-      in: query
-      required: false
-      schema:
-        type: integer
-        enum:
-        - 0
-        - 1
-        default: 1
-      description: Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.
-      example: 1
-    location:
-      name: location
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
-      example: united states
-    page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-      description: The results page number to retrieve. Defaults to 1.
-      example: 1
     nfpr:
       name: nfpr
       in: query
@@ -228,38 +165,15 @@ components:
         - 1
       description: Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).
       example: 0
-    gl:
-      name: gl
+    time_period_max:
+      name: time_period_max
       in: query
       required: false
       schema:
         type: string
-        default: us
-      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
-      example: us
-    cr:
-      name: cr
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Limits results to pages from the specified country.
-      example: countryUS
-    tbs:
-      name: tbs
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Custom Google TBS parameter value for advanced filtering.
-    api_key:
-      name: api_key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Your ValueSERP API key. Use "demo" for testing limited queries.
-      example: demo
+        pattern: ^\d{2}/\d{2}/\d{4}$
+      description: Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.
+      example: 12/31/2024
     knowledge_graph_id:
       name: knowledge_graph_id
       in: query
@@ -268,6 +182,89 @@ components:
         type: string
       description: Specific Google Knowledge Graph entity ID.
       example: /m/0jg24
+    lr:
+      name: lr
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Limits results to pages in the specified language.
+      example: lang_en
+    location:
+      name: location
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
+      example: united states
+    time_period_min:
+      name: time_period_min
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^\d{2}/\d{2}/\d{4}$
+      description: Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.
+      example: 01/01/2024
+    tbs:
+      name: tbs
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google TBS parameter value for advanced filtering.
+    max_page:
+      name: max_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+      description: Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.
+      example: 3
+    q:
+      name: q
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The keyword or search query to use.
+      example: pizza
+    uule:
+      name: uule
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google UULE parameter to override the location.
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: The results page number to retrieve. Defaults to 1.
+      example: 1
+    hl:
+      name: hl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Determines the Google UI language to return results in. BCP-47 language code.
+      example: en
+    cr:
+      name: cr
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Limits results to pages from the specified country.
+      example: countryUS
     time_period:
       name: time_period
       in: query
@@ -283,63 +280,70 @@ components:
         - custom
       description: Filter results by time period.
       example: last week
-    time_period_max:
-      name: time_period_max
+    location_auto:
+      name: location_auto
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
+    gl:
+      name: gl
       in: query
       required: false
       schema:
         type: string
-        pattern: ^\d{2}/\d{2}/\d{4}$
-      description: Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.
-      example: 12/31/2024
-    q:
-      name: q
-      in: query
-      required: true
-      schema:
-        type: string
-      description: The keyword or search query to use.
-      example: pizza
-    max_page:
-      name: max_page
+        default: us
+      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
+      example: us
+    filter:
+      name: filter
       in: query
       required: false
       schema:
         type: integer
-        minimum: 1
-      description: Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.
-      example: 3
+        enum:
+        - 0
+        - 1
+        default: 1
+      description: Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.
+      example: 1
   schemas:
-    AnswerBox:
+    RelatedQuestion:
       type: object
-      description: Featured snippet / answer box data.
+      description: A People Also Ask related question.
       properties:
-        type:
+        question:
           type: string
-          description: Type of answer box (e.g., organic, list, table).
-        title:
-          type: string
-          description: Answer box title.
+          description: The related question text.
         answer:
           type: string
-          description: The direct answer text.
+          description: Answer text for the question.
         link:
           type: string
           format: uri
           description: Source URL for the answer.
-    ErrorResponse:
+    AdResult:
       type: object
-      description: Error response body.
+      description: A paid advertisement result.
       properties:
-        request_info:
-          type: object
-          properties:
-            success:
-              type: boolean
-              example: false
-            message:
-              type: string
-              description: Human-readable error message.
+        position:
+          type: integer
+          description: Ad position.
+        title:
+          type: string
+          description: Ad headline.
+        link:
+          type: string
+          format: uri
+          description: Ad destination URL.
+        display_link:
+          type: string
+          description: Display URL shown in the ad.
+        snippet:
+          type: string
+          description: Ad description text.
     RequestInfo:
       type: object
       description: Meta-information about the API request status.
@@ -431,45 +435,6 @@ components:
               additionalProperties:
                 type: string
               description: Map of page numbers to page URLs.
-    SearchMetadata:
-      type: object
-      description: Metadata about the search execution.
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this search request.
-        google_url:
-          type: string
-          format: uri
-          description: The Google URL that was scraped to generate results.
-        total_time_taken:
-          type: number
-          format: float
-          description: Total time taken to process the request in seconds.
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the search was created.
-    AdResult:
-      type: object
-      description: A paid advertisement result.
-      properties:
-        position:
-          type: integer
-          description: Ad position.
-        title:
-          type: string
-          description: Ad headline.
-        link:
-          type: string
-          format: uri
-          description: Ad destination URL.
-        display_link:
-          type: string
-          description: Display URL shown in the ad.
-        snippet:
-          type: string
-          description: Ad description text.
     KnowledgeGraph:
       type: object
       description: Google Knowledge Graph panel data.
@@ -499,20 +464,6 @@ components:
               format: uri
             alt:
               type: string
-    RelatedQuestion:
-      type: object
-      description: A People Also Ask related question.
-      properties:
-        question:
-          type: string
-          description: The related question text.
-        answer:
-          type: string
-          description: Answer text for the question.
-        link:
-          type: string
-          format: uri
-          description: Source URL for the answer.
     OrganicResult:
       type: object
       description: A single organic search result.
@@ -552,27 +503,75 @@ components:
                 type: string
                 format: uri
           description: Sitelinks shown beneath the result.
+    SearchMetadata:
+      type: object
+      description: Metadata about the search execution.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this search request.
+        google_url:
+          type: string
+          format: uri
+          description: The Google URL that was scraped to generate results.
+        total_time_taken:
+          type: number
+          format: float
+          description: Total time taken to process the request in seconds.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the search was created.
+    ErrorResponse:
+      type: object
+      description: Error response body.
+      properties:
+        request_info:
+          type: object
+          properties:
+            success:
+              type: boolean
+              example: false
+            message:
+              type: string
+              description: Human-readable error message.
+    AnswerBox:
+      type: object
+      description: Featured snippet / answer box data.
+      properties:
+        type:
+          type: string
+          description: Type of answer box (e.g., organic, list, table).
+        title:
+          type: string
+          description: Answer box title.
+        answer:
+          type: string
+          description: The direct answer text.
+        link:
+          type: string
+          format: uri
+          description: Source URL for the answer.
   responses:
-    InternalServerError:
-      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     PaymentRequired:
       description: Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - The api_key supplied is not valid.
+    TooManyRequests:
+      description: Too Many Requests - Your plan's rate limit has been exceeded.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+    InternalServerError:
+      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
       content:
         application/json:
           schema:
@@ -588,13 +587,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Too Many Requests - Your plan's rate limit has been exceeded.
-      headers:
-        Retry-After:
+    BadRequest:
+      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+      content:
+        application/json:
           schema:
-            type: integer
-          description: Seconds to wait before retrying.
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - The api_key supplied is not valid.
       content:
         application/json:
           schema:

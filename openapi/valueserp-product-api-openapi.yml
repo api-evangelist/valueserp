@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ValueSERP Search Images Product API
+  title: ValueSERP Search Product API
   description: Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.
   version: '1.0'
   contact:
@@ -87,79 +87,51 @@ paths:
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
 components:
-  parameters:
-    hl:
-      name: hl
-      in: query
-      required: false
-      schema:
-        type: string
-        default: en
-      description: Determines the Google UI language to return results in. BCP-47 language code.
-      example: en
-    uule:
-      name: uule
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Custom Google UULE parameter to override the location.
-    location_auto:
-      name: location_auto
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: true
-      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
-    google_domain:
-      name: google_domain
-      in: query
-      required: false
-      schema:
-        type: string
-        default: google.com
-      description: The Google domain to use for the search.
-      example: google.com
-    location:
-      name: location
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
-      example: united states
-    gl:
-      name: gl
-      in: query
-      required: false
-      schema:
-        type: string
-        default: us
-      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
-      example: us
-    api_key:
-      name: api_key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Your ValueSERP API key. Use "demo" for testing limited queries.
-      example: demo
   schemas:
-    ErrorResponse:
+    ProductResponse:
       type: object
-      description: Error response body.
+      description: Google Product search results response.
       properties:
         request_info:
-          type: object
-          properties:
-            success:
-              type: boolean
-              example: false
-            message:
-              type: string
-              description: Human-readable error message.
+          $ref: '#/components/schemas/RequestInfo'
+        search_metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+        product_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductResult'
+          description: Product listing results.
+    ProductResult:
+      type: object
+      description: A single Google Product result.
+      properties:
+        position:
+          type: integer
+          description: Position in results.
+        title:
+          type: string
+          description: Product name.
+        link:
+          type: string
+          format: uri
+          description: Product page URL.
+        price:
+          type: string
+          description: Product price.
+        merchant:
+          type: string
+          description: Merchant name.
+        shipping:
+          type: string
+          description: Shipping details.
+        condition:
+          type: string
+          description: Product condition.
+        free_shipping:
+          type: boolean
+          description: Whether free shipping is available.
     RequestInfo:
       type: object
       description: Meta-information about the API request status.
@@ -195,21 +167,6 @@ components:
         google_domain:
           type: string
           description: Google domain used.
-    ProductResponse:
-      type: object
-      description: Google Product search results response.
-      properties:
-        request_info:
-          $ref: '#/components/schemas/RequestInfo'
-        search_metadata:
-          $ref: '#/components/schemas/SearchMetadata'
-        search_parameters:
-          $ref: '#/components/schemas/SearchParameters'
-        product_results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductResult'
-          description: Product listing results.
     SearchMetadata:
       type: object
       description: Metadata about the search execution.
@@ -229,56 +186,98 @@ components:
           type: string
           format: date-time
           description: Timestamp when the search was created.
-    ProductResult:
+    ErrorResponse:
       type: object
-      description: A single Google Product result.
+      description: Error response body.
       properties:
-        position:
-          type: integer
-          description: Position in results.
-        title:
-          type: string
-          description: Product name.
-        link:
-          type: string
-          format: uri
-          description: Product page URL.
-        price:
-          type: string
-          description: Product price.
-        merchant:
-          type: string
-          description: Merchant name.
-        shipping:
-          type: string
-          description: Shipping details.
-        condition:
-          type: string
-          description: Product condition.
-        free_shipping:
-          type: boolean
-          description: Whether free shipping is available.
+        request_info:
+          type: object
+          properties:
+            success:
+              type: boolean
+              example: false
+            message:
+              type: string
+              description: Human-readable error message.
+  parameters:
+    api_key:
+      name: api_key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your ValueSERP API key. Use "demo" for testing limited queries.
+      example: demo
+    google_domain:
+      name: google_domain
+      in: query
+      required: false
+      schema:
+        type: string
+        default: google.com
+      description: The Google domain to use for the search.
+      example: google.com
+    location:
+      name: location
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
+      example: united states
+    uule:
+      name: uule
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google UULE parameter to override the location.
+    hl:
+      name: hl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Determines the Google UI language to return results in. BCP-47 language code.
+      example: en
+    location_auto:
+      name: location_auto
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
+    gl:
+      name: gl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: us
+      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
+      example: us
   responses:
-    InternalServerError:
-      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     PaymentRequired:
       description: Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - The api_key supplied is not valid.
+    TooManyRequests:
+      description: Too Many Requests - Your plan's rate limit has been exceeded.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+    InternalServerError:
+      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
       content:
         application/json:
           schema:
@@ -294,13 +293,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Too Many Requests - Your plan's rate limit has been exceeded.
-      headers:
-        Retry-After:
+    BadRequest:
+      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+      content:
+        application/json:
           schema:
-            type: integer
-          description: Seconds to wait before retrying.
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - The api_key supplied is not valid.
       content:
         application/json:
           schema:
