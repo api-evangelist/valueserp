@@ -88,6 +88,73 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
 components:
   schemas:
+    SearchParameters:
+      type: object
+      description: Echo of the parameters used for the search.
+      properties:
+        q:
+          type: string
+          description: The search query keyword used.
+        search_type:
+          type: string
+          description: The type of search performed.
+        gl:
+          type: string
+          description: Country code used.
+        hl:
+          type: string
+          description: Language code used.
+        google_domain:
+          type: string
+          description: Google domain used.
+    ErrorResponse:
+      type: object
+      description: Error response body.
+      properties:
+        request_info:
+          type: object
+          properties:
+            success:
+              type: boolean
+              example: false
+            message:
+              type: string
+              description: Human-readable error message.
+    RequestInfo:
+      type: object
+      description: Meta-information about the API request status.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was processed successfully.
+        message:
+          type: string
+          description: Status message (present on errors or incidents).
+        credits_used:
+          type: integer
+          description: Number of credits consumed by this request.
+        credits_remaining:
+          type: integer
+          description: Number of credits remaining in the account.
+    SearchMetadata:
+      type: object
+      description: Metadata about the search execution.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this search request.
+        google_url:
+          type: string
+          format: uri
+          description: The Google URL that was scraped to generate results.
+        total_time_taken:
+          type: number
+          format: float
+          description: Total time taken to process the request in seconds.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the search was created.
     ProductResponse:
       type: object
       description: Google Product search results response.
@@ -132,132 +199,6 @@ components:
         free_shipping:
           type: boolean
           description: Whether free shipping is available.
-    RequestInfo:
-      type: object
-      description: Meta-information about the API request status.
-      properties:
-        success:
-          type: boolean
-          description: Whether the request was processed successfully.
-        message:
-          type: string
-          description: Status message (present on errors or incidents).
-        credits_used:
-          type: integer
-          description: Number of credits consumed by this request.
-        credits_remaining:
-          type: integer
-          description: Number of credits remaining in the account.
-    SearchParameters:
-      type: object
-      description: Echo of the parameters used for the search.
-      properties:
-        q:
-          type: string
-          description: The search query keyword used.
-        search_type:
-          type: string
-          description: The type of search performed.
-        gl:
-          type: string
-          description: Country code used.
-        hl:
-          type: string
-          description: Language code used.
-        google_domain:
-          type: string
-          description: Google domain used.
-    SearchMetadata:
-      type: object
-      description: Metadata about the search execution.
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this search request.
-        google_url:
-          type: string
-          format: uri
-          description: The Google URL that was scraped to generate results.
-        total_time_taken:
-          type: number
-          format: float
-          description: Total time taken to process the request in seconds.
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the search was created.
-    ErrorResponse:
-      type: object
-      description: Error response body.
-      properties:
-        request_info:
-          type: object
-          properties:
-            success:
-              type: boolean
-              example: false
-            message:
-              type: string
-              description: Human-readable error message.
-  parameters:
-    api_key:
-      name: api_key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Your ValueSERP API key. Use "demo" for testing limited queries.
-      example: demo
-    google_domain:
-      name: google_domain
-      in: query
-      required: false
-      schema:
-        type: string
-        default: google.com
-      description: The Google domain to use for the search.
-      example: google.com
-    location:
-      name: location
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
-      example: united states
-    uule:
-      name: uule
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Custom Google UULE parameter to override the location.
-    hl:
-      name: hl
-      in: query
-      required: false
-      schema:
-        type: string
-        default: en
-      description: Determines the Google UI language to return results in. BCP-47 language code.
-      example: en
-    location_auto:
-      name: location_auto
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: true
-      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
-    gl:
-      name: gl
-      in: query
-      required: false
-      schema:
-        type: string
-        default: us
-      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
-      example: us
   responses:
     PaymentRequired:
       description: Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.
@@ -293,18 +234,77 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad Request - Invalid parameters or unsupported parameter combinations.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized - The api_key supplied is not valid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    location_auto:
+      name: location_auto
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
+    uule:
+      name: uule
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google UULE parameter to override the location.
+    api_key:
+      name: api_key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your ValueSERP API key. Use "demo" for testing limited queries.
+      example: demo
+    location:
+      name: location
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
+      example: united states
+    hl:
+      name: hl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Determines the Google UI language to return results in. BCP-47 language code.
+      example: en
+    google_domain:
+      name: google_domain
+      in: query
+      required: false
+      schema:
+        type: string
+        default: google.com
+      description: The Google domain to use for the search.
+      example: google.com
+    gl:
+      name: gl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: us
+      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
+      example: us
   securitySchemes:
     apiKeyQuery:
       type: apiKey
