@@ -126,25 +126,26 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
 components:
   responses:
+    InternalServerError:
+      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     PaymentRequired:
       description: Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ServiceUnavailable:
-      description: Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.
-      headers:
-        Retry-After:
-          schema:
-            type: integer
-          description: Seconds to wait before retrying.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
+    Unauthorized:
+      description: Unauthorized - The api_key supplied is not valid.
       content:
         application/json:
           schema:
@@ -160,172 +161,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+    ServiceUnavailable:
+      description: Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - The api_key supplied is not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    lr:
-      name: lr
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Limits results to pages in the specified language.
-      example: lang_en
-    tbs:
-      name: tbs
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Custom Google TBS parameter value for advanced filtering.
-    location:
-      name: location
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
-      example: united states
-    gl:
-      name: gl
-      in: query
-      required: false
-      schema:
-        type: string
-        default: us
-      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
-      example: us
-    safe:
-      name: safe
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - active
-        - 'off'
-      description: Safe search filter setting.
-      example: active
-    uule:
-      name: uule
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Custom Google UULE parameter to override the location.
-    q:
-      name: q
-      in: query
-      required: true
-      schema:
-        type: string
-      description: The keyword or search query to use.
-      example: pizza
-    time_period_max:
-      name: time_period_max
-      in: query
-      required: false
-      schema:
-        type: string
-        pattern: ^\d{2}/\d{2}/\d{4}$
-      description: Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.
-      example: 12/31/2024
-    location_auto:
-      name: location_auto
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: true
-      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
-    hl:
-      name: hl
-      in: query
-      required: false
-      schema:
-        type: string
-        default: en
-      description: Determines the Google UI language to return results in. BCP-47 language code.
-      example: en
-    cr:
-      name: cr
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Limits results to pages from the specified country.
-      example: countryUS
-    time_period_min:
-      name: time_period_min
-      in: query
-      required: false
-      schema:
-        type: string
-        pattern: ^\d{2}/\d{2}/\d{4}$
-      description: Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.
-      example: 01/01/2024
-    api_key:
-      name: api_key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Your ValueSERP API key. Use "demo" for testing limited queries.
-      example: demo
-    time_period:
-      name: time_period
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - last hour
-        - last day
-        - last week
-        - last month
-        - last year
-        - custom
-      description: Filter results by time period.
-      example: last week
-    google_domain:
-      name: google_domain
-      in: query
-      required: false
-      schema:
-        type: string
-        default: google.com
-      description: The Google domain to use for the search.
-      example: google.com
   schemas:
-    SearchParameters:
-      type: object
-      description: Echo of the parameters used for the search.
-      properties:
-        q:
-          type: string
-          description: The search query keyword used.
-        search_type:
-          type: string
-          description: The type of search performed.
-        gl:
-          type: string
-          description: Country code used.
-        hl:
-          type: string
-          description: Language code used.
-        google_domain:
-          type: string
-          description: Google domain used.
     SearchMetadata:
       type: object
       description: Metadata about the search execution.
@@ -345,6 +192,41 @@ components:
           type: string
           format: date-time
           description: Timestamp when the search was created.
+    RequestInfo:
+      type: object
+      description: Meta-information about the API request status.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was processed successfully.
+        message:
+          type: string
+          description: Status message (present on errors or incidents).
+        credits_used:
+          type: integer
+          description: Number of credits consumed by this request.
+        credits_remaining:
+          type: integer
+          description: Number of credits remaining in the account.
+    SearchParameters:
+      type: object
+      description: Echo of the parameters used for the search.
+      properties:
+        q:
+          type: string
+          description: The search query keyword used.
+        search_type:
+          type: string
+          description: The type of search performed.
+        gl:
+          type: string
+          description: Country code used.
+        hl:
+          type: string
+          description: Language code used.
+        google_domain:
+          type: string
+          description: Google domain used.
     ImageResult:
       type: object
       description: A single Google Image search result.
@@ -376,35 +258,6 @@ components:
         source:
           type: string
           description: Source domain/website.
-    ErrorResponse:
-      type: object
-      description: Error response body.
-      properties:
-        request_info:
-          type: object
-          properties:
-            success:
-              type: boolean
-              example: false
-            message:
-              type: string
-              description: Human-readable error message.
-    RequestInfo:
-      type: object
-      description: Meta-information about the API request status.
-      properties:
-        success:
-          type: boolean
-          description: Whether the request was processed successfully.
-        message:
-          type: string
-          description: Status message (present on errors or incidents).
-        credits_used:
-          type: integer
-          description: Number of credits consumed by this request.
-        credits_remaining:
-          type: integer
-          description: Number of credits remaining in the account.
     ImagesResponse:
       type: object
       description: Google Image search results response.
@@ -420,6 +273,153 @@ components:
           items:
             $ref: '#/components/schemas/ImageResult'
           description: Image search results (up to 100 per page).
+    ErrorResponse:
+      type: object
+      description: Error response body.
+      properties:
+        request_info:
+          type: object
+          properties:
+            success:
+              type: boolean
+              example: false
+            message:
+              type: string
+              description: Human-readable error message.
+  parameters:
+    time_period_min:
+      name: time_period_min
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^\d{2}/\d{2}/\d{4}$
+      description: Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.
+      example: 01/01/2024
+    time_period_max:
+      name: time_period_max
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^\d{2}/\d{2}/\d{4}$
+      description: Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.
+      example: 12/31/2024
+    cr:
+      name: cr
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Limits results to pages from the specified country.
+      example: countryUS
+    q:
+      name: q
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The keyword or search query to use.
+      example: pizza
+    google_domain:
+      name: google_domain
+      in: query
+      required: false
+      schema:
+        type: string
+        default: google.com
+      description: The Google domain to use for the search.
+      example: google.com
+    lr:
+      name: lr
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Limits results to pages in the specified language.
+      example: lang_en
+    location_auto:
+      name: location_auto
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
+    location:
+      name: location
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
+      example: united states
+    time_period:
+      name: time_period
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - last hour
+        - last day
+        - last week
+        - last month
+        - last year
+        - custom
+      description: Filter results by time period.
+      example: last week
+    safe:
+      name: safe
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - active
+        - 'off'
+      description: Safe search filter setting.
+      example: active
+    api_key:
+      name: api_key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your ValueSERP API key. Use "demo" for testing limited queries.
+      example: demo
+    hl:
+      name: hl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Determines the Google UI language to return results in. BCP-47 language code.
+      example: en
+    gl:
+      name: gl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: us
+      description: Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.
+      example: us
+    tbs:
+      name: tbs
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google TBS parameter value for advanced filtering.
+    uule:
+      name: uule
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Custom Google UULE parameter to override the location.
   securitySchemes:
     apiKeyQuery:
       type: apiKey

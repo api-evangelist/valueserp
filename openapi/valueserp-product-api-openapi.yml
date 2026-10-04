@@ -88,25 +88,26 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
 components:
   responses:
+    InternalServerError:
+      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad Request - Invalid parameters or unsupported parameter combinations.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     PaymentRequired:
       description: Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ServiceUnavailable:
-      description: Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.
-      headers:
-        Retry-After:
-          schema:
-            type: integer
-          description: Seconds to wait before retrying.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error - Retry after a delay; contact support if the issue persists.
+    Unauthorized:
+      description: Unauthorized - The api_key supplied is not valid.
       content:
         application/json:
           schema:
@@ -122,38 +123,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad Request - Invalid parameters or unsupported parameter combinations.
-      content:
-        application/json:
+    ServiceUnavailable:
+      description: Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.
+      headers:
+        Retry-After:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - The api_key supplied is not valid.
+            type: integer
+          description: Seconds to wait before retrying.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    SearchParameters:
-      type: object
-      description: Echo of the parameters used for the search.
-      properties:
-        q:
-          type: string
-          description: The search query keyword used.
-        search_type:
-          type: string
-          description: The type of search performed.
-        gl:
-          type: string
-          description: Country code used.
-        hl:
-          type: string
-          description: Language code used.
-        google_domain:
-          type: string
-          description: Google domain used.
     SearchMetadata:
       type: object
       description: Metadata about the search execution.
@@ -173,35 +154,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the search was created.
-    ProductResult:
-      type: object
-      description: A single Google Product result.
-      properties:
-        position:
-          type: integer
-          description: Position in results.
-        title:
-          type: string
-          description: Product name.
-        link:
-          type: string
-          format: uri
-          description: Product page URL.
-        price:
-          type: string
-          description: Product price.
-        merchant:
-          type: string
-          description: Merchant name.
-        shipping:
-          type: string
-          description: Shipping details.
-        condition:
-          type: string
-          description: Product condition.
-        free_shipping:
-          type: boolean
-          description: Whether free shipping is available.
     ErrorResponse:
       type: object
       description: Error response body.
@@ -231,6 +183,25 @@ components:
         credits_remaining:
           type: integer
           description: Number of credits remaining in the account.
+    SearchParameters:
+      type: object
+      description: Echo of the parameters used for the search.
+      properties:
+        q:
+          type: string
+          description: The search query keyword used.
+        search_type:
+          type: string
+          description: The type of search performed.
+        gl:
+          type: string
+          description: Country code used.
+        hl:
+          type: string
+          description: Language code used.
+        google_domain:
+          type: string
+          description: Google domain used.
     ProductResponse:
       type: object
       description: Google Product search results response.
@@ -246,7 +217,53 @@ components:
           items:
             $ref: '#/components/schemas/ProductResult'
           description: Product listing results.
+    ProductResult:
+      type: object
+      description: A single Google Product result.
+      properties:
+        position:
+          type: integer
+          description: Position in results.
+        title:
+          type: string
+          description: Product name.
+        link:
+          type: string
+          format: uri
+          description: Product page URL.
+        price:
+          type: string
+          description: Product price.
+        merchant:
+          type: string
+          description: Merchant name.
+        shipping:
+          type: string
+          description: Shipping details.
+        condition:
+          type: string
+          description: Product condition.
+        free_shipping:
+          type: boolean
+          description: Whether free shipping is available.
   parameters:
+    google_domain:
+      name: google_domain
+      in: query
+      required: false
+      schema:
+        type: string
+        default: google.com
+      description: The Google domain to use for the search.
+      example: google.com
+    location_auto:
+      name: location_auto
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
     location:
       name: location
       in: query
@@ -255,6 +272,23 @@ components:
         type: string
       description: Geographic location for the search. Accepts location names (e.g., "manhattan,new york,united states") or GPS coordinates (e.g., "lat 43.437677,lon 3.8392765").
       example: united states
+    api_key:
+      name: api_key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your ValueSERP API key. Use "demo" for testing limited queries.
+      example: demo
+    hl:
+      name: hl
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Determines the Google UI language to return results in. BCP-47 language code.
+      example: en
     gl:
       name: gl
       in: query
@@ -271,40 +305,6 @@ components:
       schema:
         type: string
       description: Custom Google UULE parameter to override the location.
-    location_auto:
-      name: location_auto
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: true
-      description: When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.
-    hl:
-      name: hl
-      in: query
-      required: false
-      schema:
-        type: string
-        default: en
-      description: Determines the Google UI language to return results in. BCP-47 language code.
-      example: en
-    api_key:
-      name: api_key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Your ValueSERP API key. Use "demo" for testing limited queries.
-      example: demo
-    google_domain:
-      name: google_domain
-      in: query
-      required: false
-      schema:
-        type: string
-        default: google.com
-      description: The Google domain to use for the search.
-      example: google.com
   securitySchemes:
     apiKeyQuery:
       type: apiKey
