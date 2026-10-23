@@ -188,6 +188,8 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/valueserp/refs/heads/main/json-schema/valueserp-search-response.json
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/valueserp/overview
   - type: AgenticAccess
     url: agentic-access/valueserp-agentic-access.yml
   - type: DomainSecurity
