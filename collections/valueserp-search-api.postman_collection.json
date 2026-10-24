@@ -1,1269 +1,1427 @@
 {
+  "info": {
+    "_postman_id": "ffaf650b-68f6-4abb-bc25-9ca8efdaa631",
+    "name": "ValueSERP Search API",
+    "description": "Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.\n\nContact Support:\n Name: ValueSERP Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:08:52.000Z",
+    "updatedAt": "2026-10-22T03:08:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ffaf650b-68f6-4abb-bc25-9ca8efdaa631"
+  },
   "item": [
     {
-      "id": "ec8b609d-f02f-4c5b-a021-3e0795a125d8",
-      "name": "Search",
-      "description": {
-        "content": "Google organic web search results.",
-        "type": "text/plain"
-      },
+      "name": "search",
       "item": [
         {
-          "id": "3891c268-8cbe-46ef-9779-1898fd3329dc",
           "name": "Google Search (Organic)",
+          "id": "8660da97-9549-46e7-becf-6fcb6b6bd9ac",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Google Search (Organic)",
-            "description": {
-              "content": "Retrieve real-time Google organic search results for a given keyword. Returns organic listings, ads, knowledge graph data, answer boxes, AI overviews, related questions, and more.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "search"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "api_key",
-                  "value": "<string>",
-                  "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries."
-                },
-                {
-                  "disabled": false,
-                  "key": "q",
-                  "value": "<string>",
-                  "description": "(Required) The keyword or search query to use."
-                },
-                {
-                  "disabled": false,
-                  "key": "location",
-                  "value": "<string>",
-                  "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "location_auto",
-                  "value": "true",
-                  "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
-                },
-                {
-                  "disabled": false,
-                  "key": "google_domain",
-                  "value": "google.com",
-                  "description": "The Google domain to use for the search."
-                },
-                {
-                  "disabled": false,
-                  "key": "gl",
-                  "value": "us",
-                  "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
-                },
-                {
-                  "disabled": false,
-                  "key": "hl",
-                  "value": "en",
-                  "description": "Determines the Google UI language to return results in. BCP-47 language code."
-                },
-                {
-                  "disabled": false,
-                  "key": "lr",
-                  "value": "<string>",
-                  "description": "Limits results to pages in the specified language."
-                },
-                {
-                  "disabled": false,
-                  "key": "cr",
-                  "value": "<string>",
-                  "description": "Limits results to pages from the specified country."
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1",
-                  "description": "The results page number to retrieve. Defaults to 1."
-                },
-                {
-                  "disabled": false,
-                  "key": "max_page",
-                  "value": "<integer>",
-                  "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve."
-                },
-                {
-                  "disabled": false,
-                  "key": "safe",
-                  "value": "<string>",
-                  "description": "Safe search filter setting."
-                },
-                {
-                  "disabled": false,
-                  "key": "nfpr",
-                  "value": "<integer>",
-                  "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default)."
-                },
-                {
-                  "disabled": false,
-                  "key": "filter",
-                  "value": "1",
-                  "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it."
-                },
-                {
-                  "disabled": false,
-                  "key": "tbs",
-                  "value": "<string>",
-                  "description": "Custom Google TBS parameter value for advanced filtering."
-                },
-                {
-                  "disabled": false,
-                  "key": "uule",
-                  "value": "<string>",
-                  "description": "Custom Google UULE parameter to override the location."
-                },
-                {
-                  "disabled": false,
-                  "key": "time_period",
-                  "value": "<string>",
-                  "description": "Filter results by time period."
-                },
-                {
-                  "disabled": false,
-                  "key": "time_period_min",
-                  "value": "<string>",
-                  "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom."
-                },
-                {
-                  "disabled": false,
-                  "key": "time_period_max",
-                  "value": "<string>",
-                  "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom."
-                },
-                {
-                  "disabled": false,
-                  "key": "knowledge_graph_id",
-                  "value": "<string>",
-                  "description": "Specific Google Knowledge Graph entity ID."
-                },
-                {
-                  "disabled": false,
-                  "key": "include_ai_overview",
-                  "value": "<boolean>",
-                  "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned."
-                },
-                {
-                  "disabled": false,
-                  "key": "include_ai_overview_paa",
-                  "value": "<boolean>",
-                  "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview."
-                },
-                {
-                  "disabled": false,
-                  "key": "include_answer_box",
-                  "value": "<boolean>",
-                  "description": "When true, includes the featured snippet/answer box as the first item in organic results."
-                },
-                {
-                  "disabled": false,
-                  "key": "flatten_results",
-                  "value": "<boolean>",
-                  "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results."
-                },
-                {
-                  "disabled": false,
-                  "key": "fields",
-                  "value": "<string>",
-                  "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size."
-                },
-                {
-                  "disabled": false,
-                  "key": "order_online",
-                  "value": "<boolean>",
-                  "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1."
-                },
-                {
-                  "disabled": false,
-                  "key": "ads_optimized",
-                  "value": "<boolean>",
-                  "description": "Optimizes ad return rates in the response. Costs 3 additional credits."
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/search?api_key=<string>&q=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&lr=<string>&cr=<string>&page=1&max_page=<integer>&safe=active&nfpr=0&filter=1&tbs=<string>&uule=<string>&time_period=last day&time_period_min=15/04/9787&time_period_max=15/04/9787&knowledge_graph_id=<string>&include_ai_overview=<boolean>&include_ai_overview_paa=<boolean>&include_answer_box=<boolean>&flatten_results=<boolean>&fields=<string>&order_online=<boolean>&ads_optimized=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The keyword or search query to use.",
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                  "key": "location",
+                  "value": "<string>"
+                },
+                {
+                  "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                  "key": "location_auto",
+                  "value": "true"
+                },
+                {
+                  "description": "The Google domain to use for the search.",
+                  "key": "google_domain",
+                  "value": "google.com"
+                },
+                {
+                  "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                  "key": "gl",
+                  "value": "us"
+                },
+                {
+                  "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                  "key": "hl",
+                  "value": "en"
+                },
+                {
+                  "description": "Limits results to pages in the specified language.",
+                  "key": "lr",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Limits results to pages from the specified country.",
+                  "key": "cr",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The results page number to retrieve. Defaults to 1.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.",
+                  "key": "max_page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Safe search filter setting.",
+                  "key": "safe",
+                  "value": "active"
+                },
+                {
+                  "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).",
+                  "key": "nfpr",
+                  "value": "0"
+                },
+                {
+                  "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.",
+                  "key": "filter",
+                  "value": "1"
+                },
+                {
+                  "description": "Custom Google TBS parameter value for advanced filtering.",
+                  "key": "tbs",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Custom Google UULE parameter to override the location.",
+                  "key": "uule",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter results by time period.",
+                  "key": "time_period",
+                  "value": "last day"
+                },
+                {
+                  "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.",
+                  "key": "time_period_min",
+                  "value": "15/04/9787"
+                },
+                {
+                  "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.",
+                  "key": "time_period_max",
+                  "value": "15/04/9787"
+                },
+                {
+                  "description": "Specific Google Knowledge Graph entity ID.",
+                  "key": "knowledge_graph_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned.",
+                  "key": "include_ai_overview",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview.",
+                  "key": "include_ai_overview_paa",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "When true, includes the featured snippet/answer box as the first item in organic results.",
+                  "key": "include_answer_box",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results.",
+                  "key": "flatten_results",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size.",
+                  "key": "fields",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1.",
+                  "key": "order_online",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Optimizes ad return rates in the response. Costs 3 additional credits.",
+                  "key": "ads_optimized",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Retrieve real-time Google organic search results for a given keyword. Returns organic listings, ads, knowledge graph data, answer boxes, AI overviews, related questions, and more."
           },
           "response": [
             {
-              "id": "054305a6-2cd9-411e-9e51-36aab7c43972",
+              "id": "778cb8a1-85e4-46b6-9b26-48714214343a",
               "name": "Successful search response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "q",
-                      "value": "pizza"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "lr",
-                      "value": "lang_en"
-                    },
-                    {
-                      "key": "cr",
-                      "value": "countryUS"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "max_page",
-                      "value": "3"
-                    },
-                    {
-                      "key": "safe",
-                      "value": "active"
-                    },
-                    {
-                      "key": "nfpr",
-                      "value": "0"
-                    },
-                    {
-                      "key": "filter",
-                      "value": "1"
-                    },
-                    {
-                      "key": "tbs",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "time_period",
-                      "value": "last week"
-                    },
-                    {
-                      "key": "time_period_min",
-                      "value": "01/01/2024"
-                    },
-                    {
-                      "key": "time_period_max",
-                      "value": "12/31/2024"
-                    },
-                    {
-                      "key": "knowledge_graph_id",
-                      "value": "/m/0jg24"
-                    },
-                    {
-                      "key": "include_ai_overview",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_ai_overview_paa",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_answer_box",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "flatten_results",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "fields",
-                      "value": "organic_results,knowledge_graph"
-                    },
-                    {
-                      "key": "order_online",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "ads_optimized",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&q=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&lr=<string>&cr=<string>&page=1&max_page=<integer>&safe=active&nfpr=0&filter=1&tbs=<string>&uule=<string>&time_period=last day&time_period_min=15/04/9787&time_period_max=15/04/9787&knowledge_graph_id=<string>&include_ai_overview=<boolean>&include_ai_overview_paa=<boolean>&include_answer_box=<boolean>&flatten_results=<boolean>&fields=<string>&order_online=<boolean>&ads_optimized=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) The keyword or search query to use.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Limits results to pages in the specified language.",
+                      "key": "lr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limits results to pages from the specified country.",
+                      "key": "cr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The results page number to retrieve. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.",
+                      "key": "max_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Safe search filter setting.",
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).",
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.",
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Custom Google TBS parameter value for advanced filtering.",
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results by time period.",
+                      "key": "time_period",
+                      "value": "last day"
+                    },
+                    {
+                      "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_min",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_max",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Specific Google Knowledge Graph entity ID.",
+                      "key": "knowledge_graph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned.",
+                      "key": "include_ai_overview",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview.",
+                      "key": "include_ai_overview_paa",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, includes the featured snippet/answer box as the first item in organic results.",
+                      "key": "include_answer_box",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results.",
+                      "key": "flatten_results",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size.",
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1.",
+                      "key": "order_online",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Optimizes ad return rates in the response. Costs 3 additional credits.",
+                      "key": "ads_optimized",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": true\n  },\n  \"search_metadata\": {\n    \"id\": \"SEARCH_ID\",\n    \"google_url\": \"https://www.google.com/search?q=pizza\",\n    \"total_time_taken\": 1.23\n  },\n  \"search_parameters\": {\n    \"q\": \"pizza\",\n    \"gl\": \"us\",\n    \"hl\": \"en\"\n  },\n  \"organic_results\": [\n    {\n      \"position\": 1,\n      \"title\": \"Best Pizza Recipes\",\n      \"link\": \"https://example.com/pizza\",\n      \"domain\": \"example.com\",\n      \"snippet\": \"Find the best pizza recipes here.\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\",\n    \"credits_used\": \"<integer>\",\n    \"credits_remaining\": \"<integer>\"\n  },\n  \"search_metadata\": {\n    \"id\": \"<string>\",\n    \"google_url\": \"<uri>\",\n    \"total_time_taken\": \"<float>\",\n    \"created_at\": \"<dateTime>\"\n  },\n  \"search_parameters\": {\n    \"q\": \"<string>\",\n    \"search_type\": \"<string>\",\n    \"gl\": \"<string>\",\n    \"hl\": \"<string>\",\n    \"google_domain\": \"<string>\"\n  },\n  \"organic_results\": [\n    {\n      \"position\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"domain\": \"<string>\",\n      \"snippet\": \"<string>\",\n      \"cached_page_link\": \"<uri>\",\n      \"related_pages_link\": \"<uri>\",\n      \"sitelinks\": [\n        {\n          \"title\": \"<string>\",\n          \"link\": \"<uri>\"\n        },\n        {\n          \"title\": \"<string>\",\n          \"link\": \"<uri>\"\n        }\n      ]\n    },\n    {\n      \"position\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"domain\": \"<string>\",\n      \"snippet\": \"<string>\",\n      \"cached_page_link\": \"<uri>\",\n      \"related_pages_link\": \"<uri>\",\n      \"sitelinks\": [\n        {\n          \"title\": \"<string>\",\n          \"link\": \"<uri>\"\n        },\n        {\n          \"title\": \"<string>\",\n          \"link\": \"<uri>\"\n        }\n      ]\n    }\n  ],\n  \"ads\": [\n    {\n      \"position\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"display_link\": \"<string>\",\n      \"snippet\": \"<string>\"\n    },\n    {\n      \"position\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"display_link\": \"<string>\",\n      \"snippet\": \"<string>\"\n    }\n  ],\n  \"knowledge_graph\": {\n    \"title\": \"<string>\",\n    \"type\": \"<string>\",\n    \"description\": \"<string>\",\n    \"source\": {\n      \"name\": \"<string>\",\n      \"link\": \"<uri>\"\n    },\n    \"image\": {\n      \"src\": \"<uri>\",\n      \"alt\": \"<string>\"\n    }\n  },\n  \"answer_box\": {\n    \"type\": \"<string>\",\n    \"title\": \"<string>\",\n    \"answer\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"related_questions\": [\n    {\n      \"question\": \"<string>\",\n      \"answer\": \"<string>\",\n      \"link\": \"<uri>\"\n    },\n    {\n      \"question\": \"<string>\",\n      \"answer\": \"<string>\",\n      \"link\": \"<uri>\"\n    }\n  ],\n  \"related_searches\": [\n    {\n      \"query\": \"<string>\",\n      \"link\": \"<uri>\"\n    },\n    {\n      \"query\": \"<string>\",\n      \"link\": \"<uri>\"\n    }\n  ],\n  \"pagination\": {\n    \"current\": \"<integer>\",\n    \"next\": \"<uri>\",\n    \"other_pages\": {\n      \"sint_0cf\": \"<string>\"\n    }\n  }\n}",
+              "createdAt": "2026-10-22T03:08:52.000Z",
+              "updatedAt": "2026-10-22T03:08:52.000Z",
+              "uid": "35240-778cb8a1-85e4-46b6-9b26-48714214343a"
             },
             {
-              "id": "89ba4edd-9465-44f7-864d-4b5440ce6d8a",
+              "id": "10b9e061-7203-48d9-93c7-48ac8b55da24",
               "name": "Bad Request - Invalid parameters or unsupported parameter combinations.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "q",
-                      "value": "pizza"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "lr",
-                      "value": "lang_en"
-                    },
-                    {
-                      "key": "cr",
-                      "value": "countryUS"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "max_page",
-                      "value": "3"
-                    },
-                    {
-                      "key": "safe",
-                      "value": "active"
-                    },
-                    {
-                      "key": "nfpr",
-                      "value": "0"
-                    },
-                    {
-                      "key": "filter",
-                      "value": "1"
-                    },
-                    {
-                      "key": "tbs",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "time_period",
-                      "value": "last week"
-                    },
-                    {
-                      "key": "time_period_min",
-                      "value": "01/01/2024"
-                    },
-                    {
-                      "key": "time_period_max",
-                      "value": "12/31/2024"
-                    },
-                    {
-                      "key": "knowledge_graph_id",
-                      "value": "/m/0jg24"
-                    },
-                    {
-                      "key": "include_ai_overview",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_ai_overview_paa",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_answer_box",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "flatten_results",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "fields",
-                      "value": "organic_results,knowledge_graph"
-                    },
-                    {
-                      "key": "order_online",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "ads_optimized",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&q=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&lr=<string>&cr=<string>&page=1&max_page=<integer>&safe=active&nfpr=0&filter=1&tbs=<string>&uule=<string>&time_period=last day&time_period_min=15/04/9787&time_period_max=15/04/9787&knowledge_graph_id=<string>&include_ai_overview=<boolean>&include_ai_overview_paa=<boolean>&include_answer_box=<boolean>&flatten_results=<boolean>&fields=<string>&order_online=<boolean>&ads_optimized=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) The keyword or search query to use.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Limits results to pages in the specified language.",
+                      "key": "lr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limits results to pages from the specified country.",
+                      "key": "cr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The results page number to retrieve. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.",
+                      "key": "max_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Safe search filter setting.",
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).",
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.",
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Custom Google TBS parameter value for advanced filtering.",
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results by time period.",
+                      "key": "time_period",
+                      "value": "last day"
+                    },
+                    {
+                      "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_min",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_max",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Specific Google Knowledge Graph entity ID.",
+                      "key": "knowledge_graph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned.",
+                      "key": "include_ai_overview",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview.",
+                      "key": "include_ai_overview_paa",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, includes the featured snippet/answer box as the first item in organic results.",
+                      "key": "include_answer_box",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results.",
+                      "key": "flatten_results",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size.",
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1.",
+                      "key": "order_online",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Optimizes ad return rates in the response. Costs 3 additional credits.",
+                      "key": "ads_optimized",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:52.000Z",
+              "updatedAt": "2026-10-22T03:08:52.000Z",
+              "uid": "35240-10b9e061-7203-48d9-93c7-48ac8b55da24"
             },
             {
-              "id": "8d01889d-a85b-4217-b2e8-c64a6e69ce2e",
+              "id": "db954578-2122-4b62-97b2-8677a965a044",
               "name": "Unauthorized - The api_key supplied is not valid.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "q",
-                      "value": "pizza"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "lr",
-                      "value": "lang_en"
-                    },
-                    {
-                      "key": "cr",
-                      "value": "countryUS"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "max_page",
-                      "value": "3"
-                    },
-                    {
-                      "key": "safe",
-                      "value": "active"
-                    },
-                    {
-                      "key": "nfpr",
-                      "value": "0"
-                    },
-                    {
-                      "key": "filter",
-                      "value": "1"
-                    },
-                    {
-                      "key": "tbs",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "time_period",
-                      "value": "last week"
-                    },
-                    {
-                      "key": "time_period_min",
-                      "value": "01/01/2024"
-                    },
-                    {
-                      "key": "time_period_max",
-                      "value": "12/31/2024"
-                    },
-                    {
-                      "key": "knowledge_graph_id",
-                      "value": "/m/0jg24"
-                    },
-                    {
-                      "key": "include_ai_overview",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_ai_overview_paa",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_answer_box",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "flatten_results",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "fields",
-                      "value": "organic_results,knowledge_graph"
-                    },
-                    {
-                      "key": "order_online",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "ads_optimized",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&q=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&lr=<string>&cr=<string>&page=1&max_page=<integer>&safe=active&nfpr=0&filter=1&tbs=<string>&uule=<string>&time_period=last day&time_period_min=15/04/9787&time_period_max=15/04/9787&knowledge_graph_id=<string>&include_ai_overview=<boolean>&include_ai_overview_paa=<boolean>&include_answer_box=<boolean>&flatten_results=<boolean>&fields=<string>&order_online=<boolean>&ads_optimized=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) The keyword or search query to use.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Limits results to pages in the specified language.",
+                      "key": "lr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limits results to pages from the specified country.",
+                      "key": "cr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The results page number to retrieve. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.",
+                      "key": "max_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Safe search filter setting.",
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).",
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.",
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Custom Google TBS parameter value for advanced filtering.",
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results by time period.",
+                      "key": "time_period",
+                      "value": "last day"
+                    },
+                    {
+                      "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_min",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_max",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Specific Google Knowledge Graph entity ID.",
+                      "key": "knowledge_graph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned.",
+                      "key": "include_ai_overview",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview.",
+                      "key": "include_ai_overview_paa",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, includes the featured snippet/answer box as the first item in organic results.",
+                      "key": "include_answer_box",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results.",
+                      "key": "flatten_results",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size.",
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1.",
+                      "key": "order_online",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Optimizes ad return rates in the response. Costs 3 additional credits.",
+                      "key": "ads_optimized",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:52.000Z",
+              "updatedAt": "2026-10-22T03:08:52.000Z",
+              "uid": "35240-db954578-2122-4b62-97b2-8677a965a044"
             },
             {
-              "id": "e3ae148c-6e61-44a2-9114-2b036d23d669",
+              "id": "0e7cccc2-7e20-45d0-8e72-2841e093b946",
               "name": "Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "q",
-                      "value": "pizza"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "lr",
-                      "value": "lang_en"
-                    },
-                    {
-                      "key": "cr",
-                      "value": "countryUS"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "max_page",
-                      "value": "3"
-                    },
-                    {
-                      "key": "safe",
-                      "value": "active"
-                    },
-                    {
-                      "key": "nfpr",
-                      "value": "0"
-                    },
-                    {
-                      "key": "filter",
-                      "value": "1"
-                    },
-                    {
-                      "key": "tbs",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "time_period",
-                      "value": "last week"
-                    },
-                    {
-                      "key": "time_period_min",
-                      "value": "01/01/2024"
-                    },
-                    {
-                      "key": "time_period_max",
-                      "value": "12/31/2024"
-                    },
-                    {
-                      "key": "knowledge_graph_id",
-                      "value": "/m/0jg24"
-                    },
-                    {
-                      "key": "include_ai_overview",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_ai_overview_paa",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_answer_box",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "flatten_results",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "fields",
-                      "value": "organic_results,knowledge_graph"
-                    },
-                    {
-                      "key": "order_online",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "ads_optimized",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&q=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&lr=<string>&cr=<string>&page=1&max_page=<integer>&safe=active&nfpr=0&filter=1&tbs=<string>&uule=<string>&time_period=last day&time_period_min=15/04/9787&time_period_max=15/04/9787&knowledge_graph_id=<string>&include_ai_overview=<boolean>&include_ai_overview_paa=<boolean>&include_answer_box=<boolean>&flatten_results=<boolean>&fields=<string>&order_online=<boolean>&ads_optimized=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) The keyword or search query to use.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Limits results to pages in the specified language.",
+                      "key": "lr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limits results to pages from the specified country.",
+                      "key": "cr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The results page number to retrieve. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.",
+                      "key": "max_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Safe search filter setting.",
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).",
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.",
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Custom Google TBS parameter value for advanced filtering.",
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results by time period.",
+                      "key": "time_period",
+                      "value": "last day"
+                    },
+                    {
+                      "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_min",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_max",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Specific Google Knowledge Graph entity ID.",
+                      "key": "knowledge_graph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned.",
+                      "key": "include_ai_overview",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview.",
+                      "key": "include_ai_overview_paa",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, includes the featured snippet/answer box as the first item in organic results.",
+                      "key": "include_answer_box",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results.",
+                      "key": "flatten_results",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size.",
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1.",
+                      "key": "order_online",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Optimizes ad return rates in the response. Costs 3 additional credits.",
+                      "key": "ads_optimized",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
               },
               "status": "Payment Required",
               "code": 402,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:52.000Z",
+              "updatedAt": "2026-10-22T03:08:52.000Z",
+              "uid": "35240-0e7cccc2-7e20-45d0-8e72-2841e093b946"
             },
             {
-              "id": "5204a9c4-f791-43a3-be78-34dc4e14c4b4",
+              "id": "9c54b23e-0da3-4387-957d-e625f15dc784",
               "name": "Too Many Requests - Your plan's rate limit has been exceeded.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "q",
-                      "value": "pizza"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "lr",
-                      "value": "lang_en"
-                    },
-                    {
-                      "key": "cr",
-                      "value": "countryUS"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "max_page",
-                      "value": "3"
-                    },
-                    {
-                      "key": "safe",
-                      "value": "active"
-                    },
-                    {
-                      "key": "nfpr",
-                      "value": "0"
-                    },
-                    {
-                      "key": "filter",
-                      "value": "1"
-                    },
-                    {
-                      "key": "tbs",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "time_period",
-                      "value": "last week"
-                    },
-                    {
-                      "key": "time_period_min",
-                      "value": "01/01/2024"
-                    },
-                    {
-                      "key": "time_period_max",
-                      "value": "12/31/2024"
-                    },
-                    {
-                      "key": "knowledge_graph_id",
-                      "value": "/m/0jg24"
-                    },
-                    {
-                      "key": "include_ai_overview",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_ai_overview_paa",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_answer_box",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "flatten_results",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "fields",
-                      "value": "organic_results,knowledge_graph"
-                    },
-                    {
-                      "key": "order_online",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "ads_optimized",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&q=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&lr=<string>&cr=<string>&page=1&max_page=<integer>&safe=active&nfpr=0&filter=1&tbs=<string>&uule=<string>&time_period=last day&time_period_min=15/04/9787&time_period_max=15/04/9787&knowledge_graph_id=<string>&include_ai_overview=<boolean>&include_ai_overview_paa=<boolean>&include_answer_box=<boolean>&flatten_results=<boolean>&fields=<string>&order_online=<boolean>&ads_optimized=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) The keyword or search query to use.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Limits results to pages in the specified language.",
+                      "key": "lr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limits results to pages from the specified country.",
+                      "key": "cr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The results page number to retrieve. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.",
+                      "key": "max_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Safe search filter setting.",
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).",
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.",
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Custom Google TBS parameter value for advanced filtering.",
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results by time period.",
+                      "key": "time_period",
+                      "value": "last day"
+                    },
+                    {
+                      "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_min",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_max",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Specific Google Knowledge Graph entity ID.",
+                      "key": "knowledge_graph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned.",
+                      "key": "include_ai_overview",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview.",
+                      "key": "include_ai_overview_paa",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, includes the featured snippet/answer box as the first item in organic results.",
+                      "key": "include_answer_box",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results.",
+                      "key": "flatten_results",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size.",
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1.",
+                      "key": "order_online",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Optimizes ad return rates in the response. Costs 3 additional credits.",
+                      "key": "ads_optimized",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
               },
               "status": "Too Many Requests",
               "code": 429,
+              "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "disabled": false,
-                  "description": "Seconds to wait before retrying.",
-                  "key": "Retry-After",
-                  "value": "6866"
-                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Seconds to wait before retrying.",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:52.000Z",
+              "updatedAt": "2026-10-22T03:08:52.000Z",
+              "uid": "35240-9c54b23e-0da3-4387-957d-e625f15dc784"
             },
             {
-              "id": "73de5eca-5ef0-45c6-9a11-9e9f65036c00",
+              "id": "63e79cbd-89b4-4f8d-95c2-efda759c6543",
               "name": "Internal Server Error - Retry after a delay; contact support if the issue persists.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "q",
-                      "value": "pizza"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "lr",
-                      "value": "lang_en"
-                    },
-                    {
-                      "key": "cr",
-                      "value": "countryUS"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "max_page",
-                      "value": "3"
-                    },
-                    {
-                      "key": "safe",
-                      "value": "active"
-                    },
-                    {
-                      "key": "nfpr",
-                      "value": "0"
-                    },
-                    {
-                      "key": "filter",
-                      "value": "1"
-                    },
-                    {
-                      "key": "tbs",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "time_period",
-                      "value": "last week"
-                    },
-                    {
-                      "key": "time_period_min",
-                      "value": "01/01/2024"
-                    },
-                    {
-                      "key": "time_period_max",
-                      "value": "12/31/2024"
-                    },
-                    {
-                      "key": "knowledge_graph_id",
-                      "value": "/m/0jg24"
-                    },
-                    {
-                      "key": "include_ai_overview",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_ai_overview_paa",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_answer_box",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "flatten_results",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "fields",
-                      "value": "organic_results,knowledge_graph"
-                    },
-                    {
-                      "key": "order_online",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "ads_optimized",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&q=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&lr=<string>&cr=<string>&page=1&max_page=<integer>&safe=active&nfpr=0&filter=1&tbs=<string>&uule=<string>&time_period=last day&time_period_min=15/04/9787&time_period_max=15/04/9787&knowledge_graph_id=<string>&include_ai_overview=<boolean>&include_ai_overview_paa=<boolean>&include_answer_box=<boolean>&flatten_results=<boolean>&fields=<string>&order_online=<boolean>&ads_optimized=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) The keyword or search query to use.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Limits results to pages in the specified language.",
+                      "key": "lr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limits results to pages from the specified country.",
+                      "key": "cr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The results page number to retrieve. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.",
+                      "key": "max_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Safe search filter setting.",
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).",
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.",
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Custom Google TBS parameter value for advanced filtering.",
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results by time period.",
+                      "key": "time_period",
+                      "value": "last day"
+                    },
+                    {
+                      "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_min",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_max",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Specific Google Knowledge Graph entity ID.",
+                      "key": "knowledge_graph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned.",
+                      "key": "include_ai_overview",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview.",
+                      "key": "include_ai_overview_paa",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, includes the featured snippet/answer box as the first item in organic results.",
+                      "key": "include_answer_box",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results.",
+                      "key": "flatten_results",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size.",
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1.",
+                      "key": "order_online",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Optimizes ad return rates in the response. Costs 3 additional credits.",
+                      "key": "ads_optimized",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:52.000Z",
+              "updatedAt": "2026-10-22T03:08:52.000Z",
+              "uid": "35240-63e79cbd-89b4-4f8d-95c2-efda759c6543"
             },
             {
-              "id": "245545ec-edcd-46b9-9084-271321346cd4",
+              "id": "cb681ba1-78e7-4fc0-b46f-e5092abae923",
               "name": "Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "q",
-                      "value": "pizza"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "lr",
-                      "value": "lang_en"
-                    },
-                    {
-                      "key": "cr",
-                      "value": "countryUS"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "max_page",
-                      "value": "3"
-                    },
-                    {
-                      "key": "safe",
-                      "value": "active"
-                    },
-                    {
-                      "key": "nfpr",
-                      "value": "0"
-                    },
-                    {
-                      "key": "filter",
-                      "value": "1"
-                    },
-                    {
-                      "key": "tbs",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "time_period",
-                      "value": "last week"
-                    },
-                    {
-                      "key": "time_period_min",
-                      "value": "01/01/2024"
-                    },
-                    {
-                      "key": "time_period_max",
-                      "value": "12/31/2024"
-                    },
-                    {
-                      "key": "knowledge_graph_id",
-                      "value": "/m/0jg24"
-                    },
-                    {
-                      "key": "include_ai_overview",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_ai_overview_paa",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "include_answer_box",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "flatten_results",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "fields",
-                      "value": "organic_results,knowledge_graph"
-                    },
-                    {
-                      "key": "order_online",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "ads_optimized",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&q=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&lr=<string>&cr=<string>&page=1&max_page=<integer>&safe=active&nfpr=0&filter=1&tbs=<string>&uule=<string>&time_period=last day&time_period_min=15/04/9787&time_period_max=15/04/9787&knowledge_graph_id=<string>&include_ai_overview=<boolean>&include_ai_overview_paa=<boolean>&include_answer_box=<boolean>&flatten_results=<boolean>&fields=<string>&order_online=<boolean>&ads_optimized=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) The keyword or search query to use.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Limits results to pages in the specified language.",
+                      "key": "lr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limits results to pages from the specified country.",
+                      "key": "cr",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The results page number to retrieve. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Retrieve multiple result pages in a single API request. Specifies the maximum page number to retrieve.",
+                      "key": "max_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Safe search filter setting.",
+                      "key": "safe",
+                      "value": "active"
+                    },
+                    {
+                      "description": "Exclude auto-corrected spelling results. Set to 1 to exclude, 0 to include (default).",
+                      "key": "nfpr",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Toggle similar/omitted result filters. 1 enables filtering (default), 0 disables it.",
+                      "key": "filter",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Custom Google TBS parameter value for advanced filtering.",
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results by time period.",
+                      "key": "time_period",
+                      "value": "last day"
+                    },
+                    {
+                      "description": "Custom time period start date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_min",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Custom time period end date in MM/DD/YYYY format. Required when time_period=custom.",
+                      "key": "time_period_max",
+                      "value": "15/04/9787"
+                    },
+                    {
+                      "description": "Specific Google Knowledge Graph entity ID.",
+                      "key": "knowledge_graph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Adds Google's AI overview content to the response. Costs 1 additional credit when an AI overview is returned.",
+                      "key": "include_ai_overview",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Includes AI overview answers in related questions (People Also Ask). Costs 1 credit per overview.",
+                      "key": "include_ai_overview_paa",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, includes the featured snippet/answer box as the first item in organic results.",
+                      "key": "include_answer_box",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Flattens inline videos, inline images, and other inline content blocks so they appear inline in results.",
+                      "key": "flatten_results",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Comma-separated list of top-level response objects to return (web-only feature). Reduces response size.",
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Returns pickup/delivery ordering info for restaurants (US only). Costs 2 credits instead of 1.",
+                      "key": "order_online",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Optimizes ad return rates in the response. Costs 3 additional credits.",
+                      "key": "ads_optimized",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
               },
               "status": "Service Unavailable",
               "code": 503,
+              "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "disabled": false,
-                  "description": "Seconds to wait before retrying.",
-                  "key": "Retry-After",
-                  "value": "6866"
-                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Seconds to wait before retrying.",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:52.000Z",
+              "updatedAt": "2026-10-22T03:08:52.000Z",
+              "uid": "35240-cb681ba1-78e7-4fc0-b46f-e5092abae923"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T03:08:52.000Z",
+          "updatedAt": "2026-10-22T03:08:52.000Z",
+          "uid": "35240-8660da97-9549-46e7-becf-6fcb6b6bd9ac"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.valueserp.com",
-      "key": "baseUrl"
+      "id": "8580501f-e17c-404b-9b2f-42bae3a9293f",
+      "createdAt": "2026-10-22T03:08:52.000Z",
+      "updatedAt": "2026-10-22T03:08:52.000Z",
+      "uid": "35240-8580501f-e17c-404b-9b2f-42bae3a9293f"
     }
   ],
   "auth": {
@@ -1271,25 +1429,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "api_key"
+        "value": "api_key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "query"
+        "value": "query",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "e1770255-ec3b-48aa-aee3-ed3c888e1c3e",
-    "name": "ValueSERP Images Search API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.\n\nContact Support:\n Name: ValueSERP Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.valueserp.com"
     }
-  }
+  ]
 }

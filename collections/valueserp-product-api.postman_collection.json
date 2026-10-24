@@ -1,767 +1,835 @@
 {
+  "info": {
+    "_postman_id": "e5b5afa1-773d-4549-b255-813ca29897e8",
+    "name": "ValueSERP Search Product API",
+    "description": "Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.\n\nContact Support:\n Name: ValueSERP Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:08:47.000Z",
+    "updatedAt": "2026-10-22T03:08:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e5b5afa1-773d-4549-b255-813ca29897e8"
+  },
   "item": [
     {
-      "id": "dbc23701-271c-407e-8228-f3e86a7bce99",
-      "name": "Product",
-      "description": {
-        "content": "Google product knowledge panel data (deprecated).",
-        "type": "text/plain"
-      },
+      "name": "search#product",
       "item": [
         {
-          "id": "fe0b7052-7dca-424a-b9fc-10be67fc6ae3",
           "name": "Google Product Results",
+          "id": "aec31485-5fb7-47ef-8e90-66d33f948801",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Google Product Results",
-            "description": {
-              "content": "Retrieve Google product listing results for a given product ID. Set search_type=product. Note: This endpoint is deprecated as of October 31 and is being replaced by the Product Details endpoint.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "search"
-              ],
-              "hash": "product",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "api_key",
-                  "value": "<string>",
-                  "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries."
-                },
-                {
-                  "disabled": false,
-                  "key": "search_type",
-                  "value": "<string>",
-                  "description": "(Required) Must be set to \"product\"."
-                },
-                {
-                  "disabled": false,
-                  "key": "product_id",
-                  "value": "<string>",
-                  "description": "(Required) Google product identifier."
-                },
-                {
-                  "disabled": false,
-                  "key": "location",
-                  "value": "<string>",
-                  "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "location_auto",
-                  "value": "true",
-                  "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true."
-                },
-                {
-                  "disabled": false,
-                  "key": "google_domain",
-                  "value": "google.com",
-                  "description": "The Google domain to use for the search."
-                },
-                {
-                  "disabled": false,
-                  "key": "gl",
-                  "value": "us",
-                  "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code."
-                },
-                {
-                  "disabled": false,
-                  "key": "hl",
-                  "value": "en",
-                  "description": "Determines the Google UI language to return results in. BCP-47 language code."
-                },
-                {
-                  "disabled": false,
-                  "key": "uule",
-                  "value": "<string>",
-                  "description": "Custom Google UULE parameter to override the location."
-                },
-                {
-                  "disabled": false,
-                  "key": "product_free_shipping",
-                  "value": "<boolean>",
-                  "description": "Filter to products with free shipping only."
-                },
-                {
-                  "disabled": false,
-                  "key": "product_condition_new",
-                  "value": "<boolean>",
-                  "description": "Filter to new (non-used) products only."
-                },
-                {
-                  "disabled": false,
-                  "key": "product_condition_used",
-                  "value": "<boolean>",
-                  "description": "Filter to used products only."
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/search?api_key=<string>&search_type=product&product_id=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&uule=<string>&product_free_shipping=<boolean>&product_condition_new=<boolean>&product_condition_used=<boolean>#product",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Must be set to \"product\".",
+                  "key": "search_type",
+                  "value": "product"
+                },
+                {
+                  "description": "(Required) Google product identifier.",
+                  "key": "product_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                  "key": "location",
+                  "value": "<string>"
+                },
+                {
+                  "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                  "key": "location_auto",
+                  "value": "true"
+                },
+                {
+                  "description": "The Google domain to use for the search.",
+                  "key": "google_domain",
+                  "value": "google.com"
+                },
+                {
+                  "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                  "key": "gl",
+                  "value": "us"
+                },
+                {
+                  "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                  "key": "hl",
+                  "value": "en"
+                },
+                {
+                  "description": "Custom Google UULE parameter to override the location.",
+                  "key": "uule",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter to products with free shipping only.",
+                  "key": "product_free_shipping",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Filter to new (non-used) products only.",
+                  "key": "product_condition_new",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Filter to used products only.",
+                  "key": "product_condition_used",
+                  "value": "<boolean>"
+                }
+              ],
+              "hash": "product"
+            },
+            "description": "Retrieve Google product listing results for a given product ID. Set search_type=product. Note: This endpoint is deprecated as of October 31 and is being replaced by the Product Details endpoint."
           },
           "response": [
             {
-              "id": "edc2a4cb-e103-4ca0-9718-7a323227fc6b",
+              "id": "75594f3b-dc5e-4a8a-b760-a1997886dfc1",
               "name": "Successful product search response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "hash": "product",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "search_type",
-                      "value": "product"
-                    },
-                    {
-                      "key": "product_id",
-                      "value": "13244508647295616715"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_free_shipping",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_new",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_used",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&search_type=product&product_id=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&uule=<string>&product_free_shipping=<boolean>&product_condition_new=<boolean>&product_condition_used=<boolean>#product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Must be set to \"product\".",
+                      "key": "search_type",
+                      "value": "product"
+                    },
+                    {
+                      "description": "(Required) Google product identifier.",
+                      "key": "product_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to products with free shipping only.",
+                      "key": "product_free_shipping",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to new (non-used) products only.",
+                      "key": "product_condition_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to used products only.",
+                      "key": "product_condition_used",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "hash": "product"
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\",\n    \"credits_used\": 1003,\n    \"credits_remaining\": 6707\n  },\n  \"search_metadata\": {\n    \"id\": \"string\",\n    \"google_url\": \"https://PBdhhsaXMTAUYoqXnikMBUCyDTIoBK.pjsuMjuLSlJs-L17PFjZ\",\n    \"total_time_taken\": 1766.4753525231602,\n    \"created_at\": \"2017-04-11T04:55:57.834Z\"\n  },\n  \"search_parameters\": {\n    \"q\": \"string\",\n    \"search_type\": \"string\",\n    \"gl\": \"string\",\n    \"hl\": \"string\",\n    \"google_domain\": \"string\"\n  },\n  \"product_results\": [\n    {\n      \"position\": 7392,\n      \"title\": \"string\",\n      \"link\": \"http://RjllGXPjs.qhhGHYqYuqV0WSQ8x\",\n      \"price\": \"string\",\n      \"merchant\": \"string\",\n      \"shipping\": \"string\",\n      \"condition\": \"string\",\n      \"free_shipping\": false\n    },\n    {\n      \"position\": 7025,\n      \"title\": \"string\",\n      \"link\": \"https://HoURcdQGjgC.gellIPksw6SRk5qpt\",\n      \"price\": \"string\",\n      \"merchant\": \"string\",\n      \"shipping\": \"string\",\n      \"condition\": \"string\",\n      \"free_shipping\": true\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\",\n    \"credits_used\": \"<integer>\",\n    \"credits_remaining\": \"<integer>\"\n  },\n  \"search_metadata\": {\n    \"id\": \"<string>\",\n    \"google_url\": \"<uri>\",\n    \"total_time_taken\": \"<float>\",\n    \"created_at\": \"<dateTime>\"\n  },\n  \"search_parameters\": {\n    \"q\": \"<string>\",\n    \"search_type\": \"<string>\",\n    \"gl\": \"<string>\",\n    \"hl\": \"<string>\",\n    \"google_domain\": \"<string>\"\n  },\n  \"product_results\": [\n    {\n      \"position\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"price\": \"<string>\",\n      \"merchant\": \"<string>\",\n      \"shipping\": \"<string>\",\n      \"condition\": \"<string>\",\n      \"free_shipping\": \"<boolean>\"\n    },\n    {\n      \"position\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"price\": \"<string>\",\n      \"merchant\": \"<string>\",\n      \"shipping\": \"<string>\",\n      \"condition\": \"<string>\",\n      \"free_shipping\": \"<boolean>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T03:08:47.000Z",
+              "updatedAt": "2026-10-22T03:08:47.000Z",
+              "uid": "35240-75594f3b-dc5e-4a8a-b760-a1997886dfc1"
             },
             {
-              "id": "35e46f40-c76c-4fdd-8d87-90d808d7cd30",
+              "id": "83a77759-c04c-45e2-a1de-34a5a83f8853",
               "name": "Bad Request - Invalid parameters or unsupported parameter combinations.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "hash": "product",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "search_type",
-                      "value": "product"
-                    },
-                    {
-                      "key": "product_id",
-                      "value": "13244508647295616715"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_free_shipping",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_new",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_used",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&search_type=product&product_id=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&uule=<string>&product_free_shipping=<boolean>&product_condition_new=<boolean>&product_condition_used=<boolean>#product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Must be set to \"product\".",
+                      "key": "search_type",
+                      "value": "product"
+                    },
+                    {
+                      "description": "(Required) Google product identifier.",
+                      "key": "product_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to products with free shipping only.",
+                      "key": "product_free_shipping",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to new (non-used) products only.",
+                      "key": "product_condition_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to used products only.",
+                      "key": "product_condition_used",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "hash": "product"
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:47.000Z",
+              "updatedAt": "2026-10-22T03:08:47.000Z",
+              "uid": "35240-83a77759-c04c-45e2-a1de-34a5a83f8853"
             },
             {
-              "id": "227239c8-a409-4963-95f2-8c0a6dd1da3f",
+              "id": "301621ad-069d-4981-90e5-46dfecfb3ccf",
               "name": "Unauthorized - The api_key supplied is not valid.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "hash": "product",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "search_type",
-                      "value": "product"
-                    },
-                    {
-                      "key": "product_id",
-                      "value": "13244508647295616715"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_free_shipping",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_new",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_used",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&search_type=product&product_id=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&uule=<string>&product_free_shipping=<boolean>&product_condition_new=<boolean>&product_condition_used=<boolean>#product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Must be set to \"product\".",
+                      "key": "search_type",
+                      "value": "product"
+                    },
+                    {
+                      "description": "(Required) Google product identifier.",
+                      "key": "product_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to products with free shipping only.",
+                      "key": "product_free_shipping",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to new (non-used) products only.",
+                      "key": "product_condition_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to used products only.",
+                      "key": "product_condition_used",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "hash": "product"
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:47.000Z",
+              "updatedAt": "2026-10-22T03:08:47.000Z",
+              "uid": "35240-301621ad-069d-4981-90e5-46dfecfb3ccf"
             },
             {
-              "id": "554100a2-2bac-479f-b502-863e9bd3f4e7",
+              "id": "64f04803-ef79-42b3-a286-3208cded8455",
               "name": "Payment Required - Your ValueSERP account has run out of available credits or there is a payment issue.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "hash": "product",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "search_type",
-                      "value": "product"
-                    },
-                    {
-                      "key": "product_id",
-                      "value": "13244508647295616715"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_free_shipping",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_new",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_used",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&search_type=product&product_id=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&uule=<string>&product_free_shipping=<boolean>&product_condition_new=<boolean>&product_condition_used=<boolean>#product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Must be set to \"product\".",
+                      "key": "search_type",
+                      "value": "product"
+                    },
+                    {
+                      "description": "(Required) Google product identifier.",
+                      "key": "product_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to products with free shipping only.",
+                      "key": "product_free_shipping",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to new (non-used) products only.",
+                      "key": "product_condition_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to used products only.",
+                      "key": "product_condition_used",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "hash": "product"
+                }
               },
               "status": "Payment Required",
               "code": 402,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:47.000Z",
+              "updatedAt": "2026-10-22T03:08:47.000Z",
+              "uid": "35240-64f04803-ef79-42b3-a286-3208cded8455"
             },
             {
-              "id": "baecbee8-fa22-4848-90e1-5b6b6a361f81",
+              "id": "82e7d7a8-3f99-4897-a354-b0bb14c7f64a",
               "name": "Too Many Requests - Your plan's rate limit has been exceeded.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "hash": "product",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "search_type",
-                      "value": "product"
-                    },
-                    {
-                      "key": "product_id",
-                      "value": "13244508647295616715"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_free_shipping",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_new",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_used",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&search_type=product&product_id=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&uule=<string>&product_free_shipping=<boolean>&product_condition_new=<boolean>&product_condition_used=<boolean>#product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Must be set to \"product\".",
+                      "key": "search_type",
+                      "value": "product"
+                    },
+                    {
+                      "description": "(Required) Google product identifier.",
+                      "key": "product_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to products with free shipping only.",
+                      "key": "product_free_shipping",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to new (non-used) products only.",
+                      "key": "product_condition_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to used products only.",
+                      "key": "product_condition_used",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "hash": "product"
+                }
               },
               "status": "Too Many Requests",
               "code": 429,
+              "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "disabled": false,
-                  "description": "Seconds to wait before retrying.",
-                  "key": "Retry-After",
-                  "value": "1006"
-                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Seconds to wait before retrying.",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:47.000Z",
+              "updatedAt": "2026-10-22T03:08:47.000Z",
+              "uid": "35240-82e7d7a8-3f99-4897-a354-b0bb14c7f64a"
             },
             {
-              "id": "f66dd236-887d-4452-8dee-383ecce17843",
+              "id": "a8436926-1eaf-4038-b427-a1d14b420bd9",
               "name": "Internal Server Error - Retry after a delay; contact support if the issue persists.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "hash": "product",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "search_type",
-                      "value": "product"
-                    },
-                    {
-                      "key": "product_id",
-                      "value": "13244508647295616715"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_free_shipping",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_new",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_used",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&search_type=product&product_id=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&uule=<string>&product_free_shipping=<boolean>&product_condition_new=<boolean>&product_condition_used=<boolean>#product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Must be set to \"product\".",
+                      "key": "search_type",
+                      "value": "product"
+                    },
+                    {
+                      "description": "(Required) Google product identifier.",
+                      "key": "product_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to products with free shipping only.",
+                      "key": "product_free_shipping",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to new (non-used) products only.",
+                      "key": "product_condition_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to used products only.",
+                      "key": "product_condition_used",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "hash": "product"
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:47.000Z",
+              "updatedAt": "2026-10-22T03:08:47.000Z",
+              "uid": "35240-a8436926-1eaf-4038-b427-a1d14b420bd9"
             },
             {
-              "id": "c1283d3d-044b-4fb0-bd3c-278d8f05464c",
+              "id": "01dd25b5-8063-46f2-9abc-5a9fd5acbfe1",
               "name": "Service Unavailable - Returned during parsing incidents. Requests are not charged. Use skip_on_incident=true to opt out automatically.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "search"
-                  ],
-                  "hash": "product",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "api_key",
-                      "value": "demo"
-                    },
-                    {
-                      "key": "search_type",
-                      "value": "product"
-                    },
-                    {
-                      "key": "product_id",
-                      "value": "13244508647295616715"
-                    },
-                    {
-                      "key": "location",
-                      "value": "united states"
-                    },
-                    {
-                      "key": "location_auto",
-                      "value": "true"
-                    },
-                    {
-                      "key": "google_domain",
-                      "value": "google.com"
-                    },
-                    {
-                      "key": "gl",
-                      "value": "us"
-                    },
-                    {
-                      "key": "hl",
-                      "value": "en"
-                    },
-                    {
-                      "key": "uule",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_free_shipping",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_new",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "product_condition_used",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "api_key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/search?api_key=<API Key>&search_type=product&product_id=<string>&location=<string>&location_auto=true&google_domain=google.com&gl=us&hl=en&uule=<string>&product_free_shipping=<boolean>&product_condition_new=<boolean>&product_condition_used=<boolean>#product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your ValueSERP API key. Use \"demo\" for testing limited queries.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Must be set to \"product\".",
+                      "key": "search_type",
+                      "value": "product"
+                    },
+                    {
+                      "description": "(Required) Google product identifier.",
+                      "key": "product_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Geographic location for the search. Accepts location names (e.g., \"manhattan,new york,united states\") or GPS coordinates (e.g., \"lat 43.437677,lon 3.8392765\").",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, automatically updates gl and hl parameters based on the built-in location value. Defaults to true.",
+                      "key": "location_auto",
+                      "value": "true"
+                    },
+                    {
+                      "description": "The Google domain to use for the search.",
+                      "key": "google_domain",
+                      "value": "google.com"
+                    },
+                    {
+                      "description": "Determines the Google country to use for the query. ISO 3166-1 alpha-2 country code.",
+                      "key": "gl",
+                      "value": "us"
+                    },
+                    {
+                      "description": "Determines the Google UI language to return results in. BCP-47 language code.",
+                      "key": "hl",
+                      "value": "en"
+                    },
+                    {
+                      "description": "Custom Google UULE parameter to override the location.",
+                      "key": "uule",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to products with free shipping only.",
+                      "key": "product_free_shipping",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to new (non-used) products only.",
+                      "key": "product_condition_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter to used products only.",
+                      "key": "product_condition_used",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "hash": "product"
+                }
               },
               "status": "Service Unavailable",
               "code": 503,
+              "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "disabled": false,
-                  "description": "Seconds to wait before retrying.",
-                  "key": "Retry-After",
-                  "value": "1006"
-                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Seconds to wait before retrying.",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
                 }
               ],
-              "body": "{\n  \"request_info\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_info\": {\n    \"success\": \"<boolean>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T03:08:47.000Z",
+              "updatedAt": "2026-10-22T03:08:47.000Z",
+              "uid": "35240-01dd25b5-8063-46f2-9abc-5a9fd5acbfe1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T03:08:47.000Z",
+          "updatedAt": "2026-10-22T03:08:47.000Z",
+          "uid": "35240-aec31485-5fb7-47ef-8e90-66d33f948801"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.valueserp.com",
-      "key": "baseUrl"
+      "id": "3eba97c4-1413-484e-82c9-5957dd4df47c",
+      "createdAt": "2026-10-22T03:08:47.000Z",
+      "updatedAt": "2026-10-22T03:08:47.000Z",
+      "uid": "35240-3eba97c4-1413-484e-82c9-5957dd4df47c"
     }
   ],
   "auth": {
@@ -769,25 +837,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "api_key"
+        "value": "api_key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "query"
+        "value": "query",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "f9de191d-e19b-44c2-8ebc-64e1c10d88d8",
-    "name": "ValueSERP Search Images Product API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Real-time Google SERP data API supporting organic search, shopping, news, images, places, and product results via simple GET requests authenticated with an API key. Returns structured JSON with organic results, ads, knowledge graphs, answer boxes, AI overviews, and more. Operated by Traject Data.\n\nContact Support:\n Name: ValueSERP Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.valueserp.com"
     }
-  }
+  ]
 }
