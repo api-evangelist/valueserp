@@ -64,79 +64,189 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ValueSERP is a real-time Google Search API providing SERP results, image search, news search, shopping results, places, and local pack data via a simple REST interface with JSON output. Operated by Traject Data, it offers low-cost, high-reliability SERP data with no queues, batch processing capabilities, and flexible pay-as-you-go or subscription pricing.
+ValueSERP is a real-time Google Search API providing SERP results, image search, news search, shopping results, places, and local pack data via a simple REST interface with JSON output. Operated by Traject Data, it offers low-cost, high-reliability SERP data with no queues, batch processing capabilities, and pay-as-you-go or subscription pricing starting at $50/month for 25,000 searches.
 
-## API Overview
+**Areas:** SERP · Search Engine Results · Google Search · SEO · Web Scraping · Shopping Results · News Search · Image Search · Local Search · Places · Data API
 
-The ValueSERP API base URL is `https://api.valueserp.com` and uses API key authentication via the `api_key` query parameter. All responses are returned as JSON.
+## ValueSERP on APIs.io
 
-### Endpoints
+Everything profiled for ValueSERP is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/valueserp/](https://apis.io/providers/valueserp/)** — or go straight to one of the APIs or properties below.
 
-| Endpoint | Description |
-|----------|-------------|
-| `/search` | Google organic search results, ads, knowledge graphs, AI overviews |
-| `/places` | Google Maps and local pack location data |
-| `/shopping` | Google Shopping product listings |
-| `/news` | Google News search results |
-| `/product` | Product detail by product ID |
-| `/place_reviews` | Location reviews from Google Maps |
+### APIs (6)
 
-### Authentication
+- [ValueSERP Images API](https://apis.io/apis/valueserp/valueserp-images-api/) — Google Image search results.
+- [ValueSERP News API](https://apis.io/apis/valueserp/valueserp-news-api/) — Google News article results.
+- [ValueSERP Places API](https://apis.io/apis/valueserp/valueserp-places-api/) — Google Maps and local places search results.
+- [ValueSERP Product API](https://apis.io/apis/valueserp/valueserp-product-api/) — Google product knowledge panel data (deprecated).
+- [ValueSERP Search API](https://apis.io/apis/valueserp/valueserp-search-api/) — Google organic web search results.
+- [ValueSERP Shopping API](https://apis.io/apis/valueserp/valueserp-shopping-api/) — Google Shopping product results.
 
-Pass your API key as a query parameter:
+### Published properties
 
-```
-https://api.valueserp.com/search?api_key=YOUR_API_KEY&q=pizza
-```
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Output Formats
+#### MCP servers (1)
 
-- JSON (default)
-- HTML
-- CSV
+Model Context Protocol servers that expose the API to agents.
 
-## Links
+- [valueserp-mcp.yml](https://apis.io/servers/valueserp/valueserp-mcp-yml/)
 
-- **Website**: https://trajectdata.com/serp/value-serp-api/
-- **Documentation**: https://docs.trajectdata.com/valueserp
-- **Pricing**: https://trajectdata.com/serp/value-serp-api/pricing/
-- **Status Page**: https://valueserp.statuspage.io/
-- **Blog**: https://trajectdata.com/blog/
-- **X**: https://x.com/valueserp
-- **LinkedIn**: https://www.linkedin.com/company/traject-data/
-- **Sign Up**: https://app.valueserp.com/signup
+#### Agentic access (1)
 
-## Pricing Summary
+Which operations an agent can call, which act, and which need a human in the loop.
 
-| Plan | Searches/Month | Price/Month | Rate Limit |
-|------|---------------|-------------|------------|
-| Pay As You Go | Variable | $2.50/1K | 250/min |
-| Starter | 25,000 | $50 | 250/min |
-| Growth | 50,000 | $94 | 250/min |
-| Professional | 100,000 | $158 | 500/min |
-| Business | 200,000 | $240 | 1,000/min |
-| Scale 500K | 500,000 | $575 | 1,250/min |
-| Scale 1M | 1,000,000 | $1,000 | 1,500/min |
-| Scale 5M | 5,000,000 | $3,500 | 2,000/min |
-| Scale 10M | 10,000,000 | $6,000 | 5,000/min |
-| Scale 20M | 20,000,000 | $10,000 | 5,000/min |
+- [Valueserp Agentic Access](https://apis.io/agentic-access/valueserp/valueserp-agentic-access/)
 
-Prices shown are billed annually (10% discount). Free trial includes 100 searches with no credit card required.
+#### JSON Schema (2)
 
-## Repository Structure
+The data models the API reads and writes.
 
-```
-valueserp/
-  apis.yml                              # APIs.json 0.19 index
-  README.md                             # This file
-  plans/
-    valueserp-plans-pricing.yml         # API Commons Plans 0.1
-  rate-limits/
-    valueserp-rate-limits.yml           # API Commons Rate Limits 0.1
-  finops/
-    valueserp-finops.yml                # FinOps Framework 1.0 FOCUS-aligned
-```
+- [ValueSERP Search Request](https://apis.io/schemas/valueserp/valueserp-search-request/)
+- [ValueSERP Search Response](https://apis.io/schemas/valueserp/valueserp-search-response/)
 
-## Maintainer
+#### JSON-LD (1)
 
-**Kin Lane** — kin@apievangelist.com
+Linked-data contexts for the provider's vocabulary.
+
+- [Valueserp Context](https://apis.io/jsonld/valueserp/valueserp-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [ValueSERP API Vocabulary](https://apis.io/vocabularies/valueserp/valueserp-vocabulary/)
+
+#### Examples (4)
+
+Example requests and responses.
+
+- [Valueserp News Search Example](https://apis.io/examples/valueserp/valueserp-news-search-example/)
+- [Valueserp Organic Search Example](https://apis.io/examples/valueserp/valueserp-organic-search-example/)
+- [Valueserp Places Search Example](https://apis.io/examples/valueserp/valueserp-places-search-example/)
+- [Valueserp Shopping Search Example](https://apis.io/examples/valueserp/valueserp-shopping-search-example/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [ValueSERP Search Images API](https://apis.io/collections/valueserp/open-valueserp-images-api/)
+- [ValueSERP Search Images News API](https://apis.io/collections/valueserp/open-valueserp-news-api/)
+- [ValueSERP Search Images Places API](https://apis.io/collections/valueserp/open-valueserp-places-api/)
+- [ValueSERP Search Images Product API](https://apis.io/collections/valueserp/open-valueserp-product-api/)
+- [ValueSERP Images Search API](https://apis.io/collections/valueserp/open-valueserp-search-api/)
+- [ValueSERP Search Images Shopping API](https://apis.io/collections/valueserp/open-valueserp-shopping-api/)
+
+#### Overlays (6)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Valueserp Images Overlay](https://apis.io/overlays/valueserp/valueserp-images-overlay/)
+- [Valueserp News Overlay](https://apis.io/overlays/valueserp/valueserp-news-overlay/)
+- [Valueserp Places Overlay](https://apis.io/overlays/valueserp/valueserp-places-overlay/)
+- [Valueserp Product Overlay](https://apis.io/overlays/valueserp/valueserp-product-overlay/)
+- [Valueserp Search Overlay](https://apis.io/overlays/valueserp/valueserp-search-overlay/)
+- [Valueserp Shopping Overlay](https://apis.io/overlays/valueserp/valueserp-shopping-overlay/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [ValueSERP — jsonschema rules](https://apis.io/rules/valueserp/valueserp-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Valueserp Authentication](https://apis.io/security/valueserp/valueserp-authentication/)
+- [Valueserp Domain Security](https://apis.io/security/valueserp/valueserp-domain-security/)
+- [Valueserp Vulnerability Disclosure](https://apis.io/security/valueserp/valueserp-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Valueserp Plans Pricing](https://apis.io/plans/valueserp/valueserp-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Valueserp Rate Limits](https://apis.io/rate-limits/valueserp/valueserp-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Valueserp Finops](https://apis.io/finops/valueserp/valueserp-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://trajectdata.com/serp/value-serp-api/)
+- [Documentation](https://docs.trajectdata.com/valueserp)
+- [Getting started](https://docs.trajectdata.com/valueserp/HX_zC2K66qg5OEkKe7g5p)
+- [API reference](https://docs.trajectdata.com/valueserp/search-api/overview)
+- [Pricing](https://trajectdata.com/serp/value-serp-api/pricing/)
+- [Sign up](https://app.valueserp.com/signup)
+- [Support](https://trajectdata.com/contact-us/)
+- [Changelog](https://docs.trajectdata.com/valueserp/product-updates)
+- [Blog](https://trajectdata.com/blog/)
+- [Terms of service](https://trajectdata.com/traject-data-terms-of-service/)
+- [Privacy policy](https://trajectdata.com/privacy-policy/)
+- [Status](https://valueserp.statuspage.io/)
+
+## API Evangelist rating
+
+**Kin Score 64.9** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 63.4 |
+| Contract governance | 28.0 |
+| Operational transparency | 81.6 |
+| Developer ergonomics | 57.7 |
+| Access clarity | 69.7 |
+
+**Agent readiness 40.5** — agent-native
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | unknown |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/valueserp/](https://apis.io/providers/valueserp/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ValueSERP: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/valueserp/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
